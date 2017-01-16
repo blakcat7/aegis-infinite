@@ -13,81 +13,12 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
+        <!-- Custom CSS -->
         <link href="../navbar.css" rel="stylesheet">
-        <style>
-            .fa-fw{
-                width: 32px;
-            }
+        <link href="../admin.css" rel="stylesheet">     
 
-            .nav-pills>li>a{
-                border-radius: 0px;
-                color: #333;
-            }
-
-            .nav-pills>li.active>a, 
-            .nav-pills>li.active>a:focus, 
-            .nav-pills>li.active>a:hover{
-                background-color: #eee;
-                color: #333;
-            }
-
-            .breadcrumb{
-                border-radius: 0px;
-            }
-
-            .breadcrumb a{
-                color: #777;
-            }
-
-            .content .btn{
-                border-radius: 0px;
-            }
-
-            .content .btn-add-e{
-                background-color: #2980b9;
-                color: #FFF;
-            }
-
-            .content .panel{
-                border-radius: 0px;
-                margin: 15px;
-            }
-
-            .content .panel .fa{
-                margin-right: 10px;
-            }
-
-            .content #success-btn{
-                background-color: transparent;
-                border: 0px;
-                width: 100%
-            }
-
-            .content .btn.active, .btn:active{
-                -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.125);
-                box-shadow: inset 0 0 0 rgba(0,0,0,.125);
-            }
-
-            .content .form-control{
-                border-radius: 0px;
-            }
-
-            .content .label, .glyphicon {
-                margin-right: 0px;
-                margin-left: 0px;
-            }
-
-            .nav hr{
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-
-            .nav h5{
-                color: #777;
-            }
-
-        </style>
     <body>
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">
@@ -140,8 +71,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked">
-                        <h5><i class="fa fa-home fa-fw"></i> Management</h5>   
-                        <hr>
+                        <li><h5><i class="fa fa-home fa-fw"></i> Management</h5><li>
+                            <hr>
                         <li><a href="#"><span class="glyphicon glyphicon-dashboard fa-fw"></span>Dashboard</a></li>
                         <li><a href="add-employees.html"><i class="fa fa-users fa-fw"></i>Employees</a></li>
                         <li class="active"><a href="add-projects.html"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
@@ -194,11 +125,11 @@
                                         <label>Project Type</label>
                                         <select name="country" id="country" class="form-control">
                                             <option>-- Please select an option --</option>
-                                            <option>Advanced Solutions</option>
                                             <option>Civil</option>
                                             <option>Defense</option>
+                                            <option>Intelligence &amp; Homeland Security</option>
                                             <option>Health</option>
-                                            <option>Intelligence and Homeland Security</option>
+                                            <option>Advance Solutions</option>
                                         </select>
                                     </div>
 
@@ -225,11 +156,23 @@
 
                                     <div class="form-group col-lg-6">                                    
                                         <label>Start Date:</label>
-                                        <input type="text" class="form-control" value="09-30-2016" id="dp1">
+                                        <div class="input-group" id="datetimepicker4">
+                                            <input data-format="yyyy/MM/dd" class="form-control" type="text"></input>
+                                            <span class="add-on input-group-btn ">
+                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                            </span>
+
+                                        </div>
                                     </div>
                                     <div class="form-group col-lg-6">                                    
                                         <label>End Date:</label>
-                                        <input type="text" class="form-control" value="10-31-2016" id="dp1">
+                                        <div class="input-group" id="datetimepicker3">
+                                            <input data-format="yyyy/MM/dd" class="form-control" type="text"></input>
+                                            <span class="add-on input-group-btn ">
+                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                            </span>
+
+                                        </div>
                                     </div>
 
                                     <div class="form-group col-lg-12">
@@ -259,10 +202,28 @@
                     </div>
                 </div>
             </div>
-            <!-- END OF CONTENT -->
+        </div>
+        <!-- END OF CONTENT -->
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript"
+                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+        </script>
+        <script type="text/javascript"
+                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+                    pickTime: false
+                });
+
+                $('#datetimepicker3').datetimepicker({
+                    pickTime: false
+                });
+            });
+        </script>
     </body>
 </head>
 </html>

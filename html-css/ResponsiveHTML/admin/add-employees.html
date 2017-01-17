@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,8 +14,9 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="<?php echo base_url(); ?>css/navbar.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">
+        <!-- Custom CSS -->
+        <link href="../navbar.css" rel="stylesheet">
+        <link href="../admin.css" rel="stylesheet">   
     <body>
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">
@@ -27,7 +27,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                             class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="images/logo-w.png" class="brand"></a>
+                    <a class="navbar-brand" href="#"><img src="../logo-w.png" class="brand"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -89,17 +89,17 @@
                     <h3>Employees</h3>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                        <li><a href="#">Employees</a></li>
+                        <li><a href="view-employees.html">Employees</a></li>
                         <li class="active">Add New Employee</li>
                     </ol>                        
-                    <button type="button" class="btn btn-add-e">View Employees
-                        <span class="glyphicon glyphicon-user"></span>
-                    </button>
+                        <a href="view-employees.html" role="button" class="btn btn-add-e">View Employees
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
 
-                    <button type="button" class="btn btn-add-e">Add New Employee
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-
+                        <a href="add-employees.html" role="button" class="btn btn-add-e">Add New Employee
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+              
                     <hr>
                     <div id="row-table" class="row">
                         <div class="panel panel-default">
@@ -107,122 +107,78 @@
                                 Add New Employee
                             </div>
                             <div class="panel-body">
-                                <?php echo validation_errors(); ?>
-                                <?php echo form_open('reg_controller/add_employee'); ?>
+                            <form role="form">
                                 <div class="form-group col-lg-6">                                    
                                     <label>First Name</label>
-                                    <?php
-                                    $fname = array('id' => 'fname',
-                                        'name' => 'fname',
-                                        'class' => 'form-control'
-                                    );
-
-                                    echo form_input($fname);
-                                    ?>
+                                    <input type="text" class="form-control" placeholder="First Name" value="">
                                 </div>
                                 <div class="form-group col-lg-6">                                    
                                     <label>Last Name</label>
-                                    <?php
-                                    $lname = array('id' => 'lname',
-                                        'name' => 'lname',
-                                        'class' => 'form-control'
-                                    );
-
-                                    echo form_input($lname);
-                                    ?>
+                                    <input type="text" class="form-control" placeholder="Last Name" value="">
                                 </div>
 
                                 <div class="form-group col-lg-12">
                                     <label>Email</label>
-                                    <?php
-                                    $email = array('id' => 'email',
-                                        'name' => 'email',
-                                        'class' => 'form-control'
-                                    );
-
-                                    echo form_input($email);
-                                    ?>
+                                    <input type="email" name="" class="form-control" placeholder="Email Address" id="" value="">
                                 </div>
 
                                 <div class="form-group col-lg-12">
                                     <label>Username</label>
-                                    <?php
-                                    $uname = array('id' => 'username',
-                                        'name' => 'username',
-                                        'class' => 'form-control'
-                                    );
-
-                                    echo form_input($uname);
-                                    ?>
+                                    <input type="username" name="" class="form-control" placeholder="Username" id="" value="">
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Password</label>
-                                    <?php
-                                    $pass = array('id' => 'password',
-                                        'name' => 'password',
-                                        'class' => 'form-control'
-                                    );
-
-                                    echo form_password($pass);
-                                    ?>
+                                    <input type="password" name="" class="form-control" placeholder="Password" id="" value="">
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Repeat Password</label>
-                                    <input type="password" name="passconf" class="form-control" placeholder="Repeat Password" id="" value="">
+                                    <input type="password" name="" class="form-control" placeholder="Repeat Password" id="" value="">
                                 </div>
 
                                 <div class="form-group col-lg-12">
-                                    <label>Job Role</label>
-                                    <?php
-                                    $role = array(
-                                        'employee' => 'Employee',
-                                        'project manager' => 'Project Manager',
-                                        'admin' => 'Admin',
-                                    );
+                                    <label>Job Title</label>
+                                    <select name="country" id="country" class="form-control">
+                                        <option>-- Please select an option --</option>
+                                        <option>Employee</option>
+                                        <option>Project Manager</option>
+                                        <option>Admin</option>
 
-                                    echo form_dropdown('role', $role, 'employee', 'class = "form-control"');
-                                    ?>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-lg-12">
                                     <label>Job Sector</label>
-                                    <?php
-                                    $sector = array(
-                                        'civil' => 'Civil',
-                                        'defense' => 'Defense',
-                                        'intelligence & homeland security' => 'Intelligence & Homeland Security',
-                                        'health' => 'Health',
-                                        'advance solutions' => 'Advance Solutions',
-                                    );
-
-                                    echo form_dropdown('jobTitle', $sector, 'employee', 'class = "form-control"');
-                                    ?>
+                                    <select name="country" id="country" class="form-control">
+                                        <option>-- Please select an option --</option>
+                                        <option>Civil</option>
+                                        <option>Defense</option>
+                                        <option>Intelligence &amp; Homeland Security</option>
+                                        <option>Health</option>
+                                        <option>Advance Solutions</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-lg-12">
                                     <label>Location</label>
-                                    <?php
-                                    $location = array(
-                                        'United Arab Emirates' => 'United Arab Emirates',
-                                        'United Kingdom' => 'United Kingdom',
-                                        'South Korea' => 'South Korea',
-                                        'Spain' => 'Spain',
-                                        'Canada' => 'Canada',
-                                        'United States' => 'United States',
-                                    );
+                                    <select name="country" id="country" class="form-control"> 
+                                        <option>-- Please select an option --</option>
+                                        <option>United Arab Emirates</option>
+                                        <option>United Kingdom</option>
+                                        <option>South Korea</option>
+                                        <option>Spain</option>
+                                        <option>Canada</option>
+                                        <optionU>United States</option>
 
-                                    echo form_dropdown('location', $location, 'United Arab Emirates', 'class = "form-control"');
-                                    ?>
+                                    </select>
                                 </div>
-
-
-
+                            </form>
                             </div>
                             <div class="panel-footer">
-<?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn')); ?>
-<?php echo form_close(); ?>
+                                    <div id="success-btn" class="btn">
+                                        Register
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -234,5 +190,4 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </head>
-
 </html>

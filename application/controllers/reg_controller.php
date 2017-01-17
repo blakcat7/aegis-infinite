@@ -29,6 +29,8 @@ class reg_controller extends CI_Controller {
 		$this->form_validation->set_rules('fname', 'First Name', 'required');
 		$this->form_validation->set_rules('lname', 'Last Name', 'required');
 		
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">','</div>');
+		
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->load->view('reg_add');

@@ -15,8 +15,8 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="<?php echo base_url(); ?>css/navbar.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">
+        <link href="css/navbar.css" rel="stylesheet">
+        <link href="css/admin.css" rel="stylesheet">
     <body>
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">

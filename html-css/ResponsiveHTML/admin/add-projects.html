@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../brand.ico">
+
+        <title>Aegis Infinite</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
+        <!-- Custom CSS -->
+        <link href="../navbar.css" rel="stylesheet">
+        <link href="../admin.css" rel="stylesheet">     
+
+    <body>
+        <!-- NAVBAR -->
+        <nav class="navbar" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="../logo-w.png" class="brand"></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                    class="glyphicon glyphicon-search"></span></a>
+                            <ul class="dropdown-menu" style="min-width: 300px;">
+                                <li>
+                                    <div class="col-md-12">
+                                        <form class="navbar-form navbar-left" role="search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Search" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                    class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <!-- END OF NAVBAR -->
+
+        <!-- CONTENT -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><h5><i class="fa fa-home fa-fw"></i> Management</h5><li>
+                            <hr>
+                        <li><a href="#"><span class="glyphicon glyphicon-dashboard fa-fw"></span>Dashboard</a></li>
+                        <li><a href="add-employees.html"><i class="fa fa-users fa-fw"></i>Employees</a></li>
+                        <li class="active"><a href="add-projects.html"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
+                        <h5><i class="fa fa-calendar fa-fw"></i> Calendar</h5>   
+                        <hr>                        
+                        <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
+                        <li><a href="#"><i class="fa fa-rocket fa-fw"></i>Leave Applications</a></li>
+                        <li><a href="#"><i class="fa fa-sun-o fa-fw"></i>Holidays</a></li>
+                        <h5><i class="fa fa-wrench fa-fw"></i> Options</h5>   
+                        <hr>
+                        <li><a href="#"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
+                        <hr>
+                    </ul>
+                </div>
+                <div class="content col-md-9">
+                    <h3>Projects</h3>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="view-projects.html">Projects</a></li>
+                        <li class="active">Add New Projects </li>
+                    </ol>                        
+                        <a href="view-projects.html" role="button" class="btn btn-add-e">View Projects
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+
+                        <a href="add-projects.html" role="button" class="btn btn-add-e">Add New Project
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+
+                    <hr>
+                    <div id="row-table" class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Add New Project
+                            </div>
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="form-group col-lg-12">
+                                        <label>Project Title</label>
+                                        <input type="" name="" class="form-control" placeholder="Project Title" id="" value="">
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Project Description</label>
+                                        <textarea name="" class="form-control" rows="5" placeholder="Project Description" id="">
+                                        </textarea>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Project Type</label>
+                                        <select name="country" id="country" class="form-control">
+                                            <option>-- Please select an option --</option>
+                                            <option>Civil</option>
+                                            <option>Defense</option>
+                                            <option>Intelligence &amp; Homeland Security</option>
+                                            <option>Health</option>
+                                            <option>Advance Solutions</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Location</label>
+                                        <select name="country" id="country" class="form-control">                                         
+                                            <option>-- Please select an option --</option>
+                                            <option>United Arab Emirates</option>
+                                            <option>United Kingdom</option>
+                                            <option>South Korea</option>
+                                            <option>Spain</option>
+                                            <option>Canada</option>
+                                            <optionU>United States</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Budget</label>
+                                        <input type="number" name="" class="form-control" placeholder="Budget" id="" value="">
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Privacy</label>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                                Public
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                                Private
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Skills Required</label>
+                                        <div class="editable" contenteditable="true" id=""><span class="interest">Adobe Photoshop</span>
+                                            <span class="interest">Adobe Illustrator</span>
+                                            <span class="interest">Powerpoint</span></div>
+                                    </div>
+
+                                    <div class="form-group col-lg-6">                                    
+                                        <label>Start Date:</label>
+                                        <div class="input-group" id="datetimepicker4">
+                                            <input data-format="yyyy/MM/dd" class="form-control" type="text"></input>
+                                            <span class="add-on input-group-btn ">
+                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-6">                                    
+                                        <label>End Date:</label>
+                                        <div class="input-group" id="datetimepicker3">
+                                            <input data-format="yyyy/MM/dd" class="form-control" type="text"></input>
+                                            <span class="add-on input-group-btn ">
+                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                            </span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Recommended Project Manager:</label>
+                                        <div class="editable" contenteditable="false" id="">
+                                            <img data-toggle="tooltip" title="Project Manager" class="img-members" src="images/admin1.png"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <label>Recommended Members:</label>
+                                        <div class="editable" contenteditable="false" id="">                                          
+                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member1.png"/>
+                                            <img data-toggle="tooltip" title="Microsoft Expert" class="img-members" src="images/member2.png"/>
+                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member3.png"/>
+                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member.png"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <div id="success-btn" class="btn">
+                                    Register
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF CONTENT -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript"
+                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+        </script>
+        <script type="text/javascript"
+                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+                    pickTime: false
+                });
+
+                $('#datetimepicker3').datetimepicker({
+                    pickTime: false
+                });
+            });
+        </script>
+    </body>
+</head>
+</html>

@@ -5,16 +5,12 @@ class model extends CI_Model {
 		parent::__construct();
 	}
 	 
-	public function insert($data) {
-		if ($this->db->insert("users", $data)) {
-			return true;
-		}
+	public function insertUser($data) {
+		return $this->db->insert("users", $data);
 	}
 	
 	public function insertProjects($data) {
-		if ($this->db->insert("projects", $data)) {
-			return true;
-		}
+		return $this->db->insert("projects", $data);
 	}
 	
 }

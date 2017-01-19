@@ -17,7 +17,7 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/navbar.css">
-        <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">     
+        <link  rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">     
 
     <body>
         <!-- NAVBAR -->
@@ -29,7 +29,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                             class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="../logo-w.png" class="brand"></a>
+                    <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>images/logo-w.png" class="brand"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -65,11 +65,7 @@
             <!-- /.navbar-collapse -->
         </nav>
         <!-- END OF NAVBAR -->
-			
-			<?php echo form_open('controller/add_project'); ?>
-			<?php echo validation_errors(); ?>
-			<?php if (isset($message)) { ?>
-			<?php } ?>
+
         <!-- CONTENT -->
         <div class="container">
             <div class="row">
@@ -79,7 +75,7 @@
                             <hr>
                         <li><a href="#"><span class="glyphicon glyphicon-dashboard fa-fw"></span>Dashboard</a></li>
                         <li><a href="<?php echo site_url('controller/add_employee'); ?>"><i class="fa fa-users fa-fw"></i>Employees</a></li>
-                        <li class="active"><a href="add-projects.html"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
+                        <li><a href="<?php echo site_url('controller/add_project') ?>"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
                         <h5><i class="fa fa-calendar fa-fw"></i> Calendar</h5>   
                         <hr>                        
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
@@ -106,67 +102,72 @@
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
 
-                    <hr>
+                    <hr>                    
+                    
+                    <?php echo $this->session->flashdata('msg'); ?>
+                    
                     <div id="row-table" class="row">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Add New Project
                             </div>
                             <div class="panel-body">
+                                <?php echo form_open('controller/add_project'); ?>
                                 <form role="form">
                                     <div class="form-group col-lg-12">
-                                        <?php echo form_label('Project Title: '); ?> <?php echo form_error('title'); ?><br />
-										<?php echo form_input(array('id' => 'title', 'name' => 'title', 'class' => 'form-control')); ?><br />
+                                        <?php echo form_label('Project Title: '); ?>
+                                        <?php echo form_input(array('id' => 'title', 'name' => 'title', 'class' => 'form-control')); ?>
+                                        <?php echo form_error('title'); ?>
                                     </div>
 
                                     <div class="form-group col-lg-12">
                                         <?php echo form_label('Description: '); ?> <?php echo form_error('description'); ?><br />
-                                        <?php echo form_textarea(array('id' => 'description', 'name' => 'description', 'rows' => '5' ,' class' => 'form-control')); ?><br />
-                          
+                                        <?php echo form_textarea(array('id' => 'description', 'name' => 'description', 'rows' => '5', ' class' => 'form-control')); ?><br />
+
                                     </div>
 
                                     <div class="form-group col-lg-12">
                                         <label>Project Type</label>
-                                        
-                                       <?php
-                                    $sector = array(
-                                        'Civil' => 'Civil',
-                                        'Defense' => 'Defense',
-                                        'Intelligence & Homeland Security' => 'Intelligence & Homeland Security',
-                                        'Health' => 'Health',
-                                        'Advance Solutions' => 'Advance Solutions',
-                                    );
 
-                                    echo form_dropdown('projectType', $sector, 'civil', 'class = "form-control"');
-                                    ?>
+                                        <?php
+                                        $sector = array(
+                                            'Civil' => 'Civil',
+                                            'Defense' => 'Defense',
+                                            'Intelligence & Homeland Security' => 'Intelligence & Homeland Security',
+                                            'Health' => 'Health',
+                                            'Advance Solutions' => 'Advance Solutions',
+                                        );
+
+                                        echo form_dropdown('projectType', $sector, 'civil', 'class = "form-control"');
+                                        ?>
                                     </div>
 
                                     <div class="form-group col-lg-12">
                                         <label>Location</label>
                                         <?php
-                                    $location = array(
-                                        'United Arab Emirates' => 'United Arab Emirates',
-                                        'United Kingdom' => 'United Kingdom',
-                                        'South Korea' => 'South Korea',
-                                        'Spain' => 'Spain',
-                                        'Canada' => 'Canada',
-                                        'United States' => 'United States',
-                                    );
+                                        $location = array(
+                                            'United Arab Emirates' => 'United Arab Emirates',
+                                            'United Kingdom' => 'United Kingdom',
+                                            'South Korea' => 'South Korea',
+                                            'Spain' => 'Spain',
+                                            'Canada' => 'Canada',
+                                            'United States' => 'United States',
+                                        );
 
-                                    echo form_dropdown('projLocation', $location, 'United Arab Emirates', 'class = "form-control"');
-                                    ?>
-                                 
+                                        echo form_dropdown('projLocation', $location, 'United Arab Emirates', 'class = "form-control"');
+                                        ?>
+
                                     </div>
 
                                     <div class="form-group col-lg-12">
                                         <?php echo form_label('Skills Required :'); ?> <?php echo form_error('skillsRequired'); ?><br />
-										<?php echo form_input(array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'form-control')); ?><br />
+                                        <?php echo form_input(array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'form-control')); ?><br />
                                     </div>
 
                                     <div class="form-group col-lg-6">                                    
                                         <?php echo form_label('Start Date:'); ?> <?php echo form_error('startDate'); ?>
                                         <div class="input-group" id="datetimepicker4">
-                                        <?php echo form_input(array('type' => 'text', 'name' => 'startDate', 'data-format' => 'yyyy-MM-dd', 'readonly'=>'true', 'class' => 'form-control')); ?>
+                                            <?php echo form_input(array('type' => 'text', 'name' => 'startDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
                                             <!--  <input data-format="yyyy/MM/dd" class="form-control" type="text"></input>-->
                                             <span class="add-on input-group-btn ">
                                                 <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
@@ -175,9 +176,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-lg-6">                                    
-                                         <?php echo form_label('End Date:'); ?> <?php echo form_error('endDate'); ?>
+                                        <?php echo form_label('End Date:'); ?> <?php echo form_error('endDate'); ?>
                                         <div class="input-group" id="datetimepicker3">
-                                        <?php echo form_input(array('type' => 'text', 'name' => 'endDate', 'data-format' => 'yyyy-MM-dd', 'readonly'=>'true', 'class' => 'form-control')); ?>
+                                            <?php echo form_input(array('type' => 'text', 'name' => 'endDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
                                             <span class="add-on input-group-btn ">
                                                 <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
                                             </span>
@@ -205,7 +206,7 @@
                             </div>
                             <div class="panel-footer">
                                 <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Add', 'class' => 'btn')); ?>
-								<?php echo form_close(); ?><br/>
+                                <?php echo form_close(); ?><br/>
                             </div>
                         </div>
                     </div>
@@ -213,7 +214,7 @@
             </div>
         </div>
         <!-- END OF CONTENT -->
-        
+
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

@@ -15,8 +15,8 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="<?php echo base_url(); ?>css/navbar.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">
+        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/navbar.css">
+        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/admin.css">
     <body>
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">
@@ -27,7 +27,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                             class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="images/logo-w.png" class="brand"></a>
+                    <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>images/logo-w.png" class="brand"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -72,8 +72,8 @@
                         <h5><i class="fa fa-home fa-fw"></i> Management</h5>   
                         <hr>
                         <li><a href="#"><span class="glyphicon glyphicon-dashboard fa-fw"></span>Dashboard</a></li>
-                        <li class="active"><a href="add-employees.html"><i class="fa fa-users fa-fw"></i>Employees</a></li>
-                        <li><a href="add-projects.html"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
+                        <li><a href="<?php echo site_url('controller/add_employee'); ?>"><i class="fa fa-users fa-fw"></i>Employees</a></li>
+                        <li><a href="<?php echo site_url('controller/add_project') ?>"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
                         <h5><i class="fa fa-calendar fa-fw"></i> Calendar</h5>   
                         <hr>                        
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
@@ -101,15 +101,16 @@
                     </button>
 
                     <hr>
+
+                    <?php echo $this->session->flashdata('msg'); ?>
+
                     <div id="row-table" class="row">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Add New Employee
                             </div>
                             <div class="panel-body">
-                                
                                 <?php echo form_open('controller/add_employee'); ?>
-                                <?php echo validation_errors(); ?>
                                 <div class="form-group col-lg-6">                                    
                                     <label>First Name</label>
                                     <?php
@@ -119,7 +120,8 @@
                                     );
 
                                     echo form_input($fname);
-                                    ?>
+                                    ?><?php echo form_error('fname'); ?>
+
                                 </div>
                                 <div class="form-group col-lg-6">                                    
                                     <label>Last Name</label>
@@ -131,6 +133,7 @@
 
                                     echo form_input($lname);
                                     ?>
+                                    <?php echo form_error('lname'); ?>
                                 </div>
 
                                 <div class="form-group col-lg-12">
@@ -143,6 +146,7 @@
 
                                     echo form_input($email);
                                     ?>
+                                    <?php echo form_error('email'); ?>
                                 </div>
 
                                 <div class="form-group col-lg-12">
@@ -155,9 +159,10 @@
 
                                     echo form_input($uname);
                                     ?>
+                                    <?php echo form_error('username'); ?>
                                 </div>
 
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-md-6" style="margin-bottom: 0px;">
                                     <label>Password</label>
                                     <?php
                                     $pass = array('id' => 'password',
@@ -167,11 +172,14 @@
 
                                     echo form_password($pass);
                                     ?>
-                                </div>
 
-                                <div class="form-group col-lg-6">
+                                </div>
+                                <div class="form-group col-md-6" style="margin-bottom: 0px;">
                                     <label>Repeat Password</label>
-                                    <input type="password" name="passconf" class="form-control" placeholder="Repeat Password" id="" value="">
+                                    <input type="password" name="passconf" class="form-control" placeholder="Repeat Password" id="" value="">                                        
+                                </div> 
+                                <div class="col-md-12" style="margin-bottom: 20px;"> 
+                                    <?php echo form_error('password'); ?>
                                 </div>
 
                                 <div class="form-group col-lg-12">
@@ -191,15 +199,16 @@
                                     <label>Job Sector</label>
                                     <?php
                                     $sector = array(
-                                    		'Civil' => 'Civil',
-                                    		'Defense' => 'Defense',
-                                    		'Intelligence & Homeland Security' => 'Intelligence & Homeland Security',
-                                    		'Health' => 'Health',
-                                    		'Advance Solutions' => 'Advance Solutions',
+                                        'Civil' => 'Civil',
+                                        'Defense' => 'Defense',
+                                        'Intelligence & Homeland Security' => 'Intelligence & Homeland Security',
+                                        'Health' => 'Health',
+                                        'Advance Solutions' => 'Advance Solutions',
                                     );
 
                                     echo form_dropdown('sector', $sector, 'civil', 'class = "form-control"');
                                     ?>
+                                    <?php echo form_error('role'); ?>
                                 </div>
 
                                 <div class="form-group col-lg-12">
@@ -222,8 +231,8 @@
 
                             </div>
                             <div class="panel-footer">
-<?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn')); ?>
-<?php echo form_close(); ?>
+                                <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn')); ?>
+                                <?php echo form_close(); ?>
                             </div>
                         </div>
                     </div>

@@ -50,15 +50,18 @@ class reg_controller extends CI_Controller {
 				'email' => $this->input->post('email'),
 				'username' => $this->input->post('username'),
 				'password' => $this->input->post('password'),
-				'jobTitle' => $this->input->post('jobTitle'),
+				'sector' => $this->input->post('sector'),
 		);
 			
 		$this->reg_model->insert($data);
 		 
-		$query = $this->db->get("users");
+		//$query = $this->db->get("users");
 		$data['records'] = $query->result();
 	
 	}
 
+	public function add_project() {
+		
+	}
 }
 ?>

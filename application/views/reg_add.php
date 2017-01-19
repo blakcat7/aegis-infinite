@@ -197,7 +197,7 @@
                                         'advance solutions' => 'Advance Solutions',
                                     );
 
-                                    echo form_dropdown('jobTitle', $sector, 'employee', 'class = "form-control"');
+                                    echo form_dropdown('sector', $sector, 'employee', 'class = "form-control"');
                                     ?>
                                 </div>
 

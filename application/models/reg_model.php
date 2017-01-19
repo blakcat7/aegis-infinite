@@ -10,7 +10,12 @@ class reg_model extends CI_Model {
 			return true;
 		}
 	}
-	 
+	
+	public function insertProjects($data) {
+		if ($this->db->insert("projects", $data)) {
+			return true;
+		}
+	}
 	
 }
 ?>

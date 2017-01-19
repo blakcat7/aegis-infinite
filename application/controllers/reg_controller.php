@@ -55,7 +55,7 @@ class reg_controller extends CI_Controller {
 			
 		$this->reg_model->insert($data);
 		 
-		//$query = $this->db->get("users");
+		$query = $this->db->get("users");
 		$data['records'] = $query->result();
 	
 	}

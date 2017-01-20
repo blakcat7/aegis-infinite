@@ -17,6 +17,7 @@
 
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/navbar.css">
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/admin.css">
+    </head>
     <body>
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">
@@ -92,13 +93,13 @@
                         <li><a href="#">Employees</a></li>
                         <li class="active">Add New Employee</li>
                     </ol>                        
-                    <button type="button" class="btn btn-add-e">View Employees
+                    <a href="<?php echo site_url('controller/view_employees'); ?>" role="button" class="btn btn-add-e">View Employees
                         <span class="glyphicon glyphicon-user"></span>
-                    </button>
+                    </a>
 
-                    <button type="button" class="btn btn-add-e">Add New Employee
+                    <a href="<?php echo site_url('controller/add_employee'); ?>" role="button" class="btn btn-add-e">Add New Employee
                         <span class="glyphicon glyphicon-plus"></span>
-                    </button>
+                    </a>
 
                     <hr>
 
@@ -183,7 +184,7 @@
                                 </div>
 
                                 <div class="form-group col-lg-12">
-                                    <label>Job Role</label>
+                                    <label>Designation</label>
                                     <?php
                                     $role = array(
                                         'Employee' => 'Employee',
@@ -196,7 +197,7 @@
                                 </div>
 
                                 <div class="form-group col-lg-12">
-                                    <label>Job Sector</label>
+                                    <label>Department</label>
                                     <?php
                                     $sector = array(
                                         'Civil' => 'Civil',
@@ -243,6 +244,4 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
-</head>
-
 </html>

@@ -18,7 +18,7 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/navbar.css">
         <link  rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">     
-
+    </head>
     <body>
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">
@@ -103,9 +103,9 @@
                     </button>
 
                     <hr>                    
-                    
+
                     <?php echo $this->session->flashdata('msg'); ?>
-                    
+
                     <div id="row-table" class="row">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -235,5 +235,4 @@
             });
         </script>
     </body>
-</head>
 </html>

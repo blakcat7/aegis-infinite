@@ -11,8 +11,7 @@ class controller extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('add-projects');
-        $this->load->view('add-employees');
+        $this->load->view('profile');
     }
 
     public function add_employee() {
@@ -46,7 +45,7 @@ class controller extends CI_Controller {
                 $this->session->set_flashdata('msg', '<div class="alert alert-success">Success! New Employee has been added.</div>');
                 redirect('controller/add_employee');
             }
-
+            
             $this->load->view('add-employees', $data);
         }
     }
@@ -65,7 +64,7 @@ class controller extends CI_Controller {
 
             $this->load->view('add-projects');
         } else {
-            $dataproj = array(
+            $data = array(
                 'title' => $this->input->post('title'),
                 'endDate' => $this->input->post('endDate'),
                 'startDate' => $this->input->post('startDate'),
@@ -75,12 +74,11 @@ class controller extends CI_Controller {
                 'projLocation' => $this->input->post('projLocation')
             );
 
-            if ($this->model->insertProjects($dataproj)) {
+            if ($this->model->insertProjects($data)) {
                 $this->session->set_flashdata('msg', '<div class="alert alert-success">Success! New Project has been added.</div>');
                 redirect('controller/add_project');
             }
 
-            //Loading View
             $this->load->view('add-projects', $data);
         }
     }
@@ -92,6 +90,11 @@ class controller extends CI_Controller {
         } else {
             return false;
         }
+    }
+
+    public function view_employees() {
+        $this->data['posts'] = $this->model->viewEmployees();
+        $this->load->view('view-employees', $this->data);
     }
 
 }

@@ -206,7 +206,7 @@
                             </div>
                             <div class="panel-footer">
                                 <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Add', 'class' => 'btn')); ?>
-                                <?php echo form_close(); ?><br/>
+                                <?php echo form_close(); ?>
                             </div>
                         </div>
                     </div>

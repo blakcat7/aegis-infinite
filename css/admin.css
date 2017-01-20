@@ -14,6 +14,11 @@
     color: #333;
 }
 
+.nav .glyphicon{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
 .breadcrumb{
     border-radius: 0px;
 }

@@ -8,7 +8,7 @@ body{
 }
 
 .navbar{
-    background-color: #26477d;
+    background-color: #286090;
     background-image: url(polygons.jpg);
     background-position: top center;
     border: 0px;
@@ -50,7 +50,7 @@ body{
     -webkit-box-shadow: 0px 1px 5px rgba(0,0,0,.15);
     box-shadow: 0px 1px 5px rgba(0,0,0,.15);
     border-radius: 0px;
-    background-color: #26477d;
+    background-color: #286090;
 }
 
 .navbar .dropdown-menu>li{
@@ -64,7 +64,7 @@ body{
 }
 
 .navbar .dropdown-menu .divider{
-    background-color: #4375C6;
+    background-color: rgba(255,255,255, 0.10);
 }
 
 .navbar .form-control{

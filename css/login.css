@@ -1,52 +1,75 @@
+body{
+    font-family: 'Roboto', 'sans-serif';
+    background-image: url('../images/bg.png');
+}
+
 .panel-heading {
     padding: 5px 15px;
 }
 
 .panel-footer {
-	padding: 1px 15px;
-	color: #A0A0A0;
+    padding: 1px 15px;
+    color: #A0A0A0;
 }
 
 .panel-body{
-	position: relative;
-	top: 70px;
+    position: relative;
+    top: 70px;
+
+}
+
+
+.login{
+    background-color: rgba(255,255,255,0.2);
+    height: 400px;
+    position: relative;
+    display: box;
+    margin-bottom: 15px;
+    border-top: 5px solid #286090;
 }
 
 .logo {
-	max-width: 100%;
-	height: auto;
-	margin: 0 auto 10px;
-	display: block;
-	
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 10px;
+    display: block;
+
 }
 
 .logo-name{
-	max-width: 100%;
-	height: auto;
-	margin: 0 auto 10px;
-	display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 10px;
+    display: block;
 }
 
 .col-sm-12.col-md-10.col-md-offset-1{
-	position:relative;
-	top: 30px; 
+    position:relative;
+    top: 30px; 
 }
 
 .input-group-addon {
-	background-color: #286090;
+    
+    border: 0px;
+    background-color: #286090;
+    border-radius:0px;
+}
+
+.form-control {
+    border-radius: 0px;
 }
 
 i {
-	color: white;
+    color: white;
 }
 
 .forget-password{
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .btn  {
-	position: relative;
-	top: 10px;
-	background-color:#286090;
-	border-radius: 0px;
+    position: relative;
+    top: 10px;
+    background-color:#286090;
+    border-radius: 0px;
 }

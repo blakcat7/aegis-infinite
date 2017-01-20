@@ -98,9 +98,11 @@ class controller extends CI_Controller {
                 'password' => $this->input->post('password'),
                 'sector' => $this->input->post('sector'),
             );
-
-            $this->load->model('model');
-            $this->model->insert($data);
+            if ($this->model->insertUser($data)) {
+                $this->session->set_flashdata('msg','<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
+                redirect('controller/add_employees');
+            }
+            
             $this->load->view('add-employees', $data);
         }
     }
@@ -135,9 +137,12 @@ class controller extends CI_Controller {
                 'projectType' => $this->input->post('projectType'),
                 'projLocation' => $this->input->post('projLocation'),
             );
+            
+            if ($this->model->insertProjects($data)) {
+                $this->session->set_flashdata('<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
+                redirect('controller/add_project');
+            }
 //Transfering data to Model
-            $this->load->model('model');
-            $this->model->insertProjects($data);
 //$data['message'] = 'Data Inserted Successfully';
 //Loading View
             $this->load->view('add-projects', $data);

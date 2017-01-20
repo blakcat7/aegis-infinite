@@ -3,8 +3,8 @@ if (isset($this->session->userdata['logged_in'])) {
     $username = ($this->session->userdata['logged_in']['username']);
     $email = ($this->session->userdata['logged_in']['email']);
     $fname = ($this->session->userdata['logged_in']['fname']);
-    $lname = ($this->session->userdata['logged_in']['lname']);    
-    $sector = ($this->session->userdata['logged_in']['sector']);    
+    $lname = ($this->session->userdata['logged_in']['lname']);
+    $sector = ($this->session->userdata['logged_in']['sector']);
     $location = ($this->session->userdata['logged_in']['location']);
 } else {
     header("location: login");
@@ -180,7 +180,7 @@ if (isset($this->session->userdata['logged_in'])) {
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
                                     class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span><?php echo $fname .' '. $lname; ?></a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span><?php echo $fname . ' ' . $lname; ?></a></li>
                                 <li class="divider"></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
@@ -207,7 +207,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 </div>
                             </div> 
                             <div class="name">
-                                <h2><?php echo $fname .' '.$lname; ?><br/><small>Graphic Designer</small></h2>
+                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small>Graphic Designer</small></h2>
                                 <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>
@@ -322,33 +322,5 @@ if (isset($this->session->userdata['logged_in'])) {
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </body>
-</html>
-=======
-<html>
-
-    <head>
-        <title>Admin Page</title>
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css">
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-        <div id="profile">
-            <?php
-            echo "Hello <b id='welcome'><i>" . $username . "</i> !</b>";
-            echo "<br/>";
-            echo "<br/>";
-            echo "Welcome to Admin Page";
-            echo "<br/>";
-            echo "<br/>";
-            echo "Your Username is " . $username;
-            echo "<br/>";
-            echo "Your Email is " . $email;
-            echo "<br/>";
-            echo "Your Name is " .$fname;
-            ?>
-            <b id="logout"><a href="logout">Logout</a></b>
-        </div>
-        <br/>
     </body>
 </html>

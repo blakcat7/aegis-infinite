@@ -15,13 +15,62 @@ class controller extends CI_Controller {
 		
 		
 		$this->load->helper('url');
-		$this->load->view('add-projects');
+		$this->load->view('login');
 	}
 
-	public function link_add_employee(){
-		$this->load->view('add-employees');
-	}
-
+    public function login(){
+    	
+    	$this->load->library('form_validation');
+    	$this->form_validation->set_rules('username', 'Username', 'trim|required');
+    	$this->form_validation->set_rules('password', 'Password', 'trim|required');
+    	
+    	if ($this->form_validation->run() == FALSE) {
+    		if(isset($this->session->userdata['logged_in'])){
+    			$this->load->view('profile');
+    		}else{
+    			$this->load->view('login');
+    		}
+    	} else {
+    		$data = array(
+    				'username' => $this->input->post('username'),
+    				'password' => $this->input->post('password')
+    		);
+    		$this->load->model('model');
+    		$result = $this->model->login($data);
+    		if ($result == TRUE) {
+    	
+    			$username = $this->input->post('username');
+    			$result = $this->model->read_user_information($username);
+    			if ($result != false) {
+    				$session_data = array(
+    						'username' => $result[0]->username,
+    						'email' => $result[0]->email,
+    				);
+    				// Add user data in session
+    				$this->session->set_userdata('logged_in', $session_data);
+    				$this->load->view('profile');
+    			}
+    		} else {
+    			$data = array(
+    					'error_message' => 'Invalid Username or Password'
+    			);
+    			$this->load->view('login', $data);
+    		}
+    	}
+    }
+    
+    // Logout from admin page
+    public function logout() {
+    
+    	// Removing session data
+    	$sess_array = array(
+    			'username' => ''
+    	);
+    	$this->session->unset_userdata('logged_in', $sess_array);
+    	$data['message_display'] = 'Successfully Logout';
+    	$this->load->view('login', $data);
+    }
+    
 	public function add_employee() {
 	
 		//$this->load->view('add-employees');

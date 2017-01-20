@@ -1,50 +1,103 @@
-<html>
 <?php
 if (isset($this->session->userdata['logged_in'])) {
+    header("location: http://localhost/login/index.php/controller/login");
+}
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aegis Infinite</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../brand.ico">
 
-	header("location: http://localhost/login/index.php/controller/login");
-}
-?>
-<head>
-<title>Login Form</title>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css">
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<?php
-if (isset($logout_message)) {
-echo "<div class='message'>";
-echo $logout_message;
-echo "</div>";
-}
-?>
-<?php
-if (isset($message_display)) {
-echo "<div class='message'>";
-echo $message_display;
-echo "</div>";
-}
-?>
-<div id="main">
-<div id="login">
-<h2>Login Form</h2>
-<hr/>
-<?php echo form_open('controller/login'); ?>
-<?php
-echo "<div class='error_msg'>";
-if (isset($error_message)) {
-echo $error_message;
-}
-echo validation_errors();
-echo "</div>";
-?>
-<label>UserName :</label>
-<input type="text" name="username" id="name" placeholder="username"/><br /><br />
-<label>Password :</label>
-<input type="password" name="password" id="password" placeholder="**********"/><br/><br />
-<input type="submit" value=" Login " name="submit"/><br />
-<?php echo form_close(); ?>
-</div>
-</div>
-</body>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/login.css" rel="stylesheet">
+    </head>
+    <body>
+        <?php
+        if (isset($logout_message)) {
+            echo "<div class='message'>";
+            echo $logout_message;
+            echo "</div>";
+        }
+        ?>
+        <?php
+        if (isset($message_display)) {
+            echo "<div class='message'>";
+            echo $message_display;
+            echo "</div>";
+        }
+        ?>
+        <div class="container" style="margin-top:40px">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+
+                    <div class="panel-body">
+                        <form role="form" action="#" method="POST">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="center-block">
+                                        <img class="logo"
+                                             src="login/images/logo1.png" alt="">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="center-block">
+                                        <img class="logo-name" src="login/images/Aegis.png" alt="">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <?php echo form_open('controller/login'); ?>
+                                    <?php
+                                    echo "<div class='error_msg'>";
+                                    if (isset($error_message)) {
+                                        echo $error_message;
+                                    }
+                                    echo validation_errors();
+                                    echo "</div>";
+                                    ?>
+                                    <div class="col-sm-12 col-md-10  col-md-offset-1 ">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-user"></i>
+                                                </span> 
+                                                <input class="form-control" placeholder="Username" name="username" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-asterisk"></i>
+                                                </span>
+                                                <input class="form-control" placeholder="Password" name="password" id="password" type="password">
+                                            </div>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label><input type="checkbox"> Remember me</label>
+                                        </div>
+                                        <div class="forget-password">
+                                            <a href="#"> Forget Password?</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit"  name="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                                        </div>
+                                    </div>
+                                    <?php echo form_close(); ?>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

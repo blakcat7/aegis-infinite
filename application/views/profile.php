@@ -1,4 +1,15 @@
-<<<<<<< HEAD
+<?php
+if (isset($this->session->userdata['logged_in'])) {
+    $username = ($this->session->userdata['logged_in']['username']);
+    $email = ($this->session->userdata['logged_in']['email']);
+    $fname = ($this->session->userdata['logged_in']['fname']);
+    $lname = ($this->session->userdata['logged_in']['lname']);    
+    $sector = ($this->session->userdata['logged_in']['sector']);    
+    $location = ($this->session->userdata['logged_in']['location']);
+} else {
+    header("location: login");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -98,7 +109,7 @@
             .pull-right .fa{
                 margin-left: 0px;
             }
-            
+
             .label .glyphicon{
                 margin-right: 5px;
                 margin-left: 5px;
@@ -169,7 +180,7 @@
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
                                     class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span>Vladimir Putin</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span><?php echo $fname .' '. $lname; ?></a></li>
                                 <li class="divider"></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
@@ -196,8 +207,8 @@
                                 </div>
                             </div> 
                             <div class="name">
-                                <h2>Anthea Marie <small>Graphic Designer</small></h2>
-                                <small>Dubai, United Arab Emirates <i class="fa fa-map-marker"></i></small>
+                                <h2><?php echo $fname .' '.$lname; ?><br/><small>Graphic Designer</small></h2>
+                                <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>
                     </div>
@@ -219,10 +230,10 @@
                             </div>
                             <div class="panel-body">
                                 <div class="col-sm-5"><i class="fa fa-envelope-o"></i>Email</div>                                    
-                                <div class="col-sm-7">vladimirputin@leidos.com</div>
+                                <div class="col-sm-7"><?php echo $email; ?></div>
                                 <div class="col-sm-12"><hr></div>
                                 <div class="col-sm-5"><i class="fa fa-map-marker"></i>Location</div>                                    
-                                <div class="col-sm-7">Dubai, United Arab Emirates</div>
+                                <div class="col-sm-7"><?php echo $location; ?></div>
                                 <div class="col-sm-12"><hr></div>
                                 <div class="col-md-5"><i class="fa fa-phone"></i>Phone</div>                                    
                                 <div class="col-md-7">+971 55 503 4384</div>
@@ -243,7 +254,7 @@
                             </div>
                             <div class="panel-body">
                                 <div class="col-sm-5"><i class="fa fa-building-o"></i>Department</div>                                    
-                                <div class="col-sm-7">IT Infrastructure</div>
+                                <div class="col-sm-7"><?php echo $sector; ?></div>
                                 <div class="col-sm-12"><hr></div>
                                 <div class="col-sm-5"><i class="fa fa-tasks"></i>Designation</div>                                    
                                 <div class="col-sm-7">Graphic Designer</div>
@@ -315,36 +326,29 @@
 </html>
 =======
 <html>
-<?php
-if (isset($this->session->userdata['logged_in'])) {
-$username = ($this->session->userdata['logged_in']['username']);
-$email = ($this->session->userdata['logged_in']['email']);
-} else {
-header("location: login");
-}
-?>
-<head>
-<title>Admin Page</title>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css">
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<div id="profile">
-<?php
-echo "Hello <b id='welcome'><i>" . $username . "</i> !</b>";
-echo "<br/>";
-echo "<br/>";
-echo "Welcome to Admin Page";
-echo "<br/>";
-echo "<br/>";
-echo "Your Username is " . $username;
-echo "<br/>";
-echo "Your Email is " . $email;
-echo "<br/>";
-?>
-<b id="logout"><a href="logout">Logout</a></b>
-</div>
-<br/>
-</body>
+
+    <head>
+        <title>Admin Page</title>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css">
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="profile">
+            <?php
+            echo "Hello <b id='welcome'><i>" . $username . "</i> !</b>";
+            echo "<br/>";
+            echo "<br/>";
+            echo "Welcome to Admin Page";
+            echo "<br/>";
+            echo "<br/>";
+            echo "Your Username is " . $username;
+            echo "<br/>";
+            echo "Your Email is " . $email;
+            echo "<br/>";
+            echo "Your Name is " .$fname;
+            ?>
+            <b id="logout"><a href="logout">Logout</a></b>
+        </div>
+        <br/>
+    </body>
 </html>
->>>>>>> origin/master

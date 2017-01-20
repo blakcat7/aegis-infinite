@@ -1,0 +1,52 @@
+.panel-heading {
+    padding: 5px 15px;
+}
+
+.panel-footer {
+	padding: 1px 15px;
+	color: #A0A0A0;
+}
+
+.panel-body{
+	position: relative;
+	top: 70px;
+}
+
+.logo {
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto 10px;
+	display: block;
+	
+}
+
+.logo-name{
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto 10px;
+	display: block;
+}
+
+.col-sm-12.col-md-10.col-md-offset-1{
+	position:relative;
+	top: 30px; 
+}
+
+.input-group-addon {
+	background-color: #286090;
+}
+
+i {
+	color: white;
+}
+
+.forget-password{
+	text-decoration: underline;
+}
+
+.btn  {
+	position: relative;
+	top: 10px;
+	background-color:#286090;
+	border-radius: 0px;
+}

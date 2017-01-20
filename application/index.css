@@ -96,7 +96,7 @@
 }
 
 .sidenav .dropdown ul{
-	padding: 10px
+	padding: 10px;
 	margin: 0px;
 }
 
@@ -313,7 +313,7 @@
 }
 
 .navigation{
-	color #ccc;
+	color: #ccc;
 	background-color: /*#2c3e50*/#286090;
 	height: 60px;
 	position: relative;
@@ -502,7 +502,7 @@ a:hover{
 	border-radius: 0px;
 }
 
-#row-table>.panel-primary,{
+#row-table>.panel-primary{
 	border-color: #337ab7;
 	color: #fff;
     background-color: #337ab7;

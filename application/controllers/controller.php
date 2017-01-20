@@ -66,8 +66,7 @@ class controller extends CI_Controller {
             'username' => ''
         );
         $this->session->unset_userdata('logged_in', $sess_array);
-        $data['message_display'] = 'Successfully Logout';
-        $this->load->view('login', $data);
+        $this->load->view('login');
     }
 
     public function view_employees() {

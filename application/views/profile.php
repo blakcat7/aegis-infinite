@@ -185,7 +185,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
+                                <li><a href="logout"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
                             </ul>
                         </li>
                     </ul>

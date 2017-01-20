@@ -5,6 +5,7 @@ class model extends CI_Model {
 		parent::__construct();
 	}
 	 
+<<<<<<< HEAD
 	// Read data using username and password
 	public function login($data) {
 	
@@ -43,12 +44,14 @@ class model extends CI_Model {
 		if ($this->db->insert("users", $data)) {
 			return true;
 		}
+=======
+	public function insertUser($data) {
+		return $this->db->insert("users", $data);
+>>>>>>> origin/master
 	}
 	
 	public function insertProjects($data) {
-		if ($this->db->insert("projects", $data)) {
-			return true;
-		}
+		return $this->db->insert("projects", $data);
 	}
 	
 }

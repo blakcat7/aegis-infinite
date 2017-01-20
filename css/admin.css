@@ -51,11 +51,6 @@
     border-radius: 0px;
 }
 
-.content .label, .glyphicon {
-    margin-right: 0px;
-    margin-left: 0px;
-}
-
 .panel-heading>.fa{
     margin-right: 10px;
 }

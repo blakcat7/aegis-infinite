@@ -15,8 +15,8 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="../navbar.css" rel="stylesheet">
-        <link href="../admin.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/navbar.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">
         <style>
             .footer {
                 position: absolute;
@@ -97,6 +97,11 @@
             .pull-right .fa{
                 margin-left: 0px;
             }
+            
+            .label .glyphicon{
+                margin-right: 5px;
+                margin-left: 5px;
+            }
         </style>
 
     </head>
@@ -110,7 +115,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                             class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="../logo-w.png" class="brand"></a>
+                    <a class="navbar-brand" href="#"><img src="<?php echo base_url(); ?>images/logo-w.png" class="brand"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <!-- Collect the nav links, forms, and other content for toggling -->

@@ -39,7 +39,6 @@ if (isset($this->session->userdata['logged_in'])) {
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
 
                     <div class="panel-body">
-                        <form role="form" action="#" method="POST">
                             <fieldset>
                                 <div class="row">
                                     <div class="center-block">
@@ -94,7 +93,6 @@ if (isset($this->session->userdata['logged_in'])) {
                                     <?php echo form_close(); ?>
                                 </div>
                             </fieldset>
-                        </form>
                     </div>
                 </div>
             </div>

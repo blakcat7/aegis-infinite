@@ -8,10 +8,15 @@ class controller extends CI_Controller {
         $this->load->library(array('form_validation', 'session'));
         $this->load->database();
         $this->load->model('model');
+        $this->load->library('pagination');
     }
 
     public function index() {
         $this->load->view('login');
+    }
+
+    public function admin_login() {
+        $this->load->view('admin-login');
     }
 
     public function login() {
@@ -69,11 +74,6 @@ class controller extends CI_Controller {
         $this->load->view('login');
     }
 
-    public function view_employees() {
-        $this->data['posts'] = $this->model->viewEmployees();
-        $this->load->view('view-employees', $this->data);
-    }
-
     public function add_employee() {
 
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[12]|is_unique[users.username]');
@@ -99,10 +99,10 @@ class controller extends CI_Controller {
                 'sector' => $this->input->post('sector'),
             );
             if ($this->model->insertUser($data)) {
-                $this->session->set_flashdata('msg','<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
+                $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
                 redirect('controller/add_employees');
             }
-            
+
             $this->load->view('add-employees', $data);
         }
     }
@@ -137,7 +137,7 @@ class controller extends CI_Controller {
                 'projectType' => $this->input->post('projectType'),
                 'projLocation' => $this->input->post('projLocation'),
             );
-            
+
             if ($this->model->insertProjects($data)) {
                 $this->session->set_flashdata('<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
                 redirect('controller/add_project');
@@ -156,6 +156,71 @@ class controller extends CI_Controller {
         } else {
             return false;
         }
+    }
+
+    public function view_employees() {
+        $this->pagination();
+    }
+
+    function pagination() {
+        $config = array();
+        $config['base_url'] = base_url() . "controller/pagination";
+        $total_row = $this->model->record_count();
+        $config["total_rows"] = $total_row;
+        $config["per_page"] = 8;
+        $config['uri_segment'] = 3;
+        /* $config['use_page_numbers'] = TRUE; */
+        $config['num_links'] = $total_row;
+        $config['cur_tag_open'] = '&nbsp;<a class="current">';
+        $config['cur_tag_close'] = '</a>';
+        $config['next_link'] = '<span aria-hidden="true">&raquo;</span>';
+        $config['prev_link'] = '<span aria-hidden="true">&laquo;</span>';
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+        $data["results"] = $this->model->fetch_data($config["per_page"], $page);
+        $str_links = $this->pagination->create_links();
+        $data["links"] = explode('&nbsp;', $str_links);
+
+// View data according to array.
+        $this->load->view("view-employees", $data);
+    }
+
+    function show_user_data() {
+        $id = $this->uri->segment(3);
+        $data['users'] = $this->model->show_users();
+        $data['editUsers'] = $this->model->show_user_data($id);
+        $this->load->view('edit-employees', $data);
+    }
+
+    function update_user_data() {
+        $id = $this->input->post('username');
+        $data = array (
+        'location' => $this->input->post('location'),
+        'fname' => $this->input->post('fname'),
+        'lname' => $this->input->post('lname'),
+        'role' => $this->input->post('role'),
+        'email' => $this->input->post('email'),
+        'username' => $this->input->post('username'),
+        'sector' => $this->input->post('sector'),
+        );
+        
+        $this->model->update_user_data($id, $data);
+        $this->update_user_data();
+    }
+    
+    public function delete() {
+        $data['results'] = $this->model->show_users();
+        $this->load->view('view-employees', $data);
+    }
+    
+    function delete_row($username) {
+        $this->db->where('username', $username);
+        $this->db->delete('users');
+        redirect('controller/delete');
     }
 
 }

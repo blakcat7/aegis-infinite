@@ -6,6 +6,10 @@ class model extends CI_Model {
         parent::__construct();
     }
 
+    public function insert($data) {
+        return $this->db->insert('users', $data);
+    }
+
     public function insertUser($data) {
         return $this->db->insert("users", $data);
     }
@@ -14,14 +18,7 @@ class model extends CI_Model {
         return $this->db->insert("projects", $data);
     }
 
-    public function viewEmployees() {
-        $this->db->select('*');
-        $this->db->from('users');
-        $query = $this->db->get();
-        return $query->result();
-    }
-
-    // Read data using username and password
+// Read data using username and password
     public function login($data) {
 
         $condition = "username =" . "'" . $data['username'] . "' AND " . "password =" . "'" . $data['password'] . "'";
@@ -31,14 +28,14 @@ class model extends CI_Model {
         $this->db->limit(1);
         $query = $this->db->get();
 
-        if ($query->num_rows() == 1) {
+        if ($query->row() == 1) {
             return true;
         } else {
             return false;
         }
     }
 
-    // Read data from database to show data in admin page
+// Read data from database to show data in admin page
     public function read_user_information($username) {
 
         $condition = "username =" . "'" . $username . "'";
@@ -55,8 +52,40 @@ class model extends CI_Model {
         }
     }
 
-    public function insert($data) {
-        return $this->db->insert("users", $data);
+    public function record_count() {
+        return $this->db->count_all('users');
+    }
+
+    public function fetch_data($limit, $start) {
+        $this->db->limit($limit, $start);
+        $query = $this->db->get('users');
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+
+        return false;
+    }
+
+    public function show_users() {
+        $query = $this->db->get('users');
+        $query_result = $query->result();
+        return $query_result;
+    }
+
+    public function show_user_data($data) {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('username', $data);
+
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
+
+    public function update_user_data($username, $data) {
+        $this->db->where('username', $username);
+        $this->db->update('users', $data);
     }
 
 }

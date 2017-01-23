@@ -32,7 +32,7 @@
 }
 
 .content .btn-add-e{
-    background-color: #2980b9;
+    background-color: #7D1380;
     color: #FFF;
 }
 
@@ -83,4 +83,8 @@
 
 .alert-success{
     border-left: 5px solid #3c763d;
+}
+
+.table{
+    table-layout: fixed;
 }

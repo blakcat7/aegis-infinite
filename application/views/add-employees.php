@@ -28,7 +28,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                             class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>images/logo-w.png" class="brand"></a>
+                    <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>images/leidos-logo.png" class="brand"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -91,16 +91,20 @@
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
                         <li><a href="#">Employees</a></li>
-                        <li class="active">Add New Employee</li>
+                        <li class="active">Add Employee</li>
                     </ol>                        
                     <a href="<?php echo site_url('controller/view_employees'); ?>" role="button" class="btn btn-add-e">View Employees
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
 
                     <a href="<?php echo site_url('controller/add_employee'); ?>" role="button" class="btn btn-add-e">Add New Employee
-                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-pencil"></span>
                     </a>
 
+                    <a href="<?php echo site_url('controller/edit_employee'); ?>" role="button" class="btn btn-add-e"> Edit Employee
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    
                     <hr>
 
                     <?php echo $this->session->flashdata('msg'); ?>

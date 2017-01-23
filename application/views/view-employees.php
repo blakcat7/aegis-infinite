@@ -1,3 +1,7 @@
+<?php
+$name = $this->session->userdata('name');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,15 +17,59 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-
         <!-- Custom CSS -->
         <link href="<?php echo base_url(); ?>css/navbar.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">   
         <link href="<?php echo base_url(); ?>css/table.css" rel="stylesheet">   
 
         <script type="text/javascript" src="<?php echo base_url(); ?>js/filter.js"></script>
+
+        <style>
+            .popup {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            /* The actual popup */
+            .popup .popuptext {
+                visibility: hidden;
+                width: 300px;
+                background-color: #eee;
+                color: #333;
+                padding: 8px 0;
+                position: absolute;
+                z-index: 1;
+                bottom: 125%;
+                left: 50%;
+                margin-left: -80px;
+                padding: 10px;
+            }
+
+            /* Toggle this class - hide and show the popup */
+            .popup .show {
+                visibility: visible;
+                -webkit-animation: fadeIn 0.2s;
+                animation: fadeIn 0.2s;
+            }
+
+            /* Add animation (fade in the popup) */
+            @-webkit-keyframes fadeIn {
+                from {opacity: 0;} 
+                to {opacity: 1;}
+            }
+
+            @keyframes fadeIn {
+                from {opacity: 0;}
+                to {opacity:1 ;}
+            }
+        </style>
     </head>
-    <body>
+    <body style="margin: 0px;">
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">
             <div class="container">
@@ -100,8 +148,12 @@
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
 
-                    <a href="<?php echo site_url('controller/add_employee'); ?>" role="button" class="btn btn-add-e">Add New Employee
+                    <a href="<?php echo site_url('controller/add_employee'); ?>" role="button" class="btn btn-add-e">Add Employee
                         <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+
+                    <a href="<?php echo site_url('controller/edit_employee'); ?>" role="button" class="btn btn-add-e"> Edit Employee
+                        <span class="glyphicon glyphicon-pencil"></span>
                     </a>
 
                     <hr>
@@ -121,22 +173,43 @@
                             <table class="table table-hover" id="dev-table">
                                 <thead>
                                     <tr>
-                                        <th>Username</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
+                                        <th>Personal Details</th>
                                         <th>Email</th>
-                                        <!--<th>Job Title</th>
-                                        <th>Location</th>
-                                        <th>More</th> -->
+                                        <th>More</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($posts as $post) { ?>
+                                    <?php foreach ($results as $data) { ?>
                                         <tr>
-                                            <td><?php echo $post->username; ?></td>
-                                            <td><?php echo $post->fname; ?></td>
-                                            <td><?php echo $post->lname; ?></td>
-                                            <td><?php echo $post->email; ?></td><!--
+                                            <td>
+                                                <label><i class="fa fa-user"></i> Username:</label>
+                                                <?php echo $data['username']; ?><br/>
+                                                <label><i class="fa fa-user-plus"></i> Name:</label>
+                                                <?php echo $data['fname']; ?> <?php echo $data['lname']; ?> <br/>
+                                                <label><i class="fa fa-envelope"></i> Email:</label>
+                                                <?php echo $data['email']; ?></td>
+                                            </td>
+                                            <td></td>
+                                            <td>
+
+                                                <label><i class="fa fa-map-marker"></i> Location:</label>
+                                                <?php echo $data['location']; ?><br/>
+                                                <label><i class="fa fa-building-o"></i> Department:</label>
+                                                <?php echo $data['sector']; ?><br/>
+                                                <label><i class="fa fa-user"></i> Role:</label>
+                                                <?php echo $data['role']; ?>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="<?php echo base_url('controller/delete_row/' . $data['username']); ?> " class = "btn btn-add-e">
+                                                    <i class = "fa fa-pencil"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-add-e">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>   
+                                            <!--
                                             <td>kilgore</td>
                                             <td>kilgore</td>
                                             <td>loc</td>
@@ -145,29 +218,37 @@
                                                 </button>
                                             </td> -->
                                         </tr>
+
                                     <?php } ?>
                                 </tbody>
                             </table>
+
                             <div class="panel-footer">
                                 <ul class="pagination">
-                                    <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                                    <!-- Show pagination links -->
+                                    <?php
+                                    foreach ($links as $link) {
+                                        echo "<li class='pagination'>" . $link . "</li>";
+                                    }
+                                    ?>
                                 </ul>    
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
-            <!-- END OF CONTENT -->
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="<?php echo base_url(); ?>js/filter.js"></script>
+        <!-- END OF CONTENT -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>js/filter.js"></script>
+        <script>
+            function popUp() {
+                var popup = document.getElementById('myPopup');
+                popup.classList.toggle('show');
+            }
+        </script>
     </body>
 </html>

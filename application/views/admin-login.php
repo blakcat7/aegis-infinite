@@ -1,6 +1,6 @@
 <?php
 if (isset($this->session->userdata['logged_in'])) {
-    header("location: http://localhost/aegis-infinite");
+    header("location: http://localhost/aegis-infinite/controller/admin_login");
 }
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,13 @@ if (isset($this->session->userdata['logged_in'])) {
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/login.css?<?php echo time(); ?>" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/login.css" rel="stylesheet">
+        <style>
+            .login{
+                background-color: rgba(40, 96, 144, 0.2)
+            }
+            
+        </style>
     </head>
     <body>
         <?php
@@ -89,7 +95,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                         <input type="submit"  name="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
                                     </div>
                                     <div style="text-align: center;">
-                                        <a href="<?php echo site_url('controller/admin_login'); ?>"><small>Switch to Admin</small></a>
+                                        <a href="<?php echo site_url('controller/login'); ?>"><small>Switch to Employee</small></a>
                                     </div>
                                 </div>
                                 <?php echo form_close(); ?>

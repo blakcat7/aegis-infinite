@@ -74,39 +74,6 @@ class controller extends CI_Controller {
         $this->load->view('login');
     }
 
-    public function add_employee() {
-
-        $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[12]|is_unique[users.username]');
-        $this->form_validation->set_rules('password', 'Password', 'required|matches[passconf]');
-        $this->form_validation->set_rules('passconf', 'Repeat Password', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
-        $this->form_validation->set_rules('fname', 'First Name', 'required');
-        $this->form_validation->set_rules('lname', 'Last Name', 'required');
-
-        $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('add-employees');
-        } else {
-            $data = array(
-                'location' => $this->input->post('location'),
-                'fname' => $this->input->post('fname'),
-                'lname' => $this->input->post('lname'),
-                'role' => $this->input->post('role'),
-                'email' => $this->input->post('email'),
-                'username' => $this->input->post('username'),
-                'password' => $this->input->post('password'),
-                'sector' => $this->input->post('sector'),
-            );
-            if ($this->model->insertUser($data)) {
-                $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
-                redirect('controller/add_employees');
-            }
-
-            $this->load->view('add-employees', $data);
-        }
-    }
-
     public function add_project() {
 //Including validation library
         $this->load->library('form_validation');

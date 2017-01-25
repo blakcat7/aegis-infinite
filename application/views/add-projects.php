@@ -17,55 +17,11 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/navbar.css">
-        <link  rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">     
+        <link  rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">  
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/chosen.css">    
+        <link rel = "stylesheet" href = "<?php echo base_url(); ?>css/footer.css">
     </head>
     <body>
-        <!-- NAVBAR -->
-        <nav class="navbar" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
-                            class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>images/logo-w.png" class="brand"></a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                                    class="glyphicon glyphicon-search"></span></a>
-                            <ul class="dropdown-menu" style="min-width: 300px;">
-                                <li>
-                                    <div class="col-md-12">
-                                        <form class="navbar-form navbar-left" role="search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></button>
-                                                </span>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                                    class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-        <!-- END OF NAVBAR -->
-
         <!-- CONTENT -->
         <div class="container">
             <div class="row">
@@ -104,7 +60,7 @@
 
                     <hr>                    
 
-                    <?php echo $this->session->flashdata('msg'); ?>
+                    <?php echo $this->session->flashdata('msg-p'); ?>
 
                     <div id="row-table" class="row">
                         <div class="panel panel-default">
@@ -112,109 +68,111 @@
                                 Add New Project
                             </div>
                             <div class="panel-body">
-                                <?php echo form_open('controller/add_project'); ?>
-                                <form role="form">
-                                    <div class="form-group col-lg-12">
-                                        <?php echo form_label('Project Title: '); ?>
-                                        <?php echo form_input(array('id' => 'title', 'name' => 'title', 'class' => 'form-control')); ?>
-                                        <?php echo form_error('title'); ?>
+                                <?php echo form_open('admin/add_project'); ?>
+                                <div class="form-group col-lg-12">
+                                    <?php echo form_label('Project Title: '); ?>
+                                    <?php echo form_input(array('id' => 'title', 'name' => 'title', 'class' => 'form-control')); ?>
+                                    <?php echo form_error('title'); ?>
+                                </div>
+
+                                <div class="form-group col-lg-12">
+                                    <?php echo form_label('Description: '); ?> <?php echo form_error('description'); ?><br />
+                                    <?php echo form_textarea(array('id' => 'description', 'name' => 'description', 'rows' => '5', ' class' => 'form-control')); ?><br />
+
+                                </div>
+
+                                <div class="form-group col-lg-12">
+                                    <label>Project Type</label>
+                                    <?php
+                                    $sector = array(
+                                        'Civil' => 'Civil',
+                                        'Defense' => 'Defense',
+                                        'Intelligence & Homeland Security' => 'Intelligence & Homeland Security',
+                                        'Health' => 'Health',
+                                        'Advance Solutions' => 'Advance Solutions',
+                                    );
+
+                                    echo form_dropdown('projectType', $sector, 'civil', 'class = "form-control"');
+                                    ?>
+                                </div>
+
+                                <div class="form-group col-lg-12">
+                                    <label>Location</label>
+                                    <?php
+                                    $location = array(
+                                        'United Arab Emirates' => 'United Arab Emirates',
+                                        'United Kingdom' => 'United Kingdom',
+                                        'South Korea' => 'South Korea',
+                                        'Spain' => 'Spain',
+                                        'Canada' => 'Canada',
+                                        'United States' => 'United States',
+                                    );
+
+                                    echo form_dropdown('projLocation', $location, 'United Arab Emirates', 'class = "form-control"');
+                                    ?>
+
+                                </div>
+
+                                <div class="form-group col-lg-12">
+                                    <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
+                                    <select name="skillsRequired[]" multiple="multiple" style="height:100px;" id="select1">
+                                        <?php foreach ($skills as $skills) { ?>
+                                            <option value="<?php echo $skills->skillName; ?>"><?php echo $skills->skillName; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    
+                                    <?php /* foreach ($skills->result() as $skills) {
+                                      $skill[] = $skills->skillName;
+                                      }
+
+                                      echo form_dropdown('skillsRequired[]', $skill, $skill, array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
+                                     */ ?>                                    
+
+
+                                </div>
+
+                                <div class="form-group col-lg-6">                                    
+                                    <label>Start Date:</label>
+                                    <div class="input-group" id="datetimepicker4">
+                                        <?php echo form_input(array('type' => 'text', 'name' => 'startDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
+                                        <span class="add-on input-group-btn ">
+                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                        </span>
                                     </div>
+                                    <?php echo form_error('startDate'); ?>
+                                </div>
+                                <div class="form-group col-lg-6">                                    
+                                    <label>End Date:</label>
+                                    <div class="input-group" id="datetimepicker3">
 
-                                    <div class="form-group col-lg-12">
-                                        <?php echo form_label('Description: '); ?> <?php echo form_error('description'); ?><br />
-                                        <?php echo form_textarea(array('id' => 'description', 'name' => 'description', 'rows' => '5', ' class' => 'form-control')); ?><br />
-
+                                        <?php echo form_input(array('type' => 'text', 'name' => 'endDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
+                                        <span class="add-on input-group-btn ">
+                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                        </span>
                                     </div>
-
-                                    <div class="form-group col-lg-12">
-                                        <label>Project Type</label>
-
-                                        <?php
-                                        $sector = array(
-                                            'Civil' => 'Civil',
-                                            'Defense' => 'Defense',
-                                            'Intelligence & Homeland Security' => 'Intelligence & Homeland Security',
-                                            'Health' => 'Health',
-                                            'Advance Solutions' => 'Advance Solutions',
-                                        );
-
-                                        echo form_dropdown('projectType', $sector, 'civil', 'class = "form-control"');
-                                        ?>
+                                    <?php echo form_error('endDate'); ?>
+                                </div>
+                                <!--
+                                <div class="form-group col-lg-12">
+                                    <label>Recommended Project Manager:</label>
+                                    <div class="editable" contenteditable="false" id="">
+                                        <img data-toggle="tooltip" title="Project Manager" class="img-members" src="images/admin1.png"/>
                                     </div>
+                                </div>
 
-                                    <div class="form-group col-lg-12">
-                                        <label>Location</label>
-                                        <?php
-                                        $location = array(
-                                            'United Arab Emirates' => 'United Arab Emirates',
-                                            'United Kingdom' => 'United Kingdom',
-                                            'South Korea' => 'South Korea',
-                                            'Spain' => 'Spain',
-                                            'Canada' => 'Canada',
-                                            'United States' => 'United States',
-                                        );
-
-                                        echo form_dropdown('projLocation', $location, 'United Arab Emirates', 'class = "form-control"');
-                                        ?>
-
+                                <div class="form-group col-lg-12">
+                                    <label>Recommended Members:</label>
+                                    <div class="editable" contenteditable="false" id="">                                          
+                                        <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member1.png"/>
+                                        <img data-toggle="tooltip" title="Microsoft Expert" class="img-members" src="images/member2.png"/>
+                                        <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member3.png"/>
+                                        <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member.png"/>
                                     </div>
-
-                                    <div class="form-group col-lg-12">
-                                        <?php echo form_label('Skills Required :'); ?> <?php echo form_error('skillsRequired'); ?><br />
-                                        <?php echo form_input(array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'form-control')); ?><br />
-                                    </div>
-
-                                    <div class="form-group col-lg-6">                                    
-                                        <?php echo form_label('Start Date:'); ?> <?php echo form_error('startDate'); ?>
-                                        <div class="input-group" id="datetimepicker4">
-                                            <?php echo form_input(array('type' => 'text', 'name' => 'startDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
-                                            <!--  <input data-format="yyyy/MM/dd" class="form-control" type="text"></input>-->
-                                            <span class="add-on input-group-btn ">
-                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
-                                            </span>
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-lg-6">                                    
-                                        <?php echo form_label('End Date:'); ?> <?php echo form_error('endDate'); ?>
-                                        <div class="input-group" id="datetimepicker3">
-                                            <?php echo form_input(array('type' => 'text', 'name' => 'endDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
-                                            <span class="add-on input-group-btn ">
-                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
-                                            </span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-lg-12">
-                                        <label>Recommended Project Manager:</label>
-                                        <div class="editable" contenteditable="false" id="">
-                                            <img data-toggle="tooltip" title="Project Manager" class="img-members" src="images/admin1.png"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-lg-12">
-                                        <label>Recommended Members:</label>
-                                        <div class="editable" contenteditable="false" id="">                                          
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member1.png"/>
-                                            <img data-toggle="tooltip" title="Microsoft Expert" class="img-members" src="images/member2.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member3.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member.png"/>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div> -->
                             </div>
                             <div class="panel-footer">
                                 <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Add', 'class' => 'btn')); ?>
-<<<<<<< HEAD
                                 <?php echo form_close(); ?>
-=======
-<<<<<<< HEAD
-								<?php echo form_close(); ?>
-=======
-                                <?php echo form_close(); ?><br/>
->>>>>>> origin/master
->>>>>>> origin/master
                             </div>
                         </div>
                     </div>
@@ -223,15 +181,10 @@
         </div>
         <!-- END OF CONTENT -->
 
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript"
-                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-        </script>
-        <script type="text/javascript"
-                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-        </script>
+        <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker4').datetimepicker({
@@ -242,5 +195,19 @@
                 });
             });
         </script>
+        <script src="<?php echo base_url(); ?>js/chosen.jquery.min.js"></script>
+        <script type="text/javascript">
+            var config = {
+                '.chosen-select': {},
+                '.chosen-select-deselect': {allow_single_deselect: true},
+                '.chosen-select-no-single': {disable_search_threshold: 10},
+                '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
+                '.chosen-select-width': {width: "95%"}
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+        </script>
+
     </body>
 </html>

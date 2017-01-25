@@ -11,11 +11,11 @@ class model extends CI_Model {
     }
 
     public function insertUser($data) {
-        return $this->db->insert("users", $data);
+        return $this->db->insert('users', $data);
     }
 
     public function insertProjects($data) {
-        return $this->db->insert("projects", $data);
+        return $this->db->insert('project', $data);
     }
 
 // Read data using username and password
@@ -60,10 +60,10 @@ class model extends CI_Model {
         $this->db->limit($limit, $start);
         $query = $this->db->get('users');
 
+
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }
-
         return false;
     }
 
@@ -86,6 +86,13 @@ class model extends CI_Model {
     public function update_user_data($username, $data) {
         $this->db->where('username', $username);
         $this->db->update('users', $data);
+    }
+
+    public function getSkills() {
+        $this->db->select("skillName");
+        $this->db->from('empskillslist');
+        $query = $this->db->get();
+        return $query;
     }
 
 }

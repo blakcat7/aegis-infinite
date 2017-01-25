@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="../brand.ico">
+        <link rel="icon" href="<?php echo base_url(); ?>logo.ico" type="image">
 
         <title>Aegis Infinite</title>
 
@@ -17,54 +16,9 @@
 
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/navbar.css">
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/admin.css">
+        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/footer.css">
     </head>
     <body>
-        <!-- NAVBAR -->
-        <nav class="navbar" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
-                            class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>images/leidos-logo.png" class="brand"></a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                                    class="glyphicon glyphicon-search"></span></a>
-                            <ul class="dropdown-menu" style="min-width: 300px;">
-                                <li>
-                                    <div class="col-md-12">
-                                        <form class="navbar-form navbar-left" role="search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></button>
-                                                </span>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                                    class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-        <!-- END OF NAVBAR -->
-
         <!-- CONTENT -->
         <div class="container">
             <div class="row">
@@ -104,7 +58,7 @@
                     <a href="<?php echo site_url('controller/edit_employee'); ?>" role="button" class="btn btn-add-e"> Edit Employee
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    
+
                     <hr>
 
                     <?php echo $this->session->flashdata('msg'); ?>
@@ -115,7 +69,7 @@
                                 Add New Employee
                             </div>
                             <div class="panel-body">
-                                <?php echo form_open('controller/add_employee'); ?>
+                                <?php echo form_open('admin/add_employee'); ?>
                                 <div class="form-group col-lg-6">                                    
                                     <label>First Name</label>
                                     <?php
@@ -243,9 +197,10 @@
                     </div>
                 </div>
             </div>
-            <!-- END OF CONTENT -->
+        </div>
+        <!-- END OF CONTENT -->
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>

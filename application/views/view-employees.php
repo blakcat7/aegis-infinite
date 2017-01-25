@@ -17,12 +17,14 @@ $name = $this->session->userdata('name');
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+        
         <!-- Custom CSS -->
         <link href="<?php echo base_url(); ?>css/navbar.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">   
         <link href="<?php echo base_url(); ?>css/table.css" rel="stylesheet">   
 
         <script type="text/javascript" src="<?php echo base_url(); ?>js/filter.js"></script>
+        <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 
         <style>
             .popup {

@@ -1,6 +1,10 @@
 body{
     font-family: 'Roboto', 'sans-serif';
-    background-image: url('../images/bg.png');
+    background: url('../images/bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .panel-heading {
@@ -25,7 +29,7 @@ body{
     position: relative;
     display: box;
     margin-bottom: 15px;
-    border-top: 5px solid #286090;
+    border-top: 5px solid #7D1380;
 }
 
 .logo {
@@ -49,9 +53,9 @@ body{
 }
 
 .input-group-addon {
-    
+
     border: 0px;
-    background-color: #286090;
+    background-color: #7D1380;
     border-radius:0px;
 }
 
@@ -70,6 +74,50 @@ i {
 .btn  {
     position: relative;
     top: 10px;
-    background-color:#286090;
+    background-color:#7D1380;
     border-radius: 0px;
+    color: #fff;
+}
+
+.btn:hover {
+    color: #fff;
+}
+
+
+.center{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:30em;
+    height:30em;
+    margin-top: -15em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+}
+
+.form-signin {
+    max-width: 330px;    
+    height: auto;
+    padding: 15px;
+    margin: 0 auto;
+    border-top: 5px solid #7D1380;
+    background-color: rgba(255,255,255,0.2);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
 }

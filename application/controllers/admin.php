@@ -50,7 +50,7 @@ class admin extends CI_Controller {
         //$this->form_validation->set_rules('endDate', 'End Date', 'callback_checkDateFormat');
         $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
 
-        $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
+        $this->form_validation->set_error_delimiters('<span>', '</span>');
 
         if ($this->form_validation->run() == FALSE) {
             $data['skills'] = $this->model->getSkills();

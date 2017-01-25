@@ -115,19 +115,14 @@
 
                                 <div class="form-group col-lg-12">
                                     <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
-                                    <select name="skillsRequired[]" multiple="multiple" style="height:100px;" id="select1">
-                                        <?php foreach ($skills as $skills) { ?>
-                                            <option value="<?php echo $skills->skillName; ?>"><?php echo $skills->skillName; ?></option>
-                                        <?php } ?>
-                                    </select>
                                     
-                                    <?php /* foreach ($skills->result() as $skills) {
-                                      $skill[] = $skills->skillName;
-                                      }
+                                    <?php
+                                    foreach ($skills->result() as $skills) {
+                                        $skill[] = $skills->skillName;
+                                    }
 
-                                      echo form_dropdown('skillsRequired[]', $skill, $skill, array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                                     */ ?>                                    
-
+                                    echo form_dropdown('skillsRequired[]', $skill, $skill, array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
+                                    ?>                                    
 
                                 </div>
 

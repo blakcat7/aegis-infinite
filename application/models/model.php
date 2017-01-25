@@ -15,7 +15,7 @@ class model extends CI_Model {
     }
 
     public function insertProjects($data) {
-        return $this->db->insert('project', $data);
+        return $this->db->insert('projects', $data);
     }
 
 // Read data using username and password

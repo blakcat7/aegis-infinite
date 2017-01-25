@@ -115,14 +115,15 @@
 
                                 <div class="form-group col-lg-12">
                                     <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
-
+                                    
                                     <?php
+                                    /*
                                     foreach ($skills->result() as $skills) {
                                         $skill[] = $skills->skillName;
                                     }
 
                                     echo form_dropdown('skillsRequired[]', $skill, $skill, array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                                    ?>                                    
+                                    */?>                                    
 
 
                                     <label>Skill Required:</label>

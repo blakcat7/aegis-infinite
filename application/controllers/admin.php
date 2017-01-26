@@ -7,7 +7,7 @@ class admin extends CI_Controller {
         $this->load->helper(array('url', 'form'));
         $this->load->library(array('form_validation', 'session'));
         $this->load->database();
-        $this->load->model('model');
+        $this->load->model('admin_model');
         $this->load->library('pagination');
     }
 
@@ -37,7 +37,7 @@ class admin extends CI_Controller {
                 'password' => $this->input->post('password'),
                 'sector' => $this->input->post('sector'),
             );
-            if ($this->model->insertUser($data)) {
+            if ($this->admin_model->insertUser($data)) {
                 $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
                 redirect('admin/add_employee');
             }
@@ -47,18 +47,17 @@ class admin extends CI_Controller {
 
     public function add_project() {
         $this->form_validation->set_rules('title', 'Title', 'required|min_length[5]|max_length[25]');
-        //$this->form_validation->set_rules('endDate', 'End Date', 'callback_checkDateFormat');
+   
         $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
 
         $this->form_validation->set_error_delimiters('<span>', '</span>');
 
         if ($this->form_validation->run() == FALSE) {
-            $data['skills'] = $this->model->getSkills();
-     
+            /*$data['skills'] = $this->admin_model->getSkills();*/
             $this->load->view('header');
-            $this->load->view('add-projects', $data);
+            $this->load->view('add-projects');
             $this->load->view('footer');
-        } else { 
+        } else {
             $data = array(
                 'title' => $this->input->post('title'),
                 'endDate' => $this->input->post('endDate'),
@@ -69,14 +68,87 @@ class admin extends CI_Controller {
                 'projLocation' => $this->input->post('projLocation'),
             );
 
-            if ($this->model->insertProjects($data)) {
+            if ($this->admin_model->insertProjects($data)) {
                 $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
                 redirect('admin/add_project');
             }
             $this->load->view('add-projects', $data);
         }
     }
+
+    public function view_employees() {
+        $this->page();
+    }
+
+    function page() {
+        $config = array();
+        $config['base_url'] = base_url() . 'admin/page';
+        $total_row = $this->admin_model->record_count();
+        $config['total_rows'] = $total_row;
+        $config['per_page'] = 8;
+        $config['uri_segment'] = 3;
+        /* $config['use_page_numbers'] = TRUE; */
+        $config['num_links'] = $total_row;
+        $config['cur_tag_open'] = '&nbsp;<a class="current">';
+        $config['cur_tag_close'] = '</a>';
+        $config['next_link'] = '<span aria-hidden="true">&raquo;</span>';
+        $config['prev_link'] = '<span aria-hidden="true">&laquo;</span>';
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+        $data['results'] = $this->admin_model->fetch_users($config['per_page'], $page);
+        $str_links = $this->pagination->create_links();
+        $data['links'] = explode('&nbsp;', $str_links);
+
+// View data according to array.
+        $this->load->view('view-employees', $data);
+    }
     
+    public function delete() {
+        $data['results'] = $this->model->show_users();
+        $this->load->view('view-employees', $data);
+    }
+
+    function delete_row($username) {
+        $this->db->where('username', $username);
+        $this->db->delete('users');
+        redirect('admin/view_employees');
+    }
+
+    public function view_projects() {
+        $this->ppage();
+    }
+    
+        function ppage() {
+        $config = array();
+        $config['base_url'] = base_url() . 'admin/ppage';
+        $total_row = $this->admin_model->count_project();
+        $config['total_rows'] = $total_row;
+        $config['per_page'] = 8;
+        $config['uri_segment'] = 3;
+        /* $config['use_page_numbers'] = TRUE; */
+        $config['num_links'] = $total_row;
+        $config['cur_tag_open'] = '&nbsp;<a class="current">';
+        $config['cur_tag_close'] = '</a>';
+        $config['next_link'] = '<span aria-hidden="true">&raquo;</span>';
+        $config['prev_link'] = '<span aria-hidden="true">&laquo;</span>';
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+        $data['results'] = $this->admin_model->fetch_projects($config['per_page'], $page);
+        $str_links = $this->pagination->create_links();
+        $data['links'] = explode('&nbsp;', $str_links);
+
+// View data according to array.
+        $this->load->view('view-projects', $data);
+    }
+
 
 }
 

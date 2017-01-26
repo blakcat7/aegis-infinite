@@ -1,8 +1,3 @@
-<?php
-if (isset($this->session->userdata['logged_in'])) {
-    header("location: http://localhost/aegis-infinite");
-}
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,13 +37,13 @@ if (isset($this->session->userdata['logged_in'])) {
                     </div>
                 </div>
 
-                <?php echo form_open(''); ?>  
+                <?php echo form_open('employee/user_login'); ?>  
 
                 <div style="color: #fff; margin:10px;">
-                    <?php echo form_error('username'); ?><?php echo form_error('password'); ?>
-                    <?php if (isset($error_message)) {
-                    echo $error_message;
-                    }?>
+                    <?php if (isset($error) && $error): ?>
+                        Incorrect Username or Password!
+                    <?php endif; ?>
+                    <?php echo validation_errors(); ?>
                 </div>
 
                 <div class="form-group">
@@ -74,7 +69,7 @@ if (isset($this->session->userdata['logged_in'])) {
                     <a href="#"> Forget Password?</a>
                 </div>
                 <div class="form-group">
-                    <input type="submit"  name="submit" class="btn btn-lg btn-block" value="Sign in">
+                    <input type="submit" id="submit" name="submit" class="btn btn-lg btn-block" value="Sign in">
                 </div>
                 <div style="text-align: center;">
                     <a href="<?php echo site_url('controller/admin_login'); ?>"><small>Switch to Admin</small></a>

@@ -1,101 +1,84 @@
-body{
-	background-color: #f6f6f6;
-	font-family: 'Roboto', sans-serif;
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: auto;
+    background-color: #f5f5f5;
 }
 
-.container{
-	margin-right: 250px;
-	margin-left: 250px;
+.profile-pic{
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    display: block;
+    margin: auto;
+    position: relative;
 }
 
-img{
-	vertical-align: middle;
+.crop {
+    position: absolute;
+    margin: auto; 
+    min-height: 100%;
+    min-width: 100%;
+
+    /* For the following settings we set 100%, but it can be higher if needed 
+    See the answer's update */
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
 }
 
-hr{
-	border-top: 1px solid #ddd;
-}
-h3{
-	font-size: 20px;
-	font-weight: 700;	
+.profile{
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-h6{
-	font-size: 14px;	
+.name{
+    text-align: center;
 }
 
-h1, h2, h3, h4, h5, h6{
-	margin-top: 20px;
+.profile-content .fa{
+    margin-right: 10px;
 }
 
-.img-profile{
-	max-width: 100%;
-	height: auto;
-	margin-bottom: 20px !important;
-	display: block;
-	margin: auto;
+.profile-content .panel{
+    border-radius: 0px;
 }
 
-.img-home{
-	max-width: 100%;
-	height: auto;
-	margin-bottom: 20px !important;
-	display: block;
-	margin: auto;
+.progress {
+    position: relative;
+    height: 25px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.progress > .progress-type {
+    position: absolute;
+    left: 0px;
+    font-weight: 800;
+    padding: 3px 30px 2px 10px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(25, 25, 25, 0.2);
+}
+.progress > .progress-completed {
+    position: absolute;
+    right: 0px;
+    font-weight: 800;
+    padding: 3px 10px 2px;
 }
 
-#profile-info{
-	text-align: center;
+.profile .col-md-9{
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
-.panel{
-	border-radius: 0px;
+.pull-right .fa{
+    margin-left: 0px;
 }
 
-.panel .fa{
-	margin-right: 10px;
-}
-
-.btn, .btn-group-lg>.btn, .btn-default{
-	border-radius: 0px;
-}
-
-.col-md-8{
-	background-color: #eee;
-	padding-top: 25px;
-}
-
-#edit-profile{
-	padding-top: 0px;
-}
-
-.list-group-item{
-	border-radius: 0px;
-}
-
-.list-group-item:first-child{
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-}
-
-.list-group-item:last-child{
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-}	
-
-.form-control{
-	border-radius: 0px;
-}
-
-#upload-picture{
-	height: 35px;
-}
-
-
-.input-group .date{
-	margin: 0px;
-}
-
-.add-on{
-	height: inherit;
+.label .glyphicon{
+    margin-right: 5px;
+    margin-left: 5px;
 }

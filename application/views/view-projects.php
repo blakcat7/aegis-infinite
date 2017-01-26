@@ -17,7 +17,7 @@ $name = $this->session->userdata('name');
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-        
+
         <!-- Custom CSS -->
         <link href="<?php echo base_url(); ?>css/navbar.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">   
@@ -104,16 +104,12 @@ $name = $this->session->userdata('name');
                         <li><a href="view-employees.html">Employees</a></li>
                         <li class="active">Employees List</li>
                     </ol>                        
-                    <a href="<?php echo site_url('admin/view_employees'); ?>" role="button" class="btn btn-add-e">View Employees
-                        <span class="glyphicon glyphicon-user"></span>
+                    <a href="<?php echo site_url('admin/view_projects'); ?>" role="button" class="btn btn-add-e">View Project
+                        <span class="glyphicon glyphicon-folder-open"></span>
                     </a>
 
-                    <a href="<?php echo site_url('admin/add_employee'); ?>" role="button" class="btn btn-add-e">Add Employee
+                    <a href="<?php echo site_url('admin/add_project'); ?>" role="button" class="btn btn-add-e">Add New Project
                         <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-
-                    <a href="<?php echo site_url('controller/edit_employee'); ?>" role="button" class="btn btn-add-e"> Edit Employee
-                        <span class="glyphicon glyphicon-pencil"></span>
                     </a>
 
                     <hr>
@@ -132,27 +128,27 @@ $name = $this->session->userdata('name');
                             </div>
                             <table class="table table-hover" id="dev-table">
                                 <thead>
-                                    <tr><th>Username</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Location</th>
-                                        <th>Department</th>
+                                    <tr><th>Title</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Project Type</th>
+                                        <th>Project Location</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($results as $data) { ?>
                                         <tr>
-                                            <td><?php echo $data['username']; ?></td>
-                                            <td><?php echo $data['fname']; ?> <?php echo $data['lname']; ?></td>
-                                            <td><?php echo $data['email']; ?></td>
-                                            <td><?php echo $data['location']; ?><br/></td>
-                                            <td><?php echo $data['sector']; ?></td>
+                                            <td><?php echo $data['title']; ?></td>
+                                            <td><?php echo $data['startDate']; ?>
+                                            <td><?php echo $data['endDate']; ?></td>
+                                            <td><?php echo $data['projectType']; ?><br/></td>
+                                            <td><?php echo $data['projLocation']; ?></td>   
                                             <td>
                                                 <a href="" class = "btn btn-add-e">
                                                     <i class = "fa fa-pencil"></i>
                                                 </a>
-                                                <a href="<?php echo base_url('admin/delete_row/' . $data['username']); ?> " class="btn btn-add-e">
+                                                <a href="" class="btn btn-add-e">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>   

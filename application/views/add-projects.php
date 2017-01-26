@@ -20,6 +20,9 @@
         <link  rel="stylesheet" href="<?php echo base_url(); ?>css/admin.css">  
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/chosen.css">    
         <link rel = "stylesheet" href = "<?php echo base_url(); ?>css/footer.css">
+        <style>
+            .btn { padding: 9.65px 12px;}
+        </style>
     </head>
     <body>
         <!-- CONTENT -->
@@ -30,8 +33,8 @@
                         <li><h5><i class="fa fa-home fa-fw"></i> Management</h5><li>
                             <hr>
                         <li><a href="#"><span class="glyphicon glyphicon-dashboard fa-fw"></span>Dashboard</a></li>
-                        <li><a href="<?php echo site_url('controller/add_employee'); ?>"><i class="fa fa-users fa-fw"></i>Employees</a></li>
-                        <li><a href="<?php echo site_url('controller/add_project') ?>"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
+                        <li><a href="<?php echo site_url('admin/add_employee'); ?>"><i class="fa fa-users fa-fw"></i>Employees</a></li>
+                        <li><a href="<?php echo site_url('admin/add_project') ?>"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
                         <h5><i class="fa fa-calendar fa-fw"></i> Calendar</h5>   
                         <hr>                        
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
@@ -50,14 +53,13 @@
                         <li><a href="#">Projects</a></li>
                         <li class="active">Add New Project</li>
                     </ol>                        
-                    <button type="button" class="btn btn-add-e">View Projects
+                    <a href="<?php echo site_url('admin/view_projects'); ?>" role="button" class="btn btn-add-e">View Projects
                         <span class="glyphicon glyphicon-folder-open"></span>
-                    </button>
+                    </a>
 
-                    <button type="button" class="btn btn-add-e">Add New Project
+                    <a href="<?php echo site_url('admin/add_project'); ?>" role="button" class="btn btn-add-e">Add New Project
                         <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-
+                    </a>
                     <hr>                    
 
                     <?php echo $this->session->flashdata('msg-p'); ?>
@@ -123,10 +125,7 @@
                                     }
 
                                     echo form_dropdown('skillsRequired[]', $skill, $skill, array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                                    */?>                                    
-
-
-                                    <label>Skill Required:</label>
+                                    */?>    
                                     <?php echo form_input(array('type' => 'text', 'name' => 'skillsRequired', 'class' => 'form-control')); ?>
                                     <?php echo form_error('skillsRequired'); ?>
                                 </div>

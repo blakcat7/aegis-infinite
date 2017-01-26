@@ -11,6 +11,38 @@ class controller extends CI_Controller {
         $this->load->library('pagination');
     }
 
+    /*
+      function index() {
+      if ($this->session->userdata('isLoggedIn')) {
+      redirect('profile');
+      } else {
+      $this->show_login(false);
+      }
+      }
+
+      function show_login($show_error = false) {
+      $data['error'] = $show_error;
+
+      $this->load->view('login', $data);
+      }
+
+      function login() {
+
+      $username = $this->input->post('username');
+      $password = $this->input->post('password');
+
+      if ($username && $password && $this->model->validate_user($username, $password)) {
+      redirect('profile');
+      } else {#
+      $this->show_login(true);
+      }
+      }
+
+      function logout() {
+      $this->session->sess_destroy();
+      $this->index();
+      } */
+
     public function index() {
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -21,6 +53,7 @@ class controller extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             if (isset($this->session->userdata['logged_in'])) {
                 $this->load->view('profile');
+                $this->load->view('footer');
             } else {
                 $this->load->view('login');
             }
@@ -56,16 +89,14 @@ class controller extends CI_Controller {
         }
     }
 
-// Logout from admin page
-    public function logout() {
-
-// Removing session data
-        $sess_array = array(
-            'username' => ''
-        );
-        $this->session->unset_userdata('logged_in', $sess_array);
-        $this->load->view('login');
-    }
+    /*
+      public function logout() {
+      $sess_array = array(
+      'username' => ''
+      );
+      $this->session->unset_userdata('logged_in', $sess_array);
+      redirect('');
+      } */
 
 // Check date format, if input date is valid return TRUE else returned FALSE.
     function checkDateFormat($date) {
@@ -74,6 +105,18 @@ class controller extends CI_Controller {
         } else {
             return false;
         }
+    }
+
+    public function projects() {
+        //$this->session->userdata['logged_in'];
+        $data['skillsOfEmp'] = $this->model->projAlloc();
+        $this->load->view('projects', $data);
+        $this->load->view('footer');
+    }
+
+    public function profile() {
+        $this->load->view('profile');
+        $this->load->view('footer');
     }
 
     public function view_employees() {

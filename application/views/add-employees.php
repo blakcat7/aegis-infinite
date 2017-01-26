@@ -17,6 +17,9 @@
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/navbar.css">
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/admin.css">
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/footer.css">
+        <style>
+            .btn { padding: 9.65px 12px;}
+        </style>
     </head>
     <body>
         <!-- CONTENT -->
@@ -27,8 +30,8 @@
                         <h5><i class="fa fa-home fa-fw"></i> Management</h5>   
                         <hr>
                         <li><a href="#"><span class="glyphicon glyphicon-dashboard fa-fw"></span>Dashboard</a></li>
-                        <li><a href="<?php echo site_url('controller/add_employee'); ?>"><i class="fa fa-users fa-fw"></i>Employees</a></li>
-                        <li><a href="<?php echo site_url('controller/add_project') ?>"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
+                        <li><a href="<?php echo site_url('admin/add_employee'); ?>"><i class="fa fa-users fa-fw"></i>Employees</a></li>
+                        <li><a href="<?php echo site_url('admin/add_project') ?>"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
                         <h5><i class="fa fa-calendar fa-fw"></i> Calendar</h5>   
                         <hr>                        
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
@@ -47,12 +50,12 @@
                         <li><a href="#">Employees</a></li>
                         <li class="active">Add Employee</li>
                     </ol>                        
-                    <a href="<?php echo site_url('controller/view_employees'); ?>" role="button" class="btn btn-add-e">View Employees
+                    <a href="<?php echo site_url('admin/view_employees'); ?>" role="button" class="btn btn-add-e">View Employees
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
 
-                    <a href="<?php echo site_url('controller/add_employee'); ?>" role="button" class="btn btn-add-e">Add New Employee
-                        <span class="glyphicon glyphicon-pencil"></span>
+                    <a href="<?php echo site_url('admin/add_employee'); ?>" role="button" class="btn btn-add-e">Add New Employee
+                        <span class="glyphicon glyphicon-plus"></span>
                     </a>
 
                     <a href="<?php echo site_url('controller/edit_employee'); ?>" role="button" class="btn btn-add-e"> Edit Employee

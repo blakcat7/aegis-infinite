@@ -1,3 +1,15 @@
+<?php
+if (isset($this->session->userdata['logged_in'])) {
+    $username = ($this->session->userdata['logged_in']['username']);
+    $email = ($this->session->userdata['logged_in']['email']);
+    $fname = ($this->session->userdata['logged_in']['fname']);
+    $lname = ($this->session->userdata['logged_in']['lname']);
+    $sector = ($this->session->userdata['logged_in']['sector']);
+    $location = ($this->session->userdata['logged_in']['location']);
+} else {
+    header("location: login");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,6 +33,7 @@
         <link href="<?php echo base_url(); ?>css/footer.css" rel="stylesheet">
     </head>
     <body>
+
         <!-- NAVBAR -->
         <nav class="navbar" role="navigation">
             <div class="container">
@@ -88,7 +101,7 @@
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo base_url(); ?>employee/logout"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
+                                <li><a href="<?php echo base_url(); ?>controller/logout"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -105,20 +118,27 @@
                     <div class="row">
                         <div class="profile">
                             <div class="profile-header-container">   
+
                                 <!--
                                 <div class="profile-pic">
                                     <img class="crop" src="../profile1.jpg" />
                                 </div> -->
                             </div> 
                             <div class="name">
-                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $role; ?></small></h2>
+                                <?php
+                                foreach ($skillsOfEmp as $value) {
+                                    echo $value['skillName'] . '<br />';
+                                 
+                                }
+                                ?>
+                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small>Graphic Designer</small></h2>
                                 <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>
                     </div>
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="<?php echo base_url(); ?>controller/profile"><i class="fa fa-user fa-fw"></i>Profile</a ></li>
-                        <li><a href="<?php echo base_url(); ?>controller/projects"><i class="fa fa-folder-open fa-fw"></i>Projects</a ></li>  
+                        <li><a href="<?php echo base_url(); ?>controller/profile"><i class="fa fa-user fa-fw"></i>Profile</a ></li>
+                        <li class="active"><a href="<?php echo base_url(); ?>controller/projects"><i class="fa fa-folder-open fa-fw"></i>Projects</a ></li>   
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
                         <li><hr></li>
                         <li><a href="#"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
@@ -126,107 +146,30 @@
                     </ul>
                 </div>
                 <div class="profile-content col-md-9">
-                    <!-- Personal Details -->
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"><i class="fa fa-user"></i>Personal Details
-                                <div class="pull-right">
-                                    <i class="fa fa-pencil"></i>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="col-sm-5"><i class="fa fa-envelope-o"></i>Email</div>                                    
-                                <div class="col-sm-7"><?php echo $email; ?></div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-sm-5"><i class="fa fa-map-marker"></i>Location</div>                                    
-                                <div class="col-sm-7"><?php echo $location; ?></div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-phone"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-envelope"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
-                            </div>
-                        </div>
-                    </div><!--/.col-md-6 -->
-                    <!-- Work Details -->
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-suitcase"></i>Work Details
-                                <div class="pull-right">
-                                    <i class="fa fa-pencil"></i>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="col-sm-5"><i class="fa fa-building-o"></i>Department</div>                                    
-                                <div class="col-sm-7"><?php echo $sector; ?></div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-sm-5"><i class  ="fa fa-tasks"></i>Designation</div>                                    
-                                <div class="col-sm-7"><?php echo $role; ?></div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-phone"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-envelope"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
-                            </div>
-                        </div>
-                    </div><!--/.col-md-6 --> 
                     <!-- Skills -->
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-fire"></i>Skills</h3>
+                                <h3 class="panel-title"><i class="fa fa-folder-open"></i>Projects</h3>
                             </div>
-                            <div class="panel-body">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                        <span class="sr-only">60% Complete</span>
-                                    </div>
-                                    <span class="progress-type">HTML/CSS</span>
-                                    <span class="progress-completed">60%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% Complete (success)</span>
-                                    </div>
-                                    <span class="progress-type">ASP.Net</span>
-                                    <span class="progress-completed">40%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        <span class="sr-only">20% Complete (info)</span>
-                                    </div>
-                                    <span class="progress-type">Java</span>
-                                    <span class="progress-completed">20%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60% Complete (warning)</span>
-                                    </div>
-                                    <span class="progress-type">JavaScript / jQuery</span>
-                                    <span class="progress-completed">60%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="sr-only">80% Complete (danger)</span>
-                                    </div>
-                                    <span class="progress-type">CSS / CSS3</span>
-                                    <span class="progress-completed">80%</span>
-                                </div>
+                            <div class="panel-body">          
+                                <ul class="nav nav-pills"> 
+                                    <li role="presentation" class="active"><a href="#">All Projects</a></li> 
+                                    <li role="presentation"><a href="#">My Projects</a></li>
+                                </ul>
+                                <ol class="breadcrumb" style="margin-top: 10px;">
+                                    <li><a href="#">Projects</a></li>
+                                    <li class="active">All Projects</li>
+                                </ol> 
                             </div>
-                        </div>
-                    </div><!--/.col-md-6 -->
-
-                    <hr>
+                        </div><!--/.col-md-6 -->
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- END OF CONTENT -->
+            <!-- END OF CONTENT -->
 
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>

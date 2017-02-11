@@ -1,15 +1,3 @@
-<?php
-if (isset($this->session->userdata['logged_in'])) {
-    $username = ($this->session->userdata['logged_in']['username']);
-    $email = ($this->session->userdata['logged_in']['email']);
-    $fname = ($this->session->userdata['logged_in']['fname']);
-    $lname = ($this->session->userdata['logged_in']['lname']);
-    $sector = ($this->session->userdata['logged_in']['sector']);
-    $location = ($this->session->userdata['logged_in']['location']);
-} else {
-    header("location: login");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -117,28 +105,20 @@ if (isset($this->session->userdata['logged_in'])) {
                 <div class="col-md-3">
                     <div class="row">
                         <div class="profile">
-                            <div class="profile-header-container">   
-
-                                <!--
+                            <div class="profile-header-container">                                   
                                 <div class="profile-pic">
-                                    <img class="crop" src="../profile1.jpg" />
-                                </div> -->
+                                    <img class="crop" src="<?php echo base_url(); ?>images/profile1.jpg" />
+                                </div>
                             </div> 
                             <div class="name">
-                                <?php
-                                foreach ($skillsOfEmp as $value) {
-                                    echo $value['skillName'] . '<br />';
-                                 
-                                }
-                                ?>
                                 <h2><?php echo $fname . ' ' . $lname; ?><br/><small>Graphic Designer</small></h2>
                                 <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>
                     </div>
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="<?php echo base_url(); ?>controller/profile"><i class="fa fa-user fa-fw"></i>Profile</a ></li>
-                        <li class="active"><a href="<?php echo base_url(); ?>controller/projects"><i class="fa fa-folder-open fa-fw"></i>Projects</a ></li>   
+                        <li><a href="<?php echo base_url(); ?>employee/profile"><i class="fa fa-user fa-fw"></i>Profile</a ></li>
+                        <li class="active"><a href="<?php echo base_url(); ?>employee/projects"><i class="fa fa-folder-open fa-fw"></i>Projects</a ></li>   
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
                         <li><hr></li>
                         <li><a href="#"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>

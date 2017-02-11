@@ -49,9 +49,9 @@ $(function () {
         var $this = $(this),
                 $panel = $this.parents('.panel');
 
-        $panel.find('.panel-body').slideToggle();
+        $panel.find('#filter').slideToggle();
         if ($this.css('display') != 'none') {
-            $panel.find('.panel-body input').focus();
+            $panel.find('#filter input').focus();
         }
     });
     $('[data-toggle="tooltip"]').tooltip();

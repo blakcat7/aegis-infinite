@@ -111,9 +111,7 @@ INSERT INTO `users` (`username`, `role`, `fname`, `lname`, `password`, `sector`,
 ALTER TABLE `empskillslist`
   ADD PRIMARY KEY (`skillsID`);
 
---
--- Indexes for table `empwithskills`
---
+
 ALTER TABLE `empwithskills`
   ADD KEY `empID` (`empID`),
   ADD KEY `skillsID` (`skillsID`);

@@ -12,7 +12,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/login.css?<?php echo time(); ?>" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/login.css" rel="stylesheet">
     </head>
     <body>
         <?php

@@ -62,6 +62,6 @@ used to vertically center elements, may need modification if you're not using de
     cursor: pointer;   
 }
 
-.content .panel-body{
+#filter{
     display: none;
 }

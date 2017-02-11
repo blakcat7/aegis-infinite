@@ -11,6 +11,10 @@ class admin extends CI_Controller {
         $this->load->library('pagination');
     }
 
+    /*
+     *  EMPLOYEE
+     */
+
     public function add_employee() {
 
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[12]|is_unique[users.username]');
@@ -23,9 +27,7 @@ class admin extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('header');
-            $this->load->view('add-employees');
-            $this->load->view('footer');
+            $this->load->view('admin/employees/add-employees');
         } else {
             $data = array(
                 'location' => $this->input->post('location'),
@@ -41,38 +43,7 @@ class admin extends CI_Controller {
                 $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
                 redirect('admin/add_employee');
             }
-            $this->load->view('add-employees', $data);
-        }
-    }
-
-    public function add_project() {
-        $this->form_validation->set_rules('title', 'Title', 'required|min_length[5]|max_length[25]');
-   
-        $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
-
-        $this->form_validation->set_error_delimiters('<span>', '</span>');
-
-        if ($this->form_validation->run() == FALSE) {
-            /*$data['skills'] = $this->admin_model->getSkills();*/
-            $this->load->view('header');
-            $this->load->view('add-projects');
-            $this->load->view('footer');
-        } else {
-            $data = array(
-                'title' => $this->input->post('title'),
-                'endDate' => $this->input->post('endDate'),
-                'startDate' => $this->input->post('startDate'),
-                'skillsRequired' => $this->input->post('skillsRequired'),
-                'description' => $this->input->post('description'),
-                'projectType' => $this->input->post('projectType'),
-                'projLocation' => $this->input->post('projLocation'),
-            );
-
-            if ($this->admin_model->insertProjects($data)) {
-                $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
-                redirect('admin/add_project');
-            }
-            $this->load->view('add-projects', $data);
+            $this->load->view('admin/employees/add-employees', $data);
         }
     }
 
@@ -104,12 +75,12 @@ class admin extends CI_Controller {
         $data['links'] = explode('&nbsp;', $str_links);
 
 // View data according to array.
-        $this->load->view('view-employees', $data);
+        $this->load->view('admin/employees/view-employees', $data);
     }
-    
+
     public function delete() {
         $data['results'] = $this->model->show_users();
-        $this->load->view('view-employees', $data);
+        $this->load->view('admin/employees/view-employees', $data);
     }
 
     function delete_row($username) {
@@ -117,12 +88,51 @@ class admin extends CI_Controller {
         $this->db->delete('users');
         redirect('admin/view_employees');
     }
+    
+
+    public function edit_employee() {
+        $this->load->view('admin/employees/edit-employees');
+    }
+    
+
+    /*
+     *  PROJECTS
+     */
+
+    public function add_project() {
+        $this->form_validation->set_rules('title', 'Title', 'required|min_length[5]|max_length[25]');
+
+        $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
+
+        $this->form_validation->set_error_delimiters('<span>', '</span>');
+
+        if ($this->form_validation->run() == FALSE) {
+            /* $data['skills'] = $this->admin_model->getSkills(); */
+            $this->load->view('admin/projects/add-projects');
+        } else {
+            $data = array(
+                'title' => $this->input->post('title'),
+                'endDate' => $this->input->post('endDate'),
+                'startDate' => $this->input->post('startDate'),
+                'skillsRequired' => $this->input->post('skillsRequired'),
+                'description' => $this->input->post('description'),
+                'projectType' => $this->input->post('projectType'),
+                'projLocation' => $this->input->post('projLocation'),
+            );
+
+            if ($this->admin_model->insertProjects($data)) {
+                $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
+                redirect('admin/add_project');
+            }
+            $this->load->view('admin/projects/add-projects', $data);
+        }
+    }
 
     public function view_projects() {
         $this->ppage();
     }
-    
-        function ppage() {
+
+    function ppage() {
         $config = array();
         $config['base_url'] = base_url() . 'admin/ppage';
         $total_row = $this->admin_model->count_project();
@@ -145,10 +155,9 @@ class admin extends CI_Controller {
         $str_links = $this->pagination->create_links();
         $data['links'] = explode('&nbsp;', $str_links);
 
-// View data according to array.
-        $this->load->view('view-projects', $data);
+        // View data according to array.
+        $this->load->view('admin/projects/view-projects', $data);
     }
-
 
 }
 

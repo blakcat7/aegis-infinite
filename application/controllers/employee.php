@@ -19,7 +19,7 @@ class employee extends CI_Controller {
     }
 
     function profile() {
-        
+
         $data['username'] = $this->session->userdata('username');
         $data['email'] = $this->session->userdata('email');
         $data['fname'] = $this->session->userdata('fname');

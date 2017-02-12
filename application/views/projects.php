@@ -141,6 +141,11 @@
                                     <li><a href="#">Projects</a></li>
                                     <li class="active">All Projects</li>
                                 </ol> 
+                                <hr>
+                                <?php foreach ($results as $data) {
+                                    echo $data['title'];
+                                    echo $data['description'];
+                                } ?>
                             </div>
                         </div><!--/.col-md-6 -->
                     </div>

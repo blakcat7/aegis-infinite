@@ -37,7 +37,6 @@ class employee extends CI_Controller {
         $password = $this->input->post('password');
 
         if ($username && $password && $this->emp_model->validate_user($username, $password)) {
-            $this->emp_model->view_skills($username);
             redirect('employee/profile');
         } else {
             $this->login(true);
@@ -49,15 +48,17 @@ class employee extends CI_Controller {
         $this->session->unset_userdata('logged_in', $sess_array);
         redirect('');
     }
-    
-    
+
+    function viewSkills() {
+        $data['skills'] = $this->emp_model->view_skills();
+        $this->load->view('test', $data);
+    }
 
     /*
      * PROFILE
      */
 
-    function profile() {
-
+    function profile() {        
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -66,7 +67,10 @@ class employee extends CI_Controller {
         $data['role'] = $this->session->userdata('role');
         $data['sector'] = $this->session->userdata('sector');
         $data['location'] = $this->session->userdata('location');
-        $data['skills'] = $this->session->userdata('skillName');
+        $data['skillName'] = $this->session->userdata('skillName');
+        $data['percentage'] = $this->session->userdata('percentage');
+        
+        $data['results'] = $this->emp_model->view_skills($username);
         $this->load->view('profile', $data);
     }
 
@@ -75,6 +79,8 @@ class employee extends CI_Controller {
      */
 
     public function projects() {
+        $username = $this->session->userdata('username');
+        $data['username'] = $username;
         $data['username'] = $this->session->userdata('username');
         $data['email'] = $this->session->userdata('email');
         $data['fname'] = $this->session->userdata('fname');
@@ -82,6 +88,10 @@ class employee extends CI_Controller {
         $data['role'] = $this->session->userdata('role');
         $data['sector'] = $this->session->userdata('sector');
         $data['location'] = $this->session->userdata('location');
+        $data['title'] = $this->session->userdata('title');
+        $data['description'] = $this->session->userdata('description');
+        
+        $data['results'] = $this->emp_model->my_project($username);
         $this->load->view('projects', $data);
     }
 

@@ -22,7 +22,7 @@
     </head>
     <body>
         <!-- NAVBAR -->
-        <?php $this->load->view('navbar-e');?>
+        <?php $this->load->view('navbar-e'); ?>
         <!-- END OF NAVBAR -->
 
         <!-- CONTENT -->
@@ -106,53 +106,26 @@
                                 <h3 class="panel-title"><i class="fa fa-fire"></i>Skills</h3>
                             </div>
                             <div class="panel-body">
-                                <?php echo $skills ?>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                        <span class="sr-only">60% Complete</span>
+                                <?php foreach ($results as $data) { ?>                                             
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $data['percentage'];?>%;">
+                                            <span class="sr-only"><?php echo $data['percentage'];?>% Complete</span>
+                                        </div>
+                                        <span class="progress-type"><?php echo $data['skillName']; ?></span>
+                                        <span class="progress-completed"><?php echo $data['percentage'];?>%</span>
                                     </div>
-                                    <span class="progress-type">HTML</span>
-                                    <span class="progress-completed">60%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% Complete (success)</span>
-                                    </div>
-                                    <span class="progress-type">ASP.Net</span>
-                                    <span class="progress-completed">40%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        <span class="sr-only">20% Complete (info)</span>
-                                    </div>
-                                    <span class="progress-type">Java</span>
-                                    <span class="progress-completed">20%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60% Complete (warning)</span>
-                                    </div>
-                                    <span class="progress-type">JavaScript / jQuery</span>
-                                    <span class="progress-completed">60%</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="sr-only">80% Complete (danger)</span>
-                                    </div>
-                                    <span class="progress-type">CSS / CSS3</span>
-                                    <span class="progress-completed">80%</span>
+                                    <?php } ?>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/.col-md-6 -->
+                        </div><!--/.col-md-6 -->
 
-                    <hr>
+                        <hr>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- END OF CONTENT -->
-        <!-- FOOTER -->
-        <?php $this->load->view('footer');?>
+            <!-- END OF CONTENT -->
+            <!-- FOOTER -->
+            <?php $this->load->view('footer'); ?>
         <!-- FOOTER -->
 
 

@@ -6,15 +6,15 @@ class emp_model extends CI_Model {
 
     function validate_user($username, $password) {
         $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('username', $username);
-        $this->db->where('password', $password);
+        $this->db->from('users u');
+        $this->db->where('u.username', $username);
+        $this->db->where('u.password', $password);
         $login = $this->db->get()->result();
 
         if (is_array($login) && count($login) == 1) {
-            // Set the users details into the $details property of this class
+// Set the users details into the $details property of this class
             $this->details = $login[0];
-            // Call set_session to set the user's session vars via CodeIgniter
+// Call set_session to set the user's session vars via CodeIgniter
             $this->set_session();
             return true;
         }
@@ -25,11 +25,40 @@ class emp_model extends CI_Model {
     function view_skills($username) {
         $this->db->select('*');
         $this->db->from('users u');
-        $this->db->join('empwithskills e', 'u.username = e.empID');
-        $this->db->join('empskillslist s', 'e.skillsID = s.skillsID');
-        $this->db->where('u.username',  $username);
-        $query = $this->db->get()->result();
+        $this->db->join('empwithskills e', 'e.empID = u.username', 'left');
+        $this->db->join('empskillslist s', 's.skillsID = e.skillsID', 'left');
+        $this->db->where('e.empID', $username);
+        $query = $this->db->get();
+        
+        $result = $query->result_array();
+        
+        
+        if ($query->num_rows() != 0) {
+            return $result;
+        } else {
+            return $result;
+        }
     }
+   
+    
+    function my_project($username) {
+        $this->db->select('*');
+        $this->db->from('projects p');        
+        $this->db->join('projectemp e', 'e.projectID = p.projectID', 'left');
+        $this->db->join('users u', 'u.username = e.username', 'left');
+        $this->db->where('e.username', $username);
+        $query = $this->db->get();
+        
+        $result = $query->result_array();
+        
+        
+        if ($query->num_rows() != 0) {
+            return $result;
+        } else {
+            return $result;
+        }
+    }
+
 
     function set_session() {
         $this->session->set_userdata(array(
@@ -40,7 +69,8 @@ class emp_model extends CI_Model {
             'location' => $this->details->location,
             'sector' => $this->details->sector,
             'role' => $this->details->role,
-            'skillName' => $this->details->skills,
+            'skillName' => $this->details->skillName,
+            'percentage' => $this->details->percentage,
             'logged_in' => true
                 )
         );

@@ -89,7 +89,7 @@
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo base_url(); ?>controller/logout"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
+                                <li><a href="<?php echo base_url(); ?>employee/logout"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -111,7 +111,7 @@
                                 </div>
                             </div> 
                             <div class="name">
-                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small>Graphic Designer</small></h2>
+                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $role; ?></small></h2>
                                 <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                 <div class="profile-content col-md-9">
                     <!-- Skills -->
                     <div class="col-md-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default"> 
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-folder-open"></i>Projects</h3>
                             </div>
@@ -142,17 +142,45 @@
                                     <li class="active">All Projects</li>
                                 </ol> 
                                 <hr>
-                                <?php foreach ($results as $data) {
-                                    echo $data['title'];
-                                    echo $data['description'];
-                                } ?>
+                                <?php foreach ($results as $data) { ?>
+                                    <div class="proj">
+                                        <h4> <?php echo $data['title']; ?> 
+                                            <div class="pull-right">
+                                                <label class="location"><span class="glyphicon glyphicon-map-marker"></span><?php echo $data['projLocation'] ?></label>
+                                                <label class="date"><?php echo $data['projectType'] ?></label>
+                                            </div>
+                                        </h4>
+                                        <p class="desc"><?php echo $data['description']; ?> </p>
+
+                                        <label class="date-title">Start Date:</label>
+                                        <label class="date">                                        
+                                            <?php
+                                            $sDate = $data['startDate'];
+                                            $startDate = date("F j, Y", strtotime($sDate));
+                                            echo $startDate;
+                                            ?>
+                                        </label>   
+
+                                        <label class="date-title">End Date:</label>
+                                        <label class="date">
+                                            <?php
+                                            $eDate = $data['endDate'];
+                                            $endDate = date("F j, Y", strtotime($eDate));
+                                            echo $endDate;
+                                            ?> 
+                                        </label>
+                                    </div>
+                                    <hr>
+                                <?php } ?>
                             </div>
                         </div><!--/.col-md-6 -->
                     </div>
                 </div>
             </div>
             <!-- END OF CONTENT -->
-
+            <!-- FOOTER -->
+            <?php $this->load->view('footer'); ?>
+            <!-- FOOTER -->
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

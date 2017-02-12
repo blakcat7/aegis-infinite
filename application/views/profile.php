@@ -66,12 +66,6 @@
                                 <div class="col-sm-12"><hr></div>
                                 <div class="col-sm-5"><i class="fa fa-map-marker"></i>Location</div>                                    
                                 <div class="col-sm-7"><?php echo $location; ?></div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-phone"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-envelope"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
                             </div>
                         </div>
                     </div><!--/.col-md-6 -->
@@ -90,12 +84,6 @@
                                 <div class="col-sm-12"><hr></div>
                                 <div class="col-sm-5"><i class  ="fa fa-tasks"></i>Designation</div>                                    
                                 <div class="col-sm-7"><?php echo $role; ?></div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-phone"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
-                                <div class="col-sm-12"><hr></div>
-                                <div class="col-md-5"><i class="fa fa-envelope"></i>Phone</div>                                    
-                                <div class="col-md-7">+971 55 503 4384</div>
                             </div>
                         </div>
                     </div><!--/.col-md-6 --> 
@@ -108,24 +96,46 @@
                             <div class="panel-body">
                                 <?php foreach ($results as $data) { ?>                                             
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $data['percentage'];?>%;">
-                                            <span class="sr-only"><?php echo $data['percentage'];?>% Complete</span>
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $data['percentage']; ?>%;">
+                                            <span class="sr-only"><?php echo $data['percentage']; ?>% Complete</span>
                                         </div>
                                         <span class="progress-type"><?php echo $data['skillName']; ?></span>
-                                        <span class="progress-completed"><?php echo $data['percentage'];?>%</span>
+                                        <span class="progress-completed"><?php echo $data['percentage']; ?>%</span>
                                     </div>
-                                    <?php } ?>
-                                </div>
+                                <?php } ?>
                             </div>
-                        </div><!--/.col-md-6 -->
+                        </div>
+                    </div><!--/.col-md-6 -->
 
-                        <hr>
-                    </div>
+                    <!-- Projects -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-folder"></i>Projects</h3>
+                            </div>
+                            <div class="panel-body">
+                                <?php foreach ($proj as $data) { ?>                                             
+                                    <h4> <?php echo $data['title']; ?> 
+                                        <div class="pull-right">
+                                            <label class="location"><span class="glyphicon glyphicon-map-marker"></span><?php echo $data['projLocation'] ?></label>
+                                            <label class="date"><?php echo $data['projectType'] ?></label>
+                                        </div>
+                                    </h4>
+                                    <p class="desc"><?php echo $data['description']; ?> </p>
+                                    <hr>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-6 -->
+
+
+                    <hr>
                 </div>
             </div>
-            <!-- END OF CONTENT -->
-            <!-- FOOTER -->
-            <?php $this->load->view('footer'); ?>
+        </div>
+        <!-- END OF CONTENT -->
+        <!-- FOOTER -->
+        <?php $this->load->view('footer'); ?>
         <!-- FOOTER -->
 
 

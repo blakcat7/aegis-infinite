@@ -71,6 +71,7 @@ class employee extends CI_Controller {
         $data['percentage'] = $this->session->userdata('percentage');
         
         $data['results'] = $this->emp_model->view_skills($username);
+        $data['proj'] = $this->emp_model->my_project($username);
         $this->load->view('profile', $data);
     }
 
@@ -89,7 +90,7 @@ class employee extends CI_Controller {
         $data['sector'] = $this->session->userdata('sector');
         $data['location'] = $this->session->userdata('location');
         $data['title'] = $this->session->userdata('title');
-        $data['description'] = $this->session->userdata('description');
+        $data['description'] = $this->session->userdata('description');        
         
         $data['results'] = $this->emp_model->my_project($username);
         $this->load->view('projects', $data);

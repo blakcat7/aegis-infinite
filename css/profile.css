@@ -55,6 +55,10 @@
     margin-top: 15px;
     border-radius: 0px;
 }
+
+.progress .progress-bar{
+    background-color: #be89bf;
+}
 .progress > .progress-type {
     position: absolute;
     left: 0px;
@@ -82,4 +86,30 @@
 .label .glyphicon{
     margin-right: 5px;
     margin-left: 5px;
+}
+
+p.desc{
+    font-size: 10pt;
+}
+
+label.location{
+    font-size: 8pt;
+    font-weight: 400;
+}
+
+label.date-title{
+    font-size: 8pt;
+}
+
+label.date{
+    font-size: 8pt;
+    font-weight: 400;    
+    background-color: #ddd;
+    padding: 2px 5px;
+}
+
+.proj {
+    background-color: #f6f6f6;
+    padding: 5px 12px;
+    margin: 5px 0px ;
 }

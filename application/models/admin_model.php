@@ -19,6 +19,13 @@ class admin_model extends CI_Model {
         return $this->db->count_all('users');
     }
 
+    public function getSkills() {
+        $this->db->select('skillName');
+        $this->db->from('empskillslist');
+        $query = $this->db->get();
+        return $query;
+    }
+    
     public function fetch_users($limit, $start) {
         $this->db->limit($limit, $start);
         $query = $this->db->get('users');

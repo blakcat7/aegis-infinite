@@ -21,26 +21,28 @@ class emp_model extends CI_Model {
 
         return false;
     }
-    
-    /*function view_skills() {         
-        $query = $this->db->select('*')
-                ->from('skills l')
-                ->join('users u', 'l.userID = u.id')
-                ->get();
-        return $query;
-    }*/
+
+    function view_skills($username) {
+        $this->db->select('*');
+        $this->db->from('users u');
+        $this->db->join('empwithskills e', 'u.username = e.empID');
+        $this->db->join('empskillslist s', 'e.skillsID = s.skillsID');
+        $this->db->where('u.username',  $username);
+        $query = $this->db->get()->result();
+    }
 
     function set_session() {
         $this->session->set_userdata(array(
             'username' => $this->details->username,
-            'fname' => $this->details->fname, 
+            'fname' => $this->details->fname,
             'lname' => $this->details->lname,
             'email' => $this->details->email,
             'location' => $this->details->location,
             'sector' => $this->details->sector,
             'role' => $this->details->role,
+            'skillName' => $this->details->skills,
             'logged_in' => true
-            )
+                )
         );
     }
 

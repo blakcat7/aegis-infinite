@@ -107,7 +107,7 @@ class admin extends CI_Controller {
         $this->form_validation->set_error_delimiters('<span>', '</span>');
 
         if ($this->form_validation->run() == FALSE) {
-            /* $data['skills'] = $this->admin_model->getSkills(); */
+            $data['skills'] = $this->admin_model->getSkills();
             $this->load->view('admin/projects/add-projects');
         } else {
             $data = array(
@@ -127,7 +127,7 @@ class admin extends CI_Controller {
             $this->load->view('admin/projects/add-projects', $data);
         }
     }
-
+    
     public function view_projects() {
         $this->ppage();
     }

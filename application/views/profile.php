@@ -106,11 +106,12 @@
                                 <h3 class="panel-title"><i class="fa fa-fire"></i>Skills</h3>
                             </div>
                             <div class="panel-body">
+                                <?php echo $skills ?>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                                         <span class="sr-only">60% Complete</span>
                                     </div>
-                                    <span class="progress-type">HTML/CSS</span>
+                                    <span class="progress-type">HTML</span>
                                     <span class="progress-completed">60%</span>
                                 </div>
                                 <div class="progress">

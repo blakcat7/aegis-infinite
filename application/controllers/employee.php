@@ -13,6 +13,7 @@ class employee extends CI_Controller {
     /*
      * LOG IN
      */
+
     function index() {
         if ($this->session->userdata('logged_in')) {
             redirect('employee/profile');
@@ -36,8 +37,8 @@ class employee extends CI_Controller {
         $password = $this->input->post('password');
 
         if ($username && $password && $this->emp_model->validate_user($username, $password)) {
+            $this->emp_model->view_skills($username);
             redirect('employee/profile');
-            $this->viewSkills();
         } else {
             $this->login(true);
         }
@@ -48,27 +49,31 @@ class employee extends CI_Controller {
         $this->session->unset_userdata('logged_in', $sess_array);
         redirect('');
     }
+    
+    
 
     /*
      * PROFILE
      */
-    
+
     function profile() {
 
-        $data['username'] = $this->session->userdata('username');
+        $username = $this->session->userdata('username');
+        $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $data['role'] = $this->session->userdata('role');
         $data['sector'] = $this->session->userdata('sector');
         $data['location'] = $this->session->userdata('location');
+        $data['skills'] = $this->session->userdata('skillName');
         $this->load->view('profile', $data);
     }
 
     /*
      * PROJECT
      */
-    
+
     public function projects() {
         $data['username'] = $this->session->userdata('username');
         $data['email'] = $this->session->userdata('email');

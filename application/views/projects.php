@@ -142,6 +142,14 @@
                                     <li class="active">All Projects</li>
                                 </ol> 
                                 <hr>
+                                <?php
+                                foreach ($project as $data) {
+                                    echo $data['title'] . '<br>';
+
+                                        echo $data['skillName'] . '<br>';
+                                    
+                                }
+                                ?>
                                 <?php foreach ($results as $data) { ?>
                                     <div class="proj">
                                         <h4> <?php echo $data['title']; ?> 
@@ -154,24 +162,24 @@
 
                                         <label class="date-title">Start Date:</label>
                                         <label class="date">                                        
-                                            <?php
-                                            $sDate = $data['startDate'];
-                                            $startDate = date("F j, Y", strtotime($sDate));
-                                            echo $startDate;
-                                            ?>
+    <?php
+    $sDate = $data['startDate'];
+    $startDate = date("F j, Y", strtotime($sDate));
+    echo $startDate;
+    ?>
                                         </label>   
 
                                         <label class="date-title">End Date:</label>
                                         <label class="date">
-                                            <?php
-                                            $eDate = $data['endDate'];
-                                            $endDate = date("F j, Y", strtotime($eDate));
-                                            echo $endDate;
-                                            ?> 
+    <?php
+    $eDate = $data['endDate'];
+    $endDate = date("F j, Y", strtotime($eDate));
+    echo $endDate;
+    ?> 
                                         </label>
                                     </div>
                                     <hr>
-                                <?php } ?>
+<?php } ?>
                             </div>
                         </div><!--/.col-md-6 -->
                     </div>
@@ -179,7 +187,7 @@
             </div>
             <!-- END OF CONTENT -->
             <!-- FOOTER -->
-            <?php $this->load->view('footer'); ?>
+<?php $this->load->view('footer'); ?>
             <!-- FOOTER -->
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

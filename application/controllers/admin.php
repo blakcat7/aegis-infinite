@@ -88,24 +88,25 @@ class admin extends CI_Controller {
         $this->db->delete('users');
         redirect('admin/view_employees');
     }
-    
 
     public function edit_employee() {
         $this->load->view('admin/employees/edit-employees');
     }
-    
 
     /*
      *  PROJECTS
      */
 
     public function add_project() {
+
+
         $this->form_validation->set_rules('title', 'Title', 'required|min_length[5]|max_length[25]');
 
         $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
 
         $this->form_validation->set_error_delimiters('<span>', '</span>');
-
+        
+        
         if ($this->form_validation->run() == FALSE) {
             $data['skills'] = $this->admin_model->getSkills();
             $this->load->view('admin/projects/add-projects');
@@ -124,10 +125,9 @@ class admin extends CI_Controller {
                 $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
                 redirect('admin/add_project');
             }
-            $this->load->view('admin/projects/add-projects', $data);
         }
     }
-    
+
     public function view_projects() {
         $this->ppage();
     }

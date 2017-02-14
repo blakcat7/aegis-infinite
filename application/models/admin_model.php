@@ -23,7 +23,7 @@ class admin_model extends CI_Model {
         $this->db->select('skillName');
         $this->db->from('empskillslist');
         $query = $this->db->get();
-        return $query;
+        return $query->result_array();
     }
     
     public function fetch_users($limit, $start) {

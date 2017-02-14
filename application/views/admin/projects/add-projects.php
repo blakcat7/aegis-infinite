@@ -70,14 +70,13 @@
                         <div class="form-group col-lg-12">
                             <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
 
-                            <?php /*
-                              foreach ($skills->result() as $skills) {
-                              $skill[] = $skills->skillName;
-                              }
-
-                              echo form_dropdown('skillsRequired[]', $skill, $skill, array('id' => 'skillsRequired', 'name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                             */ ?>    
-                            <?php echo form_input(array('type' => 'text', 'name' => 'skillsRequired', 'class' => 'form-control')); ?>
+                            <?php
+                            foreach ($skills as $skill) {
+                                $list[] = $skill['skillName'];
+                            }
+                            echo form_multiselect('empskillslist[]', $list, $list, array('name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
+                            ?>    
+                            <?php /* echo form_input(array('type' => 'text', 'name' => 'skillsRequired', 'class' => 'form-control')); */ ?>
                             <?php echo form_error('skillsRequired'); ?>
                         </div>
 

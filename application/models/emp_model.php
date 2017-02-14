@@ -29,29 +29,10 @@ class emp_model extends CI_Model {
         $this->db->join('empskillslist s', 's.skillsID = e.skillsID', 'left');
         $this->db->where('e.empID', $username);
         $query = $this->db->get();
-        
+
         $result = $query->result_array();
-        
-        
-        if ($query->num_rows() != 0) {
-            return $result;
-        } else {
-            return $result;
-        }
-    }
-   
-    
-    function my_project($username) {
-        $this->db->select('*');
-        $this->db->from('projects p');        
-        $this->db->join('projectemp e', 'e.projectID = p.projectID', 'left');
-        $this->db->join('users u', 'u.username = e.username', 'left');
-        $this->db->where('e.username', $username);
-        $query = $this->db->get();
-        
-        $result = $query->result_array();
-        
-        
+
+
         if ($query->num_rows() != 0) {
             return $result;
         } else {
@@ -59,6 +40,60 @@ class emp_model extends CI_Model {
         }
     }
 
+    function my_project($username) {
+        $this->db->select('*');
+        $this->db->from('projects p');
+        $this->db->join('projectemp e', 'e.projectID = p.projectID', 'left');
+        $this->db->join('users u', 'u.username = e.username', 'left');
+        $this->db->where('e.username', $username);
+        $query = $this->db->get();
+
+        $result = $query->result_array();
+
+
+        if ($query->num_rows() != 0) {
+            return $result;
+        } else {
+            return $result;
+        }
+    }
+
+    function all_project($username) {
+        $this->db->distinct();
+        $this->db->select('*');
+        $this->db->from('projectskillslist ps');
+        $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');        
+        $this->db->join('empskillslist s', 's.skillsID = ps.skillsID', 'left');
+        $this->db->where('`ps.skillsID` IN (SELECT `skillsID` FROM `empwithskills` WHERE empID="' . $username . '")');
+        $this->db->order_by('ps.projectID', 'asc');
+        $this->db->group_by('ps.projectID');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        if ($query->num_rows() > 1) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    function project_skills(/*$username*/) {
+        //$this->db->distinct();
+        $this->db->select('*');
+        $this->db->from('projectskillslist ps');
+        $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
+        $this->db->join('empskillslist s', 's.skillsID = ps.skillsID');
+        //$this->db->where('ps.projectID', 'e.projectID');
+        //$this->db->where('`ps.skillsID` IN (SELECT `skillsID` FROM `empwithskills` WHERE empID="' . $username . '")');
+        //$this->db->where('`ps.skillsID` IN (SELECT `skillsID` FROM `empwithskills` WHERE empID="' . $username . '")');
+        $this->db->group_by('ps.projectID');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        if ($query->num_rows() > 1) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
     function set_session() {
         $this->session->set_userdata(array(

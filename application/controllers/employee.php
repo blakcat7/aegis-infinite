@@ -58,7 +58,7 @@ class employee extends CI_Controller {
      * PROFILE
      */
 
-    function profile() {        
+    function profile() {
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -69,7 +69,7 @@ class employee extends CI_Controller {
         $data['location'] = $this->session->userdata('location');
         $data['skillName'] = $this->session->userdata('skillName');
         $data['percentage'] = $this->session->userdata('percentage');
-        
+
         $data['results'] = $this->emp_model->view_skills($username);
         $data['proj'] = $this->emp_model->my_project($username);
         $this->load->view('profile', $data);
@@ -79,21 +79,25 @@ class employee extends CI_Controller {
      * PROJECT
      */
 
-    public function projects() {
+    function projects() {
+        //session for profile
         $username = $this->session->userdata('username');
         $data['username'] = $username;
-        $data['username'] = $this->session->userdata('username');
         $data['email'] = $this->session->userdata('email');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $data['role'] = $this->session->userdata('role');
         $data['sector'] = $this->session->userdata('sector');
         $data['location'] = $this->session->userdata('location');
-        $data['title'] = $this->session->userdata('title');
-        $data['description'] = $this->session->userdata('description');        
-        
+
         $data['results'] = $this->emp_model->my_project($username);
+        $data['project'] = $this->emp_model->all_project($username);
+        $data['skills'] = $this->emp_model->project_skills();
         $this->load->view('projects', $data);
+    }
+
+    function all_projects() {
+        
     }
 
 }

@@ -96,8 +96,26 @@ class employee extends CI_Controller {
         $this->load->view('projects', $data);
     }
 
-    function all_projects() {
-        
+    function my_projects() {
+        //session for profile
+        $username = $this->session->userdata('username');
+        $data['username'] = $username;
+        $data['email'] = $this->session->userdata('email');
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $data['role'] = $this->session->userdata('role');
+        $data['sector'] = $this->session->userdata('sector');
+        $data['location'] = $this->session->userdata('location');
+
+        $data['results'] = $this->emp_model->my_project($username);
+        $data['project'] = $this->emp_model->all_project($username);
+        $data['skills'] = $this->emp_model->project_skills();
+        $this->load->view('my_projects', $data);
+    }
+
+    function show_projects() {
+        $data['projects'] = $this->emp_model->show_projects();
+        $this->load->view('projects', $data);
     }
 
 }

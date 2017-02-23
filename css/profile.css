@@ -57,15 +57,16 @@
 }
 
 .progress .progress-bar{
-    background-color: #be89bf;
+    background: #76399c;    
+    opacity: 0.75;
 }
 .progress > .progress-type {
     position: absolute;
     left: 0px;
-    font-weight: 800;
     padding: 3px 30px 2px 10px;
-    color: rgb(255, 255, 255);
-    background-color: rgba(25, 25, 25, 0.2);
+    color: #fff;
+    background: #76399c;    
+    opacity: 1.0;
 }
 .progress > .progress-completed {
     position: absolute;
@@ -112,4 +113,41 @@ label.date{
     background-color: #f6f6f6;
     padding: 5px 12px;
     margin: 5px 0px ;
+}
+
+button.view{    
+    display: inline-block;
+    background: #76399c;
+    opacity: 0.75;
+    padding: 5px 12px;
+    margin: 5px 0px ;
+    border: none;
+    font-size: 10pt;    
+    color: #fff;
+}
+
+button.view:hover{
+    background: #76399c;
+    opacity: 1.0;
+    color: #fff;
+}
+
+button.join{
+    display: inline-block;
+    background-image: linear-gradient(to left,#3f1d69 0%,#0d074d 100%);
+    background-color: #1f1545;
+    color: #fff;
+    font-size: 10pt;
+    padding: 5px 12px;
+    margin: 5px 0px ;
+    border: none;
+}
+
+button.join:hover{
+    background-image: linear-gradient(to left,#7b1f7f 0%,#3b1363 100%);
+    color: #fff;
+}
+
+button:focus{
+    outline: none;
 }

@@ -19,11 +19,6 @@
         <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/profile.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/footer.css" rel="stylesheet">
-        <style>
-            #view-more{
-                display: none;
-            }
-        </style>
     </head>
     <body>
 
@@ -139,15 +134,15 @@
                             </div>
                             <div class="panel-body">          
                                 <ul class="nav nav-pills"> 
-                                    <li role="presentation" class="active"><a href="<?php echo base_url(); ?>employee/projects">All Projects</a></li> 
-                                    <li role="presentation"><a href="<?php echo base_url(); ?>employee/my_projects">My Projects</a></li>
+                                    <li role="presentation"><a href="<?php echo base_url(); ?>employee/projects">All Projects</a></li> 
+                                    <li role="presentation" class="active"><a href="<?php echo base_url(); ?>employee/my_projects">My Projects</a></li>
                                 </ul>
                                 <ol class="breadcrumb" style="margin-top: 10px;">
                                     <li><a href="<?php echo base_url(); ?>employee/projects">Projects</a></li>
-                                    <li class="active">All Projects</li>
+                                    <li class="active">My Projects</li>
                                 </ol> 
+                                <?php foreach ($results as $data) { ?>
 
-                                <?php foreach ($project as $data) { ?>
                                     <hr>
                                     <div class="proj">
                                         <h4> <?php echo $data['title']; ?> 
@@ -176,33 +171,7 @@
                                         <br><br>                                       
                                         <p class="desc"><?php echo $data['description']; ?> </p>
 
-                                        <div id ="view-more" class="panel-body">
-                                            <i class="fa fa-th-list"></i>Type: Advanced Solutions <br/><br/>
-                                            <i class="fa fa-calendar-plus-o"></i>Start Date: 09/30/2016 <br/>
-                                            <i class="fa fa-calendar-check-o"></i>End Date: TBD <br/><br/>
-
-                                            <i class="fa fa-location-arrow"></i>Location: Dubai, United Arab Emirates <br/><br/>
-                                            <i class="fa fa-cogs"></i>Skills Required:</br>
-                                            <span class="interest">Adobe Photoshop</span>
-                                            <span class="interest">Adobe Illustrator</span>
-                                            <span class="interest">Powerpoint</span><br/><br/>
-                                            <i class="fa fa-users"></i>Members:</br>
-                                            <img data-toggle="tooltip" title="Project Manager" class="img-members" src="../admin1.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="../member1.png"/>
-                                            <img data-toggle="tooltip" title="Microsoft Expert" class="img-members" src="../member2.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="../member3.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="../member.png"/>
-                                            </br></br>
-                                            <i class="fa fa-check-square-o"></i>Project Completion: 90%</br>
-                                            <div class="progressBarContainer">
-                                                <div class="progressBarValue orange value-90"></div>
-                                            </div>
-
-                                        </div>
-
-                                        <button data-id="<?php echo $data['projectID']; ?>" class="view" data-toggle="modal" data-target="#myModal">View More</button>
-                                        <button class="join">Request to Join</button>
-                                    </div>                        
+                                    </div>
                                 <?php } ?>
                             </div>
                         </div><!--/.col-md-6 -->
@@ -216,17 +185,5 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $(".view").click(function () {
-                        $("#view-more").slideToggle();
-                        $(this).html(function (i, html) {
-                            return html === 'View More' ? 'View Less' : 'View More';
-                        });
-                    });
-                });
-            </script>
-
-            }
     </body>
 </html>

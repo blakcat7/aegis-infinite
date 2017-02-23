@@ -59,13 +59,14 @@ class emp_model extends CI_Model {
     }
 
     function all_project($username) {
-        $this->db->distinct();
+        //$this->db->distinct();
         $this->db->select('*');
         $this->db->from('projectskillslist ps');
         $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');        
         $this->db->join('empskillslist s', 's.skillsID = ps.skillsID', 'left');
         $this->db->where('`ps.skillsID` IN (SELECT `skillsID` FROM `empwithskills` WHERE empID="' . $username . '")');
-        $this->db->order_by('ps.projectID', 'asc');
+        $this->db->order_by('ps.projectID', 'asc');        
+        //$this->db->group_by('ps.skillsID');
         $this->db->group_by('ps.projectID');
         $query = $this->db->get();
         $result = $query->result_array();
@@ -109,6 +110,10 @@ class emp_model extends CI_Model {
             'logged_in' => true
                 )
         );
+    }
+    
+    function show_projects() {
+        $this->db->get('projects');
     }
 
 }

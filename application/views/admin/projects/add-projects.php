@@ -66,20 +66,6 @@
                             ?>
 
                         </div>
-
-                        <div class="form-group col-lg-12">
-                            <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
-
-                            <?php
-                            foreach ($skills as $skill) {
-                                $list[] = $skill['skillName'];
-                            }
-                            echo form_multiselect('empskillslist[]', $list, $list, array('name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                            ?>    
-                            <?php /* echo form_input(array('type' => 'text', 'name' => 'skillsRequired', 'class' => 'form-control')); */ ?>
-                            <?php echo form_error('skillsRequired'); ?>
-                        </div>
-
                         <div class="form-group col-lg-6">                                    
                             <label>Start Date:</label>
                             <div class="input-group" id="datetimepicker4">
@@ -120,7 +106,7 @@
                         </div> -->
                     </div>
                     <div class="panel-footer">
-                        <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Add', 'class' => 'btn')); ?>
+                        <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Next', 'class' => 'btn')); ?>
                         <?php echo form_close(); ?>
                     </div>
                 </div>

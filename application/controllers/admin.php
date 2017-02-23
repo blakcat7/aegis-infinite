@@ -99,31 +99,56 @@ class admin extends CI_Controller {
 
     public function add_project() {
 
+        $this->form_validation->set_rules('title', 'Title', 'required|min_length[5]|max_length[25]');
+
+        $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
+
+        $this->form_validation->set_error_delimiters('<span>', '</span>');
+        $data['skills'] = $this->admin_model->getSkills();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('admin/projects/add-projects', $data);
+        } else {
+            $data1 = array(
+                'title' => $this->input->post('title'),
+                'endDate' => $this->input->post('endDate'),
+                'startDate' => $this->input->post('startDate'),
+                'description' => $this->input->post('description'),
+                'projectType' => $this->input->post('projectType'),
+                'projLocation' => $this->input->post('projLocation'),
+            );
+            
+            if ($this->admin_model->insertProjects($data1)) {
+                $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
+                redirect('admin/add_skills');
+            }
+        }
+    }
+    
+    public function add_skills() {
 
         $this->form_validation->set_rules('title', 'Title', 'required|min_length[5]|max_length[25]');
 
         $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
 
         $this->form_validation->set_error_delimiters('<span>', '</span>');
-        
-        
+        $data['skills'] = $this->admin_model->getSkills();
+
         if ($this->form_validation->run() == FALSE) {
-            $data['skills'] = $this->admin_model->getSkills();
-            $this->load->view('admin/projects/add-projects');
+            $this->load->view('admin/projects/add-skill', $data);
         } else {
-            $data = array(
+            $data1 = array(
                 'title' => $this->input->post('title'),
                 'endDate' => $this->input->post('endDate'),
                 'startDate' => $this->input->post('startDate'),
-                'skillsRequired' => $this->input->post('skillsRequired'),
                 'description' => $this->input->post('description'),
                 'projectType' => $this->input->post('projectType'),
                 'projLocation' => $this->input->post('projLocation'),
             );
-
-            if ($this->admin_model->insertProjects($data)) {
+            
+            if ($this->admin_model->insertProjects($data1)) {
                 $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
-                redirect('admin/add_project');
+                redirect('admin/add_skills');
             }
         }
     }

@@ -13,6 +13,25 @@ class admin_model extends CI_Model {
 
     public function insertProjects($data) {
         return $this->db->insert('projects', $data);
+        
+    }
+
+    public function insertSkills($data) {
+          $this->db->insert('projectskillslist', $data);
+    /*    $this->db->insert('projectskillslist', $data);
+        $this->db->where('projectID', $projectID);
+        $this->db->where('skillsID', $skillsID); */
+    }
+
+    public function showProjects() {
+        $sql = $this->db->query("SELECT MAX(projectID) as projectID FROM projects");
+        return $sql->row_array();
+    }
+
+    public function showSkills() {
+        $this->db->select('skillsID');
+        $this->db->from('empskillslist');
+        $this->db->get()->result();
     }
 
     public function record_count() {
@@ -25,7 +44,7 @@ class admin_model extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
-    
+
     public function fetch_users($limit, $start) {
         $this->db->limit($limit, $start);
         $query = $this->db->get('users');

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2017 at 11:28 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: Feb 18, 2017 at 01:51 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,6 +31,14 @@ CREATE TABLE `empskillslist` (
   `skillName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `empskillslist`
+--
+
+INSERT INTO `empskillslist` (`skillsID`, `skillName`) VALUES
+(1, 'JAVA'),
+(2, 'PHP');
+
 -- --------------------------------------------------------
 
 --
@@ -39,8 +47,20 @@ CREATE TABLE `empskillslist` (
 
 CREATE TABLE `empwithskills` (
   `empID` varchar(10) DEFAULT NULL,
-  `skillsID` int(11) DEFAULT NULL
+  `skillsID` int(11) DEFAULT NULL,
+  `percentage` tinyint(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `empwithskills`
+--
+
+INSERT INTO `empwithskills` (`empID`, `skillsID`, `percentage`) VALUES
+('test1', 1, 70),
+('test1', 2, 20),
+('test2', 1, 0),
+('test2', 2, 0),
+('test4', 1, 50);
 
 -- --------------------------------------------------------
 
@@ -52,6 +72,15 @@ CREATE TABLE `projectemp` (
   `projectID` int(11) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `projectemp`
+--
+
+INSERT INTO `projectemp` (`projectID`, `username`) VALUES
+(2, 'test1'),
+(5, 'test1'),
+(3, 'test1');
 
 -- --------------------------------------------------------
 
@@ -65,17 +94,42 @@ CREATE TABLE `projects` (
   `description` varchar(255) NOT NULL,
   `startDate` date DEFAULT NULL,
   `endDate` date DEFAULT NULL,
-  `skillsRequired` varchar(255) NOT NULL,
   `projectType` varchar(255) NOT NULL,
-  `projLocation` varchar(255) NOT NULL
+  `projLocation` varchar(255) NOT NULL,
+  `skillsRequired` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`projectID`, `title`, `description`, `startDate`, `endDate`, `skillsRequired`, `projectType`, `projLocation`) VALUES
-(1, 'Rocket League Optimization', 'Fix the game lag', '2017-01-18', '2017-04-26', 'Java', 'Advance Solutions', 'United Arab Emirates');
+INSERT INTO `projects` (`projectID`, `title`, `description`, `startDate`, `endDate`, `projectType`, `projLocation`, `skillsRequired`) VALUES
+(1, 'Project 1', 'Sample Description', '2017-01-26', '2017-01-31', 'Civil', 'United Arab Emirates', ''),
+(2, 'Project 2', 'Same Project', '2017-01-28', '2017-01-31', 'Health', 'South Korea', ''),
+(3, 'Project 3', 'Project Desc 3', '2017-01-26', '2017-01-28', 'Civil', 'United Arab Emirates', 'Java'),
+(4, 'Project 4', 'Projct', '2017-01-26', '2017-01-26', 'Civil', 'United Arab Emirates', 'Java'),
+(5, 'BATYRZHAN ', 'DFSFSDFSDFS', '2017-02-12', '2017-02-12', 'Civil', 'United Arab Emirates', 'Java PHP');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projectskillslist`
+--
+
+CREATE TABLE `projectskillslist` (
+  `projectID` int(11) DEFAULT NULL,
+  `skillsID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `projectskillslist`
+--
+
+INSERT INTO `projectskillslist` (`projectID`, `skillsID`) VALUES
+(1, 2),
+(1, 2),
+(2, 1),
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -99,7 +153,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `role`, `fname`, `lname`, `password`, `sector`, `location`, `email`) VALUES
-('wms31', 'admin', 'Syed', 'Waqas', 'waqas123', 'advance solutions', 'United Arab Emirates', 'waqas_95@live.com');
+('aa395', 'Employee', 'Aliyu', 'Abubakar', 'password', 'Advance Solutions', 'Canada', 'aa395@leidos.com'),
+('ab536', 'Employee', 'Anthea', 'Marie', 'anthea', 'Health', 'South Korea', 'ab536@leidos.com'),
+('bs234', 'Employee', 'Batyrzhan', 'Saginbek', 'password', 'Civil', 'United Arab Emirates', 'bs234@leidos.com'),
+('no285', 'Employee', 'Nureni', 'Onelogbo', 'password', 'Security', 'United States', 'no285@leidos.com'),
+('test1', 'Employee', 'Test', 'Test', 'password', 'Civil', 'United Arab Emirates', 'test@leidos.com'),
+('test2', 'Employee', 'Test', 'Test', 'password', 'Civil', 'United Arab Emirates', 'test2@leidos.com'),
+('test3', 'Employee', 'Test', 'Test', '123', 'Civil', 'United Arab Emirates', 'test3@leidos.com'),
+('test4', 'Employee', 'Test', 'Test', 'test', 'Civil', 'United Arab Emirates', 'test4@leidos.com'),
+('wms31', 'Project Manager', 'Syed Waqas', 'Muhammad', 'password', 'Security', 'United Kingdom', 'wms31@leidos.com');
 
 --
 -- Indexes for dumped tables
@@ -111,7 +173,9 @@ INSERT INTO `users` (`username`, `role`, `fname`, `lname`, `password`, `sector`,
 ALTER TABLE `empskillslist`
   ADD PRIMARY KEY (`skillsID`);
 
-
+--
+-- Indexes for table `empwithskills`
+--
 ALTER TABLE `empwithskills`
   ADD KEY `empID` (`empID`),
   ADD KEY `skillsID` (`skillsID`);
@@ -130,6 +194,13 @@ ALTER TABLE `projects`
   ADD PRIMARY KEY (`projectID`);
 
 --
+-- Indexes for table `projectskillslist`
+--
+ALTER TABLE `projectskillslist`
+  ADD KEY `projectID` (`projectID`),
+  ADD KEY `skillsID` (`skillsID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -143,12 +214,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `empskillslist`
 --
 ALTER TABLE `empskillslist`
-  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
@@ -157,8 +228,8 @@ ALTER TABLE `projects`
 -- Constraints for table `empwithskills`
 --
 ALTER TABLE `empwithskills`
-  ADD CONSTRAINT `empwithskills_ibfk_1` FOREIGN KEY (`empID`) REFERENCES `users` (`username`),
-  ADD CONSTRAINT `empwithskills_ibfk_2` FOREIGN KEY (`skillsID`) REFERENCES `empskillslist` (`skillsID`);
+  ADD CONSTRAINT `empwithskills_ibfk_1` FOREIGN KEY (`empID`) REFERENCES `users` (`username`) ON DELETE CASCADE,
+  ADD CONSTRAINT `empwithskills_ibfk_2` FOREIGN KEY (`skillsID`) REFERENCES `empskillslist` (`skillsID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `projectemp`
@@ -166,6 +237,13 @@ ALTER TABLE `empwithskills`
 ALTER TABLE `projectemp`
   ADD CONSTRAINT `projectemp_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`),
   ADD CONSTRAINT `projectemp_ibfk_2` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
+
+--
+-- Constraints for table `projectskillslist`
+--
+ALTER TABLE `projectskillslist`
+  ADD CONSTRAINT `projectskillslist_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`),
+  ADD CONSTRAINT `projectskillslist_ibfk_2` FOREIGN KEY (`skillsID`) REFERENCES `empskillslist` (`skillsID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

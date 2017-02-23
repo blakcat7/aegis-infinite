@@ -176,7 +176,7 @@
                                         <br><br>                                       
                                         <p class="desc"><?php echo $data['description']; ?> </p>
 
-                                        <div id ="view-more" class="panel-body">
+                                        <div id ="<?php echo $data['projectID']; ?>" class="panel-body">
                                             <i class="fa fa-th-list"></i>Type: Advanced Solutions <br/><br/>
                                             <i class="fa fa-calendar-plus-o"></i>Start Date: 09/30/2016 <br/>
                                             <i class="fa fa-calendar-check-o"></i>End Date: TBD <br/><br/>
@@ -199,8 +199,8 @@
                                             </div>
 
                                         </div>
-
-                                        <button data-id="<?php echo $data['projectID']; ?>" class="view" data-toggle="modal" data-target="#myModal">View More</button>
+										<input type="button" id="<?php echo $data['projectID']; ?>" value="test">
+                                        <button type="button" id="<?php echo $data['projectID']; ?>" class="view" data-toggle="modal" data-target="#myModal">View More</button>
                                         <button class="join">Request to Join</button>
                                     </div>                        
                                 <?php } ?>
@@ -218,13 +218,16 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
             <script>
                 $(document).ready(function () {
-                    $(".view").click(function () {
-                        $("#view-more").slideToggle();
+                    $('button:button').click(function () {
+                        $("id").slideToggle();
                         $(this).html(function (i, html) {
                             return html === 'View More' ? 'View Less' : 'View More';
                         });
                     });
                 });
+
+                $('button:button').click(function() { alert( $(this).attr("id") ) });
+                //alert("Button Id: " + this.id);
             </script>
 
             }

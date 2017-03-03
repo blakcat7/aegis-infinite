@@ -50,7 +50,7 @@
                                         <a href="" class = "btn btn-add-e">
                                             <i class = "fa fa-pencil"></i>
                                         </a>
-                                        <a href="<?php echo base_url('admin/delete_row/' . $data['username']); ?> " class="btn btn-add-e">
+                                        <a href="<?php echo base_url('admin/delete_row/' . $data['username']); ?>" class="btn btn-add-e">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>   

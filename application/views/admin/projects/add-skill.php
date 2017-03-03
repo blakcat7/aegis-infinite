@@ -22,18 +22,19 @@
                         Add New Project
                     </div>
                     <div class="panel-body">
-                        <?php echo form_open('admin/add_project'); ?>
+                        <?php echo form_open('admin/add_skills'); ?>
                         <div class="form-group col-lg-12">
                             <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
-                            <?php
-                            $skill = array();
-                            foreach ($skills as $skills) {
-                            $skill[] = $skills['skillName'];
-                            }                           
-                            echo form_multiselect('skill', $skill, 'Java', array('name' => 'skillsRequired', 'class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                            ?>    
-                            <?php /* echo form_input(array('type' => 'text', 'name' => 'skillsRequired', 'class' => 'form-control')); */ ?>
-                            <?php echo form_error('skillsRequired'); ?>
+                            <select name="skillsRequired[]" class="chosen-select" multiple-style="width:785px;">
+                                <?php foreach ($skills as $row) { ?>
+                                <option value="<?php $row->skillsID;?>"><?php $row->skillName;?>></option>
+                                <?php
+                                }
+                                //echo form_multiselect('skill[]', $skill, '', array('class' => 'chosen-select', 'multiple style' => 'width:785px;'));
+                                ?>    
+                                <?php /* echo form_input(array('type' => 'text', 'name' => 'skillsRequired', 'class' => 'form-control')); */ ?>
+                                <?php echo form_error('skillsRequired'); ?>
+                            </select>
                         </div>
                     </div>
                     <div class="panel-footer">

@@ -12,15 +12,17 @@ class admin_model extends CI_Model {
     }
 
     public function insertProjects($data) {
-        return $this->db->insert('projects', $data);
-        
+        $this->db->insert('projects', $data);
+        return $this->db->insert_id();
+    }
+
+    public function insert($table, $data) {
+        $this->db->insert($table, $data);
+        return $this->db->insert_id();
     }
 
     public function insertSkills($data) {
-          $this->db->insert('projectskillslist', $data);
-    /*    $this->db->insert('projectskillslist', $data);
-        $this->db->where('projectID', $projectID);
-        $this->db->where('skillsID', $skillsID); */
+        $this->db->insert('projectskillslist', $data);
     }
 
     public function showProjects() {
@@ -29,9 +31,9 @@ class admin_model extends CI_Model {
     }
 
     public function showSkills() {
-        $this->db->select('skillsID');
+        $this->db->select('skillName');
         $this->db->from('empskillslist');
-        $this->db->get()->result();
+        $this->db->get()->result_array();
     }
 
     public function record_count() {
@@ -39,10 +41,16 @@ class admin_model extends CI_Model {
     }
 
     public function getSkills() {
-        $this->db->select('skillName');
+        $this->db->select('*');
         $this->db->from('empskillslist');
         $query = $this->db->get();
-        return $query->result_array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return false;
     }
 
     public function fetch_users($limit, $start) {

@@ -104,11 +104,19 @@ class admin extends CI_Controller {
         $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
 
         $this->form_validation->set_error_delimiters('<span>', '</span>');
-        $data['skills'] = $this->admin_model->getSkills();
+
+
+        $data = array();
+        $query = $this->admin_model->getSkills();
+
+        if ($query) {
+            $data['skills'] = $query;
+        }
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/projects/add-projects', $data);
         } else {
+
             $data1 = array(
                 'title' => $this->input->post('title'),
                 'endDate' => $this->input->post('endDate'),
@@ -117,37 +125,44 @@ class admin extends CI_Controller {
                 'projectType' => $this->input->post('projectType'),
                 'projLocation' => $this->input->post('projLocation'),
             );
-            
-            if ($this->admin_model->insertProjects($data1)) {
+
+            $id = $this->admin_model->insert('projects', $data1);
+
+            $skills = $this->input->post('skill');
+
+            foreach ($skills as $skill) {
+                $data2 = array(
+                    'projectID' => $id,
+                    'skillsID' => $skill,
+                );
+
+                $this->admin_model->insert('projectskillslist', $data2);
+            }
+
+            if ($id) {
                 $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
-                redirect('admin/add_skills');
+                redirect('admin/add_project');
             }
         }
     }
-    
+
     public function add_skills() {
-
-        $this->form_validation->set_rules('title', 'Title', 'required|min_length[5]|max_length[25]');
-
-        $this->form_validation->set_rules('skillsRequired', 'Skills Required', 'min_length[1]|max_length[55]');
-
-        $this->form_validation->set_error_delimiters('<span>', '</span>');
         $data['skills'] = $this->admin_model->getSkills();
+
+        $data1 = $this->input->post('title');
+        $getID = $this->admin_model->insertProjects($data1);
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/projects/add-skill', $data);
         } else {
-            $data1 = array(
-                'title' => $this->input->post('title'),
-                'endDate' => $this->input->post('endDate'),
-                'startDate' => $this->input->post('startDate'),
-                'description' => $this->input->post('description'),
-                'projectType' => $this->input->post('projectType'),
-                'projLocation' => $this->input->post('projLocation'),
+            $data = array(
+                'projectID' => $getID,
+                $skills = $this->input->post('skill'),
+                var_dump($skills)
             );
-            
-            if ($this->admin_model->insertProjects($data1)) {
-                $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
+
+            if ($this->admin_model->insertSkills('projectskillslist', $data)) {
+                $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! Skills has been added.</div>');
                 redirect('admin/add_skills');
             }
         }
@@ -162,7 +177,7 @@ class admin extends CI_Controller {
         $config['base_url'] = base_url() . 'admin/ppage';
         $total_row = $this->admin_model->count_project();
         $config['total_rows'] = $total_row;
-        $config['per_page'] = 8;
+        $config['per_page'] = 10;
         $config['uri_segment'] = 3;
         /* $config['use_page_numbers'] = TRUE; */
         $config['num_links'] = $total_row;

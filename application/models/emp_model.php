@@ -28,6 +28,7 @@ class emp_model extends CI_Model {
         $this->db->join('empwithskills e', 'e.empID = u.username', 'left');
         $this->db->join('empskillslist s', 's.skillsID = e.skillsID', 'left');
         $this->db->where('e.empID', $username);
+        $this->db->order_by('e.percentage', 'desc');
         $query = $this->db->get();
 
         $result = $query->result_array();
@@ -38,6 +39,27 @@ class emp_model extends CI_Model {
         } else {
             return $result;
         }
+    }
+
+    function view_projskills() {
+        $this->db->distinct();
+        $this->db->select('');
+        //$this->db->select('*, GROUP_CONCAT(projects.projectID) AS projid');
+        $this->db->from('projectskillslist ps');
+        $this->db->join('empskillslist s', 's.skillsID = ps.skillsID', 'left');
+        $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
+        //$this->db->group_by('projid');
+        $this->db->order_by('ps.projectID, ps.skillsID');
+
+        $query = $this->db->get();
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return false;
     }
 
     function my_project($username) {
@@ -62,10 +84,10 @@ class emp_model extends CI_Model {
         //$this->db->distinct();
         $this->db->select('*');
         $this->db->from('projectskillslist ps');
-        $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');        
+        $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
         $this->db->join('empskillslist s', 's.skillsID = ps.skillsID', 'left');
         $this->db->where('`ps.skillsID` IN (SELECT `skillsID` FROM `empwithskills` WHERE empID="' . $username . '")');
-        $this->db->order_by('ps.projectID', 'asc');        
+        $this->db->order_by('ps.projectID', 'asc');
         //$this->db->group_by('ps.skillsID');
         $this->db->group_by('ps.projectID');
         $query = $this->db->get();
@@ -77,16 +99,13 @@ class emp_model extends CI_Model {
         }
     }
 
-    function project_skills(/*$username*/) {
-        //$this->db->distinct();
+    function project_skills() {
         $this->db->select('*');
         $this->db->from('projectskillslist ps');
         $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
         $this->db->join('empskillslist s', 's.skillsID = ps.skillsID');
         //$this->db->where('ps.projectID', 'e.projectID');
-        //$this->db->where('`ps.skillsID` IN (SELECT `skillsID` FROM `empwithskills` WHERE empID="' . $username . '")');
-        //$this->db->where('`ps.skillsID` IN (SELECT `skillsID` FROM `empwithskills` WHERE empID="' . $username . '")');
-        $this->db->group_by('ps.projectID');
+        $this->db->group_by('ps.skillsID');
         $query = $this->db->get();
         $result = $query->result_array();
         if ($query->num_rows() > 1) {
@@ -111,9 +130,23 @@ class emp_model extends CI_Model {
                 )
         );
     }
-    
+
     function show_projects() {
         $this->db->get('projects');
+    }
+
+    function show_users($data) {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('username', $data);
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
+
+    function update_user($id, $data) {
+        $this->db->where('username', $id);
+        $this->db->update('users', $data);
     }
 
 }

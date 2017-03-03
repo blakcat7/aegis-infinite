@@ -146,64 +146,92 @@
                                     <li><a href="<?php echo base_url(); ?>employee/projects">Projects</a></li>
                                     <li class="active">All Projects</li>
                                 </ol> 
+                                <?php
+                                $lastProjectID = 0;
+                                $p_skills = ''; $p_title = ''; $p_sDate = ''; $p_eDate = '';
+                                $p_loc = ''; $p_desc = ''; $p_type = '';
+                                
+                                foreach ($pSkills as $data) {
+                                    if ($data['projectID'] !== $lastProjectID) {
+                                        if ($p_title !== '') {
+                                            ?>
+                                            <hr>
+                                            <div class="proj">
+                                                <h4> <?php echo $p_title; ?> 
+                                                    <div class="pull-right">
+                                                        <label class="location"><span class="glyphicon glyphicon-map-marker"></span><?php echo $p_loc ?></label>
+                                                        <label class="date"><?php echo $p_type ?></label>
+                                                    </div>
+                                                </h4>                                        
+                                                <label class="date-title">Start Date:</label>
+                                                <label class="date">                                        
+                                                    <?php echo date("F j, Y", strtotime($p_sDate)); ?>
+                                                </label>   
 
-                                <?php foreach ($project as $data) { ?>
+                                                <label class="date-title">End Date:</label>
+                                                <label class="date">
+                                                    <?php echo date("F j, Y", strtotime($p_eDate)); ?> 
+                                                </label>
+
+                                                <br><br>                                       
+                                                <p class="desc"><?php echo $p_desc; ?> </p>
+
+                                                <div id ="view<?php echo $data['projectID']; ?>" class="view">
+                                                    <i class = "fa fa-cogs"></i>Skills Required:
+                                                    <?php echo $p_skills; ?>
+
+                                                </div>
+                                                <button class = "join">Request to Join</button>
+                                            </div>
+
+                                            <?php
+                                        }
+                                        $p_title = $data['title'];
+                                        $p_skills = $data['skillName'];
+                                        $p_sDate = $data['startDate'];
+                                        $p_eDate = $data['endDate'];
+                                         $p_loc = $data['projLocation'];
+                                         $p_desc = $data['description'];
+                                         $p_type = $data['projectType'];
+                                        $lastProjectID = $data['projectID'];
+                                    } else {
+                                        $p_skills .= ", " . $data['skillName'];
+                                    }
+                                }
+
+                                if ($p_title !== '') {
+                                    ?>
                                     <hr>
                                     <div class="proj">
-                                        <h4> <?php echo $data['title']; ?> 
+                                        <h4> <?php echo $p_title; ?> 
                                             <div class="pull-right">
-                                                <label class="location"><span class="glyphicon glyphicon-map-marker"></span><?php echo $data['projLocation'] ?></label>
-                                                <label class="date"><?php echo $data['projectType'] ?></label>
+                                                <label class="location"><span class="glyphicon glyphicon-map-marker"></span><?php echo $p_loc; ?></label>
+                                                <label class="date"><?php echo $p_type; ?></label>
                                             </div>
                                         </h4>                                        
                                         <label class="date-title">Start Date:</label>
                                         <label class="date">                                        
-                                            <?php
-                                            $sDate = $data['startDate'];
-                                            $startDate = date("F j, Y", strtotime($sDate));
-                                            echo $startDate;
-                                            ?>
+                                            <?php echo date("F j, Y", strtotime($p_sDate)); ?>
                                         </label>   
 
                                         <label class="date-title">End Date:</label>
                                         <label class="date">
-                                            <?php
-                                            $eDate = $data['endDate'];
-                                            $endDate = date("F j, Y", strtotime($eDate));
-                                            echo $endDate;
-                                            ?> 
+                                            <?php echo date("F j, Y", strtotime($p_eDate)); ?> 
                                         </label>
+
                                         <br><br>                                       
-                                        <p class="desc"><?php echo $data['description']; ?> </p>
+                                        <p class="desc"><?php echo $p_desc; ?> </p>
 
-                                        <div id ="<?php echo $data['projectID']; ?>" class="panel-body">
-                                            <i class="fa fa-th-list"></i>Type: Advanced Solutions <br/><br/>
-                                            <i class="fa fa-calendar-plus-o"></i>Start Date: 09/30/2016 <br/>
-                                            <i class="fa fa-calendar-check-o"></i>End Date: TBD <br/><br/>
+                                        <div id ="view<?php echo $data['projectID']; ?>" class="view">
+                                            <i class = "fa fa-cogs"></i>Skills Required:
 
-                                            <i class="fa fa-location-arrow"></i>Location: Dubai, United Arab Emirates <br/><br/>
-                                            <i class="fa fa-cogs"></i>Skills Required:</br>
-                                            <span class="interest">Adobe Photoshop</span>
-                                            <span class="interest">Adobe Illustrator</span>
-                                            <span class="interest">Powerpoint</span><br/><br/>
-                                            <i class="fa fa-users"></i>Members:</br>
-                                            <img data-toggle="tooltip" title="Project Manager" class="img-members" src="../admin1.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="../member1.png"/>
-                                            <img data-toggle="tooltip" title="Microsoft Expert" class="img-members" src="../member2.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="../member3.png"/>
-                                            <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="../member.png"/>
-                                            </br></br>
-                                            <i class="fa fa-check-square-o"></i>Project Completion: 90%</br>
-                                            <div class="progressBarContainer">
-                                                <div class="progressBarValue orange value-90"></div>
-                                            </div>
-
-                                        </div>
-										<input type="button" id="<?php echo $data['projectID']; ?>" value="test">
-                                        <button type="button" id="<?php echo $data['projectID']; ?>" class="view" data-toggle="modal" data-target="#myModal">View More</button>
-                                        <button class="join">Request to Join</button>
-                                    </div>                        
-                                <?php } ?>
+                                            <?php
+                                            echo $p_skills;
+                                        }
+                                        ?>
+                                    </div>	
+                                    <button class="join">Request to Join</button>
+                                </div>  
                             </div>
                         </div><!--/.col-md-6 -->
                     </div>
@@ -218,18 +246,13 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
             <script>
                 $(document).ready(function () {
-                    $('button:button').click(function () {
-                        $("id").slideToggle();
+                    $('button[id^=btnview]').click(function () {
+                        $(this).prev("div[id^=view]").stop().slideToggle();
                         $(this).html(function (i, html) {
                             return html === 'View More' ? 'View Less' : 'View More';
                         });
                     });
                 });
-
-                $('button:button').click(function() { alert( $(this).attr("id") ) });
-                //alert("Button Id: " + this.id);
             </script>
-
-            }
     </body>
 </html>

@@ -80,7 +80,7 @@ class employee extends CI_Controller {
      */
 
     function projects() {
-        //session for profile
+//session for profile
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -93,11 +93,12 @@ class employee extends CI_Controller {
         $data['results'] = $this->emp_model->my_project($username);
         $data['project'] = $this->emp_model->all_project($username);
         $data['skills'] = $this->emp_model->project_skills();
+        $data['pSkills'] = $this->emp_model->view_projskills();
         $this->load->view('projects', $data);
     }
 
     function my_projects() {
-        //session for profile
+//session for profile
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -116,6 +117,32 @@ class employee extends CI_Controller {
     function show_projects() {
         $data['projects'] = $this->emp_model->show_projects();
         $this->load->view('projects', $data);
+    }
+
+    /*
+     * CALENDAR
+     */
+
+    function settings() {
+        $this->load->view('settings');
+    }
+
+    function show_user_id() {
+        $id = $this->uri->segment(3);
+        $data['users'] = $this->emp_model->show_users($id);
+        $this->load->view('settings', $data);
+    }
+
+    function update_user_id() {
+        $id = $this->input->post('did');
+        $data = array(
+            'Student_Name' => $this->input->post('dname'),
+            'Student_Email' => $this->input->post('demail'),
+            'Student_Mobile' => $this->input->post('dmobile'),
+            'Student_Address' => $this->input->post('daddress')
+        );
+        $this->emp_model->update_user($id, $data);
+        $this->show_user_id();
     }
 
 }

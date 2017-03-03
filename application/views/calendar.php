@@ -47,7 +47,7 @@
                         <li><a href="<?php echo base_url(); ?>employee/projects"><i class="fa fa-folder-open fa-fw"></i>Projects</a ></li>  
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
                         <li><hr></li>
-                        <li><a href="settings"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
+                        <li><a href="#"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
                         <li><hr></li>
                     </ul>
                 </div>
@@ -135,6 +135,5 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>document.body.className += ' fade-out';</script>
     </body>
 </html>

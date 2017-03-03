@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2017 at 01:51 PM
+-- Generation Time: Mar 02, 2017 at 07:47 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -37,7 +37,14 @@ CREATE TABLE `empskillslist` (
 
 INSERT INTO `empskillslist` (`skillsID`, `skillName`) VALUES
 (1, 'JAVA'),
-(2, 'PHP');
+(2, 'PHP'),
+(3, 'HTML'),
+(4, 'LEADERSHIP'),
+(5, 'PYTHON'),
+(6, 'C#'),
+(7, 'C++'),
+(8, 'WEB PROGRAMMING'),
+(9, 'SQL');
 
 -- --------------------------------------------------------
 
@@ -60,7 +67,8 @@ INSERT INTO `empwithskills` (`empID`, `skillsID`, `percentage`) VALUES
 ('test1', 2, 20),
 ('test2', 1, 0),
 ('test2', 2, 0),
-('test4', 1, 50);
+('test4', 1, 50),
+('test1', 7, 80);
 
 -- --------------------------------------------------------
 
@@ -95,20 +103,60 @@ CREATE TABLE `projects` (
   `startDate` date DEFAULT NULL,
   `endDate` date DEFAULT NULL,
   `projectType` varchar(255) NOT NULL,
-  `projLocation` varchar(255) NOT NULL,
-  `skillsRequired` varchar(50) NOT NULL
+  `projLocation` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`projectID`, `title`, `description`, `startDate`, `endDate`, `projectType`, `projLocation`, `skillsRequired`) VALUES
-(1, 'Project 1', 'Sample Description', '2017-01-26', '2017-01-31', 'Civil', 'United Arab Emirates', ''),
-(2, 'Project 2', 'Same Project', '2017-01-28', '2017-01-31', 'Health', 'South Korea', ''),
-(3, 'Project 3', 'Project Desc 3', '2017-01-26', '2017-01-28', 'Civil', 'United Arab Emirates', 'Java'),
-(4, 'Project 4', 'Projct', '2017-01-26', '2017-01-26', 'Civil', 'United Arab Emirates', 'Java'),
-(5, 'BATYRZHAN ', 'DFSFSDFSDFS', '2017-02-12', '2017-02-12', 'Civil', 'United Arab Emirates', 'Java PHP');
+INSERT INTO `projects` (`projectID`, `title`, `description`, `startDate`, `endDate`, `projectType`, `projLocation`) VALUES
+(1, 'Project 1', 'Sample Description', '2017-01-26', '2017-01-31', 'Civil', 'United Arab Emirates'),
+(2, 'Project 2', 'Same Project', '2017-01-28', '2017-01-31', 'Health', 'South Korea'),
+(3, 'Project 3', 'Project Desc 3', '2017-01-26', '2017-01-28', 'Civil', 'United Arab Emirates'),
+(4, 'Project 4', 'Projct', '2017-01-26', '2017-01-26', 'Civil', 'United Arab Emirates'),
+(5, 'BATYRZHAN ', 'DFSFSDFSDFS', '2017-02-12', '2017-02-12', 'Civil', 'United Arab Emirates'),
+(6, 'tessssssst', 'testtttttttttttttt', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(7, 'tessssssst', 'testtttttttttttttt', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(8, 'tessssssssst', 'etetsdgdfsdlfk', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(9, 'askdjkasdsjadskadj', 'kljkfsjkdlfsjdklfsjdf', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(10, 'askdjkasdsjadskadj', 'kljkfsjkdlfsjdklfsjdf', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(11, 'TESTTTTTTTTTT', 'ahsdjsakdadakjsd', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(12, 'Testing123', 'ajsadhsajkdalk', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(13, 'bruh123', 'bruhhhh', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(14, 'bruh123', 'bruhhhh', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(15, 'bruh123', 'bruhhhh', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(16, 'bruh123', 'bruhhhh', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(17, 'bruh123', 'bruhhhh', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(18, 'bruh123', 'bruhhhh', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(19, 'adklaskd', 'kakldlasjdasl', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(20, 'Testinggg', 'test', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(21, 'Testinggg', 'test', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(22, 'Testinggg', 'test', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(23, 'BATYRFUCK', 'BUTTT', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(24, 'Bruhhh9420934', 'ekfjsklgsdlkfg', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(25, 'Bruhhh9420934', 'ekfjsklgsdlkfg', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(26, 'Bruhhh9420934', 'ekfjsklgsdlkfg', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(27, 'Bruhhh9420934', 'ekfjsklgsdlkfg', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(28, 'adklaskd', 'kakldlasjdasl', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(29, 'f8ewqaijfio`', 'fjbjvkbfjakbvjdbvfj', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(30, 'echaushdvuh', 'huidhvupshwduvoh', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(31, 'dhcuhsdiuncuish', 'huvihsudihnvuinuin sun', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(32, 'Testing', 'Test123', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(33, 'bruuuuuuuuuuuuuuuuuuuuuh', 'bruujjjjjjkfndslkfnsd', '2017-02-19', '2017-02-19', 'Civil', 'United Arab Emirates'),
+(34, 'testing', 'Testing again', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(35, 'This is a project', 'This is a description of the project', '2017-03-25', '2017-04-01', 'Civil', 'United Arab Emirates'),
+(36, 'Test Skills 1', 'Test Skills 1', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(37, 'Test Skills 1', 'Test Skills 1', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(38, 'Testing Skills 2', 'Testing Skills 2', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(39, 'Testing Skills 3', 'Testing Skills 3', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(40, 'Testing Skills 4', 'Testing Skills 4', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(41, 'Testing Skills 5', 'Testing Skills 5', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(42, 'Testing Skills 6', 'Testing Skills 6', '2017-03-24', '2017-03-29', 'Civil', 'United Arab Emirates'),
+(43, 'Testing Skills 6', 'Testing Skills 6', '2017-03-24', '2017-03-29', 'Civil', 'United Arab Emirates'),
+(44, 'Testing Skills 6', 'Testing Skills 6', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(45, 'Test Skills', 'Test Skills', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates'),
+(46, 'Test Skills', 'Test Skills', '2017-03-02', '2017-03-02', 'Civil', 'United Arab Emirates');
 
 -- --------------------------------------------------------
 
@@ -127,9 +175,13 @@ CREATE TABLE `projectskillslist` (
 
 INSERT INTO `projectskillslist` (`projectID`, `skillsID`) VALUES
 (1, 2),
-(1, 2),
+(1, 1),
 (2, 1),
-(1, 1);
+(2, 4),
+(1, 3),
+(2, 4),
+(15, 9),
+(15, 6);
 
 -- --------------------------------------------------------
 
@@ -156,7 +208,6 @@ INSERT INTO `users` (`username`, `role`, `fname`, `lname`, `password`, `sector`,
 ('aa395', 'Employee', 'Aliyu', 'Abubakar', 'password', 'Advance Solutions', 'Canada', 'aa395@leidos.com'),
 ('ab536', 'Employee', 'Anthea', 'Marie', 'anthea', 'Health', 'South Korea', 'ab536@leidos.com'),
 ('bs234', 'Employee', 'Batyrzhan', 'Saginbek', 'password', 'Civil', 'United Arab Emirates', 'bs234@leidos.com'),
-('no285', 'Employee', 'Nureni', 'Onelogbo', 'password', 'Security', 'United States', 'no285@leidos.com'),
 ('test1', 'Employee', 'Test', 'Test', 'password', 'Civil', 'United Arab Emirates', 'test@leidos.com'),
 ('test2', 'Employee', 'Test', 'Test', 'password', 'Civil', 'United Arab Emirates', 'test2@leidos.com'),
 ('test3', 'Employee', 'Test', 'Test', '123', 'Civil', 'United Arab Emirates', 'test3@leidos.com'),
@@ -214,12 +265,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `empskillslist`
 --
 ALTER TABLE `empskillslist`
-  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- Constraints for dumped tables
 --
@@ -228,22 +279,22 @@ ALTER TABLE `projects`
 -- Constraints for table `empwithskills`
 --
 ALTER TABLE `empwithskills`
-  ADD CONSTRAINT `empwithskills_ibfk_1` FOREIGN KEY (`empID`) REFERENCES `users` (`username`) ON DELETE CASCADE,
-  ADD CONSTRAINT `empwithskills_ibfk_2` FOREIGN KEY (`skillsID`) REFERENCES `empskillslist` (`skillsID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `empwithskills_ibfk_1` FOREIGN KEY (`empID`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `empwithskills_ibfk_2` FOREIGN KEY (`skillsID`) REFERENCES `empskillslist` (`skillsID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `projectemp`
 --
 ALTER TABLE `projectemp`
-  ADD CONSTRAINT `projectemp_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`),
-  ADD CONSTRAINT `projectemp_ibfk_2` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
+  ADD CONSTRAINT `projectemp_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `projectemp_ibfk_2` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `projectskillslist`
 --
 ALTER TABLE `projectskillslist`
-  ADD CONSTRAINT `projectskillslist_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`),
-  ADD CONSTRAINT `projectskillslist_ibfk_2` FOREIGN KEY (`skillsID`) REFERENCES `empskillslist` (`skillsID`);
+  ADD CONSTRAINT `projectskillslist_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `projectskillslist_ibfk_2` FOREIGN KEY (`skillsID`) REFERENCES `empskillslist` (`skillsID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

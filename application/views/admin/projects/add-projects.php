@@ -31,9 +31,44 @@
 
                         <div class="form-group col-lg-12">
                             <?php echo form_label('Description: '); ?> <?php echo form_error('description'); ?><br />
-                            <?php echo form_textarea(array('id' => 'description', 'name' => 'description', 'rows' => '5', ' class' => 'form-control')); ?><br />
+                            <?php echo form_textarea(array('id' => 'description', 'name' => 'description', 'rows' => '5', ' class' => 'form-control')); ?>
 
                         </div>
+
+                        <div class="form-group col-lg-6">                                    
+                            <label>Start Date:</label>
+                            <div class="input-group" id="datetimepicker4">
+                                <?php echo form_input(array('type' => 'text', 'name' => 'startDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
+                                <span class="add-on input-group-btn ">
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                </span>
+                            </div>
+                            <?php echo form_error('startDate'); ?>
+                        </div>
+                        <div class="form-group col-lg-6">                                    
+                            <label>End Date:</label>
+                            <div class="input-group" id="datetimepicker3">
+
+                                <?php echo form_input(array('type' => 'text', 'name' => 'endDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
+                                <span class="add-on input-group-btn ">
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
+                                </span>
+                            </div>
+                            <?php echo form_error('endDate'); ?>
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
+                            <?php
+                            foreach ($skills as $row) {
+                                $skill[] = $row->skillName;
+                            }
+                            array_unshift($skill, "");
+                            unset($skill[0]);
+                            echo form_multiselect('skill[]', $skill, $skill, array('class' => 'chosen-select', 'multiple style' => 'width:785px;'));
+                            ?>
+                        </div>
+
 
                         <div class="form-group col-lg-12">
                             <label>Project Type</label>
@@ -66,27 +101,7 @@
                             ?>
 
                         </div>
-                        <div class="form-group col-lg-6">                                    
-                            <label>Start Date:</label>
-                            <div class="input-group" id="datetimepicker4">
-                                <?php echo form_input(array('type' => 'text', 'name' => 'startDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
-                                <span class="add-on input-group-btn ">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
-                                </span>
-                            </div>
-                            <?php echo form_error('startDate'); ?>
-                        </div>
-                        <div class="form-group col-lg-6">                                    
-                            <label>End Date:</label>
-                            <div class="input-group" id="datetimepicker3">
 
-                                <?php echo form_input(array('type' => 'text', 'name' => 'endDate', 'data-format' => 'yyyy-MM-dd', 'readonly' => 'true', 'class' => 'form-control')); ?>
-                                <span class="add-on input-group-btn ">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
-                                </span>
-                            </div>
-                            <?php echo form_error('endDate'); ?>
-                        </div>
                         <!--
                         <div class="form-group col-lg-12">
                             <label>Recommended Project Manager:</label>
@@ -104,6 +119,7 @@
                                 <img data-toggle="tooltip" title="Graphic Designer" class="img-members" src="images/member.png"/>
                             </div>
                         </div> -->
+
                     </div>
                     <div class="panel-footer">
                         <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Next', 'class' => 'btn')); ?>

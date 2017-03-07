@@ -10,7 +10,7 @@
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
                 <li><a href="#">Projects</a></li>
-                <li class="active">Add New Project</li>
+                <li class="active">Recommend Employees</li>
             </ol>                        
             <?php $this->load->view('admin/assets/menu_p'); ?>
             <hr>                    
@@ -24,17 +24,14 @@
                     <div class="panel-body">
                         <?php echo form_open('admin/add_skills'); ?>
                         <div class="form-group col-lg-12">
-                            <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
-                            <select name="skillsRequired[]" class="chosen-select" multiple-style="width:785px;">
-                                <?php foreach ($skills as $row) { ?>
-                                <option value="<?php $row->skillsID;?>"><?php $row->skillName;?>></option>
-                                <?php
-                                }
-                                //echo form_multiselect('skill[]', $skill, '', array('class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                                ?>    
-                                <?php /* echo form_input(array('type' => 'text', 'name' => 'skillsRequired', 'class' => 'form-control')); */ ?>
-                                <?php echo form_error('skillsRequired'); ?>
-                            </select>
+                            <label>Recommended Employees:</label> <?php echo form_error('skillsRequired'); ?><br />
+                            <?php 
+                            foreach ($users as $user) {
+                                $this = $user['empID'];
+                                print_r($this);
+                            }
+                            
+                            ?>
                         </div>
                     </div>
                     <div class="panel-footer">

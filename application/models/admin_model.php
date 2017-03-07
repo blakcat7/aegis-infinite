@@ -40,10 +40,35 @@ class admin_model extends CI_Model {
         return $this->db->count_all('users');
     }
 
+    public function getID() {
+        $this->db->select_max('projectID');
+        $this->db->from('projects');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return false;
+    }
+
     public function getSkills() {
         $this->db->select('*');
         $this->db->from('empskillslist');
         $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return false;
+    }
+
+    public function getUsers($data) {
+        $query = $this->db->query('SELECT * FROM empwithskills  WHERE (skillsID) IN (SELECT skillsID FROM  projectskillslist WHERE projectID=' . $data . ')');
+
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $result[] = $row;

@@ -58,19 +58,6 @@
                         </div>
 
                         <div class="form-group col-lg-12">
-                            <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
-                            <?php
-                            foreach ($skills as $row) {
-                                $skill[] = $row->skillName;
-                            }
-                            array_unshift($skill, "");
-                            unset($skill[0]);
-                            echo form_multiselect('skill[]', $skill, $skill, array('class' => 'chosen-select', 'multiple style' => 'width:785px;'));
-                            ?>
-                        </div>
-
-
-                        <div class="form-group col-lg-12">
                             <label>Project Type</label>
                             <?php
                             $sector = array(
@@ -102,6 +89,18 @@
 
                         </div>
 
+
+                        <div class="form-group col-lg-12">
+                            <label>Skills Required:</label> <?php echo form_error('skillsRequired'); ?><br />
+                            <?php
+                            foreach ($skills as $row) {
+                                $skill[] = $row->skillName;
+                            }
+                            array_unshift($skill, "");
+                            unset($skill[0]);
+                            echo form_multiselect('skill[]', $skill, $skill, array('class' => 'chosen-select', 'multiple style' => 'width:785px;'));
+                            ?>
+                        </div>
                         <!--
                         <div class="form-group col-lg-12">
                             <label>Recommended Project Manager:</label>

@@ -141,31 +141,17 @@ class admin extends CI_Controller {
 
             if ($id) {
                 $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
-                redirect('admin/add_project');
+                redirect('admin/add_recommended');
             }
         }
     }
 
-    public function add_skills() {
-        $data['skills'] = $this->admin_model->getSkills();
+    public function add_recommended() {
+        $rs = $this->admin_model->db->select_max("projectID")->get("projects");
+        $result = $rs->result();
+        $data['last_id'] = $result['projectID'];
 
-        $data1 = $this->input->post('title');
-        $getID = $this->admin_model->insertProjects($data1);
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('admin/projects/add-skill', $data);
-        } else {
-            $data = array(
-                'projectID' => $getID,
-                $skills = $this->input->post('skill'),
-                var_dump($skills)
-            );
-
-            if ($this->admin_model->insertSkills('projectskillslist', $data)) {
-                $this->session->set_flashdata('msg-p', '<div class="alert alert-success" role="alert">Success! Skills has been added.</div>');
-                redirect('admin/add_skills');
-            }
-        }
+        $this->load->view('admin/projects/rec-employee', $data);
     }
 
     public function view_projects() {

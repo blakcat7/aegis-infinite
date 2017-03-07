@@ -53,6 +53,7 @@ class employee extends CI_Controller {
         $data['skills'] = $this->emp_model->view_skills();
         $this->load->view('test', $data);
     }
+    
 
     /*
      * PROFILE
@@ -80,7 +81,6 @@ class employee extends CI_Controller {
      */
 
     function projects() {
-//session for profile
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -93,12 +93,11 @@ class employee extends CI_Controller {
         $data['results'] = $this->emp_model->my_project($username);
         $data['project'] = $this->emp_model->all_project($username);
         $data['skills'] = $this->emp_model->project_skills();
-        $data['pSkills'] = $this->emp_model->view_projskills();
+        $data['pSkills'] = $this->emp_model->view_projskills($username);
         $this->load->view('projects', $data);
     }
 
     function my_projects() {
-//session for profile
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');

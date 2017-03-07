@@ -41,15 +41,15 @@ class emp_model extends CI_Model {
         }
     }
 
-    function view_projskills() {
-        $this->db->distinct();
-        $this->db->select('');
-        //$this->db->select('*, GROUP_CONCAT(projects.projectID) AS projid');
+    function view_projskills($username) {
+        //$this->db->distinct();
+        $this->db->select('*');
         $this->db->from('projectskillslist ps');
         $this->db->join('empskillslist s', 's.skillsID = ps.skillsID', 'left');
         $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
-        //$this->db->group_by('projid');
-        $this->db->order_by('ps.projectID, ps.skillsID');
+        $this->db->join('empwithskills e', 'e.skillsID = s.skillsID');
+        $this->db->order_by('ps.projectID', 'desc');
+        $this->db->where('e.empID', $username);
 
         $query = $this->db->get();
         $result = array();
@@ -71,8 +71,6 @@ class emp_model extends CI_Model {
         $query = $this->db->get();
 
         $result = $query->result_array();
-
-
         if ($query->num_rows() != 0) {
             return $result;
         } else {

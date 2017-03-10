@@ -112,11 +112,13 @@
                         <div class="profile">
                             <div class="profile-header-container">                                   
                                 <div class="profile-pic">
-                                    <img class="crop" src="<?php echo base_url(); ?>images/profile1.jpg" />
+                                    <?php foreach ($pics as $pic) { ?>
+                                        <img src="<?php echo base_url() . 'images/profilepics/' . $pic->picture ?>" class="crop">
+                                    <?php } ?>
                                 </div>
                             </div> 
                             <div class="name">
-                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $role; ?></small></h2>
+                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $designation; ?></small></h2>
                                 <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>
@@ -148,9 +150,14 @@
                                 </ol> 
                                 <?php
                                 $lastProjectID = 0;
-                                $p_skills = ''; $p_title = ''; $p_sDate = ''; $p_eDate = '';
-                                $p_loc = ''; $p_desc = ''; $p_type = '';
-                                
+                                $p_skills = '';
+                                $p_title = '';
+                                $p_sDate = '';
+                                $p_eDate = '';
+                                $p_loc = '';
+                                $p_desc = '';
+                                $p_type = '';
+
                                 foreach ($pSkills as $data) {
                                     if ($data['projectID'] !== $lastProjectID) {
                                         if ($p_title !== '') {
@@ -190,9 +197,9 @@
                                         $p_skills = $data['skillName'];
                                         $p_sDate = $data['startDate'];
                                         $p_eDate = $data['endDate'];
-                                         $p_loc = $data['projLocation'];
-                                         $p_desc = $data['description'];
-                                         $p_type = $data['projectType'];
+                                        $p_loc = $data['projLocation'];
+                                        $p_desc = $data['description'];
+                                        $p_type = $data['projectType'];
                                         $lastProjectID = $data['projectID'];
                                     } else {
                                         $p_skills .= ", " . $data['skillName'];
@@ -229,8 +236,9 @@
                                             echo $p_skills;
                                         }
                                         ?>
+                                        <br><br>
+                                        <button class="join">Request to Join</button>
                                     </div>	
-                                    <button class="join">Request to Join</button>
                                 </div>  
                             </div>
                         </div><!--/.col-md-6 -->
@@ -246,12 +254,11 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
             <script>
                 $(document).ready(function () {
-                    $('button[id^=btnview]').click(function () {
-                        $(this).prev("div[id^=view]").stop().slideToggle();
+                $('button[id^=btnview]').click(function () {
+                $(this).prev("div[id^=view]").stop().slideToggle();
                         $(this).html(function (i, html) {
-                            return html === 'View More' ? 'View Less' : 'View More';
-                        });
-                    });
+                return html === 'View More' ? 'View Less' : 'View More';
+                });
                 });
             </script>
     </body>

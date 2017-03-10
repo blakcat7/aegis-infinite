@@ -107,11 +107,13 @@
                         <div class="profile">
                             <div class="profile-header-container">                                   
                                 <div class="profile-pic">
-                                    <img class="crop" src="<?php echo base_url(); ?>images/profile1.jpg" />
+                                    <?php foreach ($pics as $pic) { ?>
+                                        <img src="<?php echo base_url() . 'images/profilepics/' . $pic->picture ?>" class="crop">
+                                    <?php } ?>
                                 </div>
                             </div> 
                             <div class="name">
-                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $role; ?></small></h2>
+                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $designation; ?></small></h2>
                                 <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>

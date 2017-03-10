@@ -22,7 +22,7 @@
                         Add New Employee
                     </div>
                     <div class="panel-body">
-                        <?php echo form_open('admin/add_employee'); ?>
+                        <?php echo form_open_multipart('admin/add_employee'); ?>
                         <div class="form-group col-lg-6">                                    
                             <label>First Name</label>
                             <?php
@@ -95,7 +95,7 @@
                         </div>
 
                         <div class="form-group col-lg-12">
-                            <label>Designation</label>
+                            <label>Role</label>
                             <?php
                             $role = array(
                                 'Employee' => 'Employee',
@@ -104,6 +104,18 @@
                             );
 
                             echo form_dropdown('role', $role, 'employee', 'class = "form-control"');
+                            ?>
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <label>Designation</label>
+                            <?php
+                            $designation = array('id' => 'designation',
+                                'name' => 'designation',
+                                'class' => 'form-control'
+                            );
+
+                            echo form_input($designation);
                             ?>
                         </div>
 
@@ -139,11 +151,21 @@
                             ?>
                         </div>
 
-
+                        <div class="form-group col-lg-12">
+                            <label>Upload Profile Picture</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file">
+                                        Browse… <input type="file" name="userfile" id="imgInp">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="panel-footer">
-                        <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn')); ?>
+                        <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn', 'name' =>'submit')); ?>
                         <?php echo form_close(); ?>
                     </div>
                 </div>
@@ -155,5 +177,43 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log)
+                    alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    });
+</script>
 </body>
 </html>

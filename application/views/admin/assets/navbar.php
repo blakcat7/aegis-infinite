@@ -6,7 +6,7 @@
                 <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                     class="icon-bar"></span><span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>images/leidos-logo.png" class="brand"></a>
+            <a class="navbar-brand" href="#"><img src="<?php echo base_url(); ?>images/leidos-logo.png" class="brand"></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -31,6 +31,8 @@
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
                             class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span><?php echo $username; ?></a></li>                        
+                        <li class="divider"></li>
                         <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
                         <li class="divider"></li>
                         <li><a href="#"><span class="glyphicon glyphicon-off"></span>Logout</a></li>

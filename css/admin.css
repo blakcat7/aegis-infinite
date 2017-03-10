@@ -89,3 +89,55 @@
     table-layout: fixed;
 }
 
+.recommended{
+    display: inline-block;
+    background-color: #eee;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin: 10px 5px;
+    text-align: center;
+    border-radius: 4px;
+
+}
+
+.recommended .user{
+    display: block;
+    color: #333;
+}
+
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+
+.add-on .btn{
+    padding: 6.3px 12px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+#img-upload{
+    width: 100%;
+}

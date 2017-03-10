@@ -14,30 +14,41 @@
             </ol>                        
             <?php $this->load->view('admin/assets/menu_p'); ?>
             <hr>                    
-            <?php echo $this->session->flashdata('msg-p'); ?>
+            <?php echo $this->session->flashdata('msg'); ?>
 
             <div id="row-table" class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Add New Project
+                        Recommend an Employee
                     </div>
-                    <div class="panel-body">
-                        <?php echo form_open('admin/add_skills'); ?>
-                        <div class="form-group col-lg-12">
-                            <label>Recommended Employees:</label> <?php echo form_error('skillsRequired'); ?><br />
-                            <?php 
-                            foreach ($users as $user) {
-                                $this = $user['empID'];
-                                print_r($this);
-                            }
-                            
-                            ?>
+                    <form action="add_recommended" method="post">
+                        <div class="panel-body">
+                            <div class="form-group col-lg-12">
+                                <label>Recommended Employees:</label><br />
+                                <?php
+                                foreach($users as $user) { ?>
+                                <div class="recommended">
+                                    <?php 
+                                    echo '<span class="user">' . $user->username . '</span>';
+                                    echo '<span class="user">' . $user->fname . ' '. $user->lname . '</span>';
+                                    echo '<span class="user">' . $user->role . '</span>';
+                                    ?>
+                                </div>
+                                <?php } ?>
+                                <br/>
+                                <span style="font-size: 9pt;">Search and select for employee username as recommended above.</span>
+                                <select name="recommended[]" class="chosen-select" multiple title='Select Skills' multiple style="width: 100%;">
+                                    <?php for ($i = 0; $i < count($users); $i++) { ?>
+                                        <option value="<?php echo $users[$i]->userID ?>"><?php echo $users[$i]->username ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Next', 'class' => 'btn')); ?>
-                        <?php echo form_close(); ?>
-                    </div>
+                        <div class="panel-footer">
+                            <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Submit', 'class' => 'btn')); ?>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>

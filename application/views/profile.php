@@ -33,11 +33,14 @@
                         <div class="profile">
                             <div class="profile-header-container">                                   
                                 <div class="profile-pic">
-                                    <img class="crop" src="<?php echo base_url(); ?>images/profile1.jpg" />
+                                    <?php foreach ($pics as $pic) { ?>
+                                        <img src="<?php echo base_url() . 'images/profilepics/' . $pic->picture ?>" class="crop">
+                                    <?php } ?>
+<!--<img class="crop" src="<?php echo base_url(); ?>images/profilepics/profile1.jpg" />-->
                                 </div>
                             </div> 
                             <div class="name">
-                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $role; ?></small></h2>
+                                <h2><?php echo $fname . ' ' . $lname; ?><br/><small><?php echo $designation; ?></small></h2>
                                 <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
                             </div>
                         </div>
@@ -61,7 +64,10 @@
                                 <div class="col-sm-5"><i class="fa fa-envelope-o"></i>Email</div>                                    
                                 <div class="col-sm-7"><?php echo $email; ?></div>
                                 <div class="col-sm-12"><hr></div>
-                                <div class="col-sm-5"><i class="fa fa-map-marker"></i>Location</div>                                    
+                                <div class="col-sm-5"><i class="fa fa-user"></i>Designation</div>                                    
+                                <div class="col-sm-7"><?php echo $designation; ?></div>                                
+                                <div class="col-sm-12"><hr></div>
+                                <div class="col-sm-5"><i class="fa fa-map-marker"></i>Location <span style="font-size: 9pt;">(Primary)</span></div>                                    
                                 <div class="col-sm-7"><?php echo $location; ?></div>
                             </div>
                         </div>
@@ -74,10 +80,13 @@
                             </div>
                             <div class="panel-body">
                                 <div class="col-sm-5"><i class="fa fa-building-o"></i>Department</div>                                    
-                                <div class="col-sm-7"><?php echo $sector; ?></div>
+                                <div class="col-sm-7"><?php echo $sector; ?></div>       
                                 <div class="col-sm-12"><hr></div>
-                                <div class="col-sm-5"><i class  ="fa fa-tasks"></i>Designation</div>                                    
-                                <div class="col-sm-7"><?php echo $role; ?></div>
+                                <div class="col-sm-5"><i class  ="fa fa-tasks"></i>Role</div>                                    
+                                <div class="col-sm-7"><?php echo $role; ?></div>                         
+                                <div class="col-sm-12"><hr></div>
+                                <div class="col-sm-5"><i class  ="fa fa-map-marker"></i>Location <span style="font-size: 9pt;">(Preferred)</span></div>                                    
+                                <div class="col-sm-7"><?php echo $plocation; ?></div>
                             </div>
                         </div>
                     </div><!--/.col-md-6 --> 
@@ -88,15 +97,20 @@
                                 <h3 class="panel-title"><i class="fa fa-fire"></i>Skills</h3>
                             </div>
                             <div class="panel-body">
-                                <?php foreach ($results as $data) { ?>                                             
-                                    <div class="progress">
+
+                                Go to <span class="label label-add"><i class="fa fa-cogs"></i>Settings</span> to add or change skills.
+
+                                <?php foreach ($results as $data) { ?>  
+                                    <div class="progress">   
                                         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $data['percentage']; ?>%;">
                                             <span class="sr-only"><?php echo $data['percentage']; ?>% Complete</span>
                                         </div>
                                         <span class="progress-type"><?php echo $data['skillName']; ?></span>
                                         <span class="progress-completed"><?php echo $data['percentage']; ?>%</span>
                                     </div>
-                                <?php } ?>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div><!--/.col-md-6 -->
@@ -108,7 +122,9 @@
                                 <h3 class="panel-title"><i class="fa fa-folder"></i>Projects</h3>
                             </div>
                             <div class="panel-body">
-                                <?php foreach ($proj as $data) { ?>                                             
+                                <?php
+                                foreach ($proj as $data) {
+                                    ?>                                             
                                     <h4> <?php echo $data['title']; ?> 
                                         <div class="pull-right">
                                             <label class="location"><span class="glyphicon glyphicon-map-marker"></span><?php echo $data['projLocation'] ?></label>
@@ -117,7 +133,9 @@
                                     </h4>
                                     <p class="desc"><?php echo $data['description']; ?> </p>
                                     <hr>
-                                <?php } ?>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div><!--/.col-md-6 -->

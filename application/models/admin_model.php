@@ -7,13 +7,11 @@ class admin_model extends CI_Model {
     }
 
     function insertUser($data) {
-
         return $this->db->insert('users', $data);
     }
 
     public function insertProjects($data) {
-        $this->db->insert('projects', $data);
-        return $this->db->insert_id();
+        return $this->db->insert('projects', $data);
     }
 
     public function insert($table, $data) {
@@ -21,8 +19,16 @@ class admin_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    public function getLatestID() {
+        return $this->db->insert_id();
+    }
+
     public function insertSkills($data) {
-        $this->db->insert('projectskillslist', $data);
+        return $this->db->insert('projects_skills', $data);
+    }
+
+    public function insertRecEmp($data) {
+        $this->db->insert('projects_users', $data);
     }
 
     public function showProjects() {
@@ -32,7 +38,7 @@ class admin_model extends CI_Model {
 
     public function showSkills() {
         $this->db->select('skillName');
-        $this->db->from('empskillslist');
+        $this->db->from('skills');
         $this->db->get()->result_array();
     }
 
@@ -40,42 +46,44 @@ class admin_model extends CI_Model {
         return $this->db->count_all('users');
     }
 
+    public function getSkills() {
+        $this->db->select('*');
+        $this->db->from('skills');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return false;
+    }
+
+    public function getUsers($id) {
+        $this->db->select('*');
+        $this->db->from('users_skills e');
+        $this->db->join('projects_skills p', 'e.skillsID = p.skillsID');
+        $this->db->join('users u', 'u.userID = e.userID');
+        $this->db->where('p.projectID', $id);
+        $this->db->group_by('e.userID');
+        $this->db->order_by('e.percentage', 'desc');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return false;
+    }
+
     public function getID() {
         $this->db->select_max('projectID');
         $this->db->from('projects');
         $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $result[] = $row;
-            }
-            return $result;
-        }
-        return false;
-    }
+        $result = $query->result_array();
 
-    public function getSkills() {
-        $this->db->select('*');
-        $this->db->from('empskillslist');
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $result[] = $row;
-            }
-            return $result;
-        }
-        return false;
-    }
-
-    public function getUsers($data) {
-        $query = $this->db->query('SELECT * FROM empwithskills  WHERE (skillsID) IN (SELECT skillsID FROM  projectskillslist WHERE projectID=' . $data . ')');
-
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $result[] = $row;
-            }
-            return $result;
-        }
-        return false;
+        return $result;
     }
 
     public function fetch_users($limit, $start) {
@@ -83,7 +91,7 @@ class admin_model extends CI_Model {
         $query = $this->db->get('users');
 
 
-        if ($query->num_rows() > 0) {
+        if ($query->num_rsows() > 0) {
             return $query->result_array();
         }
         return false;

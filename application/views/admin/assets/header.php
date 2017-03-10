@@ -21,7 +21,7 @@
         <link href="<?php echo base_url(); ?>css/chosen.css" rel="stylesheet"> 
 
         <script type="text/javascript" src="<?php echo base_url(); ?>js/filter.js"></script>
-
+        <script type="text/javascript" src="<?php echo base_url(); ?>js/upload.js"></script>
         <style>
             .btn-add-e { padding: 9.65px 12px;}
         </style>

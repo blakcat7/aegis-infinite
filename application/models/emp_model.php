@@ -124,6 +124,7 @@ class emp_model extends CI_Model {
 
     function set_session() {
         $this->session->set_userdata(array(
+            'userID' => $this->details->userID,
             'username' => $this->details->username,
             'fname' => $this->details->fname,
             'lname' => $this->details->lname,
@@ -135,6 +136,7 @@ class emp_model extends CI_Model {
             'percentage' => $this->details->percentage,
             'designation' => $this->details->designation,
             'plocation' => $this->details->plocation,
+            'availability' => $this->details->availability,
             'logged_in' => true
                 )
         );
@@ -144,18 +146,70 @@ class emp_model extends CI_Model {
         $this->db->get('projects');
     }
 
-    function show_users($data) {
-        $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('username', $data);
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
+    function search_keyword($keyword) {
+        $this->db->like('name', $keyword);
+        $query = $this->db->get('tablename');
+        return $query->result();
     }
 
-    function update_user($id, $data) {
-        $this->db->where('username', $id);
+    public function get_id($field, $table, $id) {
+        $this->db->where($field, $id);
+        $query = $this->db->get($table);
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
+    public function update_image($data) {
+        $id = $this->input->post('txt_hidden');
+        $this->db->where('userID', $id);
         $this->db->update('users', $data);
+    }
+
+    public function update() {
+        $fname = $this->input->post('fname');
+        $lname = $this->input->post('lname');
+        $designation = $this->input->post('designation');
+        $sector = $this->input->post('sector');
+        $location = $this->input->post('location');
+        $plocation = $this->input->post('plocation');
+        $id = $this->input->post('txt_hidden');
+
+        $field = array(
+            'fname' => $fname,
+            'lname' => $lname,
+            'designation' => $designation,
+            'sector' => $sector,
+            'location' => $location,
+            'plocation' => $plocation
+        );
+        $this->db->where('userID', $id);
+        $this->db->update('users', $field);
+        echo $this->db->last_query();
+
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_userdata('fname', $fname);
+            $this->session->set_userdata('lname', $lname);
+            $this->session->set_userdata('designation', $designation);
+            $this->session->set_userdata('sector', $sector);
+            $this->session->set_userdata('location', $location);
+            $this->session->set_userdata('plocation', $plocation);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function view_users($data) {
+        $this->db->select('*');
+        $this->db->from('users u');
+        $this->db->where('u.username', $data);
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        return $result;
     }
 
 }

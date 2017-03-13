@@ -151,23 +151,21 @@ class employee extends CI_Controller {
     }
 
     public function update() {
-        $config = array();
-        $config['upload_path'] = "/images/profilepics/";
-        $config['allowed_types'] = "jpg|jpeg|png||gif";
-        $config['max_size'] = '1024';
-
-        $this->load->library('upload', $config);
-
-        $this->upload->do_upload();
-        $data = array('upload_data' => $this->upload->data());
-        $this->image_resize($data['upload_data']['full_path'], $data['upload_data']['file_name']);
-        $data1 = array(
-            'picture' => $data['upload_data']['file_name'],
-        );
-
         $this->emp_model->update();
-        $this->emp_model->update_image($data1);
+        /*
+          $config = array();
+          $config['upload_path'] = "./images/profilepics/";
+          $config['allowed_types'] = "jpg|jpeg|png||gif";
+          $config['max_size'] = '1024';
 
+          $this->load->library('upload', $config);
+
+          $this->upload->do_upload();
+          $data = array('upload_data' => $this->upload->data());
+          $this->image_resize($data['upload_data']['full_path'], $data['upload_data']['file_name']);
+          $data1 = array('picture' => $data['upload_data']['file_name']);
+          $this->emp_model->update_image($data1);
+         */
         $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Basic Info has been updated</div>');
         redirect('employee/settings');
     }
@@ -177,7 +175,7 @@ class employee extends CI_Controller {
         $config_resize['image_library'] = 'gd2';
         $config_resize['source_image'] = $path;
         $config_resize['maintain_ratio'] = TRUE;
-        $config_resize['new_image'] = './images/thumbnails' . $file;
+        $config_resize['new_image'] = './images/profilepics/thumbnails/' . $file;
         $this->load->library('image_lib', $config_resize);
         $this->image_lib->resize();
     }

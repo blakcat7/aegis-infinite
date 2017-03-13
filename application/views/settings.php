@@ -106,6 +106,17 @@
                                                 <option value="United States">United States</option>
                                             </select>
                                         </div>
+                                         <div class="form-group col-md-12">                                    
+                                            <label>Availability:</label>                                                  
+                                            <select name='availability' class='form-control' style='width: 100%;'>   
+                                                <option selected value="<?php echo $blog->availability ?>"><label><?php echo $blog->availability ?></label></option>                                                                  
+                                                <option disabled></option>
+                                                <option value="Available">Available</option>                        
+                                                <option value="Busy">Busy</option>
+                                                <option value="Unavailable">Unavailable</option>
+                                            </select>
+                                        </div>
+                                        <!--
                                         <div class="form-group col-lg-12">
                                             <label>Change Profile Picture</label>
                                             <div class="input-group">
@@ -116,7 +127,8 @@
                                                 </span>
                                                 <input type="text" class="form-control" readonly>
                                             </div>
-                                        </div>
+                                        </div>                                        
+                                        -->
                                         <div class="form-group col-md-10">
                                             <input type="submit" name="btnUpdate" class="join" value="Update">
                                         </div>

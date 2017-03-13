@@ -163,9 +163,11 @@ class emp_model extends CI_Model {
     }
 
     public function update_image($data) {
+        //$file = $this->input->post('userfile'); 
         $id = $this->input->post('txt_hidden');
+        $this->db->set('picture', $data);        
         $this->db->where('userID', $id);
-        $this->db->update('users', $data);
+        $this->db->update('users');
     }
 
     public function update() {
@@ -175,6 +177,7 @@ class emp_model extends CI_Model {
         $sector = $this->input->post('sector');
         $location = $this->input->post('location');
         $plocation = $this->input->post('plocation');
+        $availability = $this->input->post('availability');
         $id = $this->input->post('txt_hidden');
 
         $field = array(
@@ -183,7 +186,8 @@ class emp_model extends CI_Model {
             'designation' => $designation,
             'sector' => $sector,
             'location' => $location,
-            'plocation' => $plocation
+            'plocation' => $plocation,
+            'availability' => $availability
         );
         $this->db->where('userID', $id);
         $this->db->update('users', $field);
@@ -196,6 +200,8 @@ class emp_model extends CI_Model {
             $this->session->set_userdata('sector', $sector);
             $this->session->set_userdata('location', $location);
             $this->session->set_userdata('plocation', $plocation);
+            $this->session->set_userdata('availability', $availability);
+            
             return true;
         } else {
             return false;

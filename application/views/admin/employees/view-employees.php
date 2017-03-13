@@ -41,7 +41,7 @@
                         <tbody>
                             <?php foreach ($results as $data) { ?>
                                 <tr>
-                                    <td><?php echo $data['username']; ?></td>
+                                    <td><a href="<?php echo base_url() . 'employee/view_users/' . $data['username']; ?>"><?php echo $data['username']; ?></a></td>
                                     <td><?php echo $data['fname']; ?> <?php echo $data['lname']; ?></td>
                                     <td><?php echo $data['email']; ?></td>
                                     <td><?php echo $data['location']; ?><br/></td>

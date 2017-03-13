@@ -37,10 +37,10 @@ class employee extends CI_Controller {
         $password = $this->input->post('password');
         $admin = 'admin';
         $employee = 'employee';
-        
+
         if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $employee)) {
             redirect('employee/profile');
-        } else if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $admin)){
+        } else if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $admin)) {
             redirect('admin/add_project');
         } else {
             $this->login(true);
@@ -63,6 +63,7 @@ class employee extends CI_Controller {
      */
 
     function profile() {
+        $data['userID'] = $this->session->userdata('userID');
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -75,6 +76,7 @@ class employee extends CI_Controller {
         $data['percentage'] = $this->session->userdata('percentage');
         $data['designation'] = $this->session->userdata('designation');
         $data['plocation'] = $this->session->userdata('plocation');
+        $data['availability'] = $this->session->userdata('availability');
 
         $data['results'] = $this->emp_model->view_skills($username);
 
@@ -99,6 +101,8 @@ class employee extends CI_Controller {
         $data['sector'] = $this->session->userdata('sector');
         $data['location'] = $this->session->userdata('location');
         $data['designation'] = $this->session->userdata('designation');
+
+        $data['availability'] = $this->session->userdata('availability');
         $data['pSkills'] = $this->emp_model->view_projskills($username);
 
 
@@ -114,8 +118,10 @@ class employee extends CI_Controller {
         $data['lname'] = $this->session->userdata('lname');
         $data['role'] = $this->session->userdata('role');
         $data['sector'] = $this->session->userdata('sector');
-        $data['location'] = $this->session->userdata('location');        
+        $data['location'] = $this->session->userdata('location');
         $data['designation'] = $this->session->userdata('designation');
+
+        $data['availability'] = $this->session->userdata('availability');
 
         $data['results'] = $this->emp_model->my_project($username);
         $data['project'] = $this->emp_model->all_project($username);
@@ -137,25 +143,59 @@ class employee extends CI_Controller {
      */
 
     function settings() {
-        $this->load->view('settings');
-    }
-
-    function show_user_id() {
-        $id = $this->uri->segment(3);
-        $data['users'] = $this->emp_model->show_users($id);
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $id = $this->session->userdata('username');
+        $data['blog'] = $this->emp_model->get_id('username', 'users', $id);
         $this->load->view('settings', $data);
     }
 
-    function update_user_id() {
-        $id = $this->input->post('did');
-        $data = array(
-            'Student_Name' => $this->input->post('dname'),
-            'Student_Email' => $this->input->post('demail'),
-            'Student_Mobile' => $this->input->post('dmobile'),
-            'Student_Address' => $this->input->post('daddress')
+    public function update() {
+        $config = array();
+        $config['upload_path'] = "/images/profilepics/";
+        $config['allowed_types'] = "jpg|jpeg|png||gif";
+        $config['max_size'] = '1024';
+
+        $this->load->library('upload', $config);
+
+        $this->upload->do_upload();
+        $data = array('upload_data' => $this->upload->data());
+        $this->image_resize($data['upload_data']['full_path'], $data['upload_data']['file_name']);
+        $data1 = array(
+            'picture' => $data['upload_data']['file_name'],
         );
-        $this->emp_model->update_user($id, $data);
-        $this->show_user_id();
+
+        $this->emp_model->update();
+        $this->emp_model->update_image($data1);
+
+        $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Basic Info has been updated</div>');
+        redirect('employee/settings');
+    }
+
+    function image_resize($path, $file) {
+        $config_resize = array();
+        $config_resize['image_library'] = 'gd2';
+        $config_resize['source_image'] = $path;
+        $config_resize['maintain_ratio'] = TRUE;
+        $config_resize['new_image'] = './images/thumbnails' . $file;
+        $this->load->library('image_lib', $config_resize);
+        $this->image_lib->resize();
+    }
+
+    function view_users() {
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $id = $this->uri->segment(3);
+        $data['viewUsers'] = $this->emp_model->view_users($id);
+        $data['viewSkills'] = $this->emp_model->view_skills($id);
+        $data['viewProjects'] = $this->emp_model->my_project($id);
+        $this->load->view('view', $data);
+    }
+
+    function search() {
+        $keyword = $this->input->post('keyword');
+        $data['results'] = $this->mymodel->search($keyword);
+        $this->load->view('result_view', $data);
     }
 
 }

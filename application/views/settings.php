@@ -16,9 +16,10 @@
 
         <!-- Custom CSS -->
         <link href="<?php echo base_url(); ?>css/navbar.css" rel="stylesheet">
-        <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">            
+        <link href="<?php echo base_url(); ?>css/chosen.css" rel="stylesheet">   
         <link href="<?php echo base_url(); ?>css/profile.css" rel="stylesheet">
-        <link href="<?php echo base_url(); ?>css/footer.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/footer.css" rel="stylesheet">      
     </head>
     <body>
         <!-- NAVBAR -->
@@ -31,43 +32,100 @@
                 <div class="col-md-3">
                     <div class="row">
                     </div>
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href="<?php echo base_url(); ?>employee/profile"><i class="fa fa-user fa-fw"></i>Profile</a ></li>
-                        <li><a href="<?php echo base_url(); ?>employee/projects"><i class="fa fa-folder-open fa-fw"></i>Projects</a ></li>  
+                    <ul class="nav nav-pills nav-stacked">                        
+                        <li style=""><a href="<?php echo base_url(); ?>employee/profile"><h5><i class="fa fa-arrow-left fa-fw"></i>Go Back To Profile</h5></a></li>
+                        <h5><i class="fa fa-cogs fa-fw"></i> Settings</h5>   
+                        <hr>
+                        <li class="active"><a href="#"><i class="fa fa-user fa-fw"></i>Basic Info</a ></li>
+                        <li><a href="#"><i class="fa fa-fire fa-fw"></i>Skills</a ></li>  
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
-                        <li><hr></li>
-                        <li class="active"><a href="#"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
                         <li><hr></li>
                     </ul>
                 </div>
                 <div class="profile-content col-md-9">
                     <!-- Projects -->
                     <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-pencil"></i>Edit Profile</h3>
-                            </div>
-                            <div class="panel-body">
-                                <?php foreach ($users as $user): ?>
-                                    <p>Edit Detail & Click Update Button</p>
-                                    <form method="post" action="<?php echo base_url() . "index.php/update_ctrl/update_student_id1" ?>">
-                                        <label id="hide">Id :</label>
-                                        <input type="text" id="hide" name="did" value="<?php echo $student->student_id; ?>">
-                                        <label>Name :</label>
-                                        <input type="text" name="dname" value="<?php echo $student->student_name; ?>">
-                                        <label>Email :</label>
-                                        <input type="text" name="demail" value="<?php echo $student->student_email; ?>">
-                                        <label>Mobile :</label>
-                                        <input type="text" name="dmobile" value="<?php echo $student->student_mobile; ?>">
-                                        <label>Address :</label>
-                                        <input type="text" name="daddress" value="<?php echo $student->student_address; ?>">
-                                        <input type="submit" id="submit" name="dsubmit" value="Update">
+                        <div id="row-table" class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-pencil"></i>Basic Info</h3>
+
+                                </div>
+                                <div class="panel-body">
+                                    <form action="<?php echo base_url('employee/update'); ?>" method="post" class="form-horizontal">
+                                        <input type="hidden" name="txt_hidden" value="<?php echo $blog->userID; ?>">
+
+                                        <div class="form-group col-md-12">
+                                            <?php echo $this->session->flashdata('msg'); ?>
+                                        </div>
+                                        <div class="form-group col-md-6">                                    
+                                            <label>First Name</label>
+                                            <input type="text" value="<?php echo $blog->fname; ?>" name="fname" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6">                                    
+                                            <label>Last Name</label>
+                                            <input type="text" value="<?php echo $blog->lname; ?>" name="lname" class="form-control">
+                                        </div>                                    
+                                        <div class="form-group col-md-12">                                    
+                                            <label>Designation</label>
+                                            <input type="text" value="<?php echo $blog->designation; ?>" name="designation" class="form-control">
+                                        </div>                                        
+                                        <div class="form-group col-md-12">                                    
+                                            <label>Sector:</label>
+                                            <select name='sector' class='form-control'>   
+                                                <option value="Civil">Civil</option>
+                                                <option value="Defense">Defense</option>
+                                                <option value="Security">Intelligence and Homeland Security</option>
+                                                <option value="Health">Health</option>
+                                                <option value="Advance Solutions">Advance Solutions</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12">                                    
+                                            <label>Primary Location:</label>
+                                            <select name='location' class='form-control'>                                                                                                                         
+                                                <option selected value="<?php echo $blog->location ?>"><?php echo $blog->location ?></option>
+                                                <option disabled></option>
+                                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="South Korea">South Korea</option>
+                                                <option value="Spain">Spain</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Untied States">United States</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12">                                    
+                                            <label>Preferred Location:</label>                                                  
+                                            <select name='plocation' class='form-control' style='width: 100%;'>   
+                                                <option selected value="<?php echo $blog->plocation ?>"><label><?php echo $blog->plocation ?></label></option>                                                                  
+                                                <option disabled></option>
+                                                <option value="United Arab Emirates">United Arab Emirates</option>                        
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="South Korea">South Korea</option>
+                                                <option value="Spain">Spain</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="United States">United States</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-12">
+                                            <label>Change Profile Picture</label>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-default btn-file">
+                                                        Browse… <input type="file" name="userfile" id="imgInp">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-10">
+                                            <input type="submit" name="btnUpdate" class="join" value="Update">
+                                        </div>
                                     </form>
-                                <?php endforeach; ?>
+                                </div>
                             </div>
-                        </div>
-                    </div><!--/.col-md-6 -->
-                    <hr>
+                        </div><!--/.col-md-6 -->
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,6 +137,56 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>document.body.className += ' fade-out';</script>
+        <script src="<?php echo base_url(); ?>js/chosen.jquery.min.js"></script>
+        <script type="text/javascript">
+            var config = {
+                '.chosen-select': {},
+                '.chosen-select-deselect': {allow_single_deselect: true},
+                '.chosen-select-no-single': {disable_search_threshold: 10},
+                '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
+                '.chosen-select-width': {width: "95%"}
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(document).on('change', '.btn-file :file', function () {
+                    var input = $(this),
+                            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                    input.trigger('fileselect', [label]);
+                });
+
+                $('.btn-file :file').on('fileselect', function (event, label) {
+
+                    var input = $(this).parents('.input-group').find(':text'),
+                            log = label;
+
+                    if (input.length) {
+                        input.val(log);
+                    } else {
+                        if (log)
+                            alert(log);
+                    }
+
+                });
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#img-upload').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $("#imgInp").change(function () {
+                    readURL(this);
+                });
+            });
+        </script>
     </body>
 </html>

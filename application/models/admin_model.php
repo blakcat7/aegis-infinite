@@ -59,12 +59,29 @@ class admin_model extends CI_Model {
         return false;
     }
 
+    public function getPM() {
+        $this->db->select('*');
+        $this->db->from('users u');
+        $this->db->where('u.role', 'Project Manager');
+        $this->db->where('u.availability', 'Available');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return false;
+    }
+
     public function getUsers($id) {
         $this->db->select('*');
         $this->db->from('users_skills e');
         $this->db->join('projects_skills p', 'e.skillsID = p.skillsID');
         $this->db->join('users u', 'u.userID = e.userID');
+        $this->db->join('skills s', 's.skillsID = e.skillsID');
         $this->db->where('p.projectID', $id);
+        $this->db->where('u.availability !=', 'Unavailable');
         $this->db->group_by('e.userID');
         $this->db->order_by('e.percentage', 'desc');
         $query = $this->db->get();
@@ -91,7 +108,7 @@ class admin_model extends CI_Model {
         $query = $this->db->get('users');
 
 
-        if ($query->num_rsows() > 0) {
+        if ($query->num_rows() > 0) {
             return $query->result_array();
         }
         return false;

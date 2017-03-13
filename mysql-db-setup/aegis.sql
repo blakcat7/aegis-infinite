@@ -131,6 +131,7 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `designation` varchar(50) NOT NULL,
   `plocation` varchar(50) NOT NULL,
+  `availability` varchar(50) NOT NULL,
   `picture` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

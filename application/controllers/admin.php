@@ -25,20 +25,9 @@ class admin extends CI_Controller {
 
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
 
-        $config = array();
-        $config['upload_path'] = "./images/profilepics/";
-        $config['allowed_types'] = "jpg|jpeg|png||gif";
-        $config['max_size'] = '1024';
-
-        $this->load->library('upload', $config);
-
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/employees/add-employees');
-        } else {
-            $this->upload->do_upload();
-            $data = array('upload_data' => $this->upload->data());
-            $this->image_resize($data['upload_data']['full_path'], $data['upload_data']['file_name']);
-
+        } else {            
             $data = array(
                 'location' => $this->input->post('location'),
                 'fname' => $this->input->post('fname'),
@@ -49,7 +38,7 @@ class admin extends CI_Controller {
                 'password' => $this->input->post('password'),
                 'sector' => $this->input->post('sector'),
                 'designation' => $this->input->post('designation'),
-                'picture' => $data['upload_data']['file_name']
+                'picture' => 'default.jpg'
             );
             if ($this->admin_model->insert('users', $data)) {
                 $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
@@ -156,22 +145,21 @@ class admin extends CI_Controller {
 
                 $skills = $this->input->post('skill');
 
-                foreach ($skills as $skill):
+                foreach ($skills as $skill){
                     $data2 = array(
                         'projectID' => $id,
                         'skillsID' => $skill
                     );
 
                     $this->admin_model->insert('projects_skills', $data2);
-                endforeach;
+                }
 
-                redirect('admin/add_recommended');
+                redirect('admin/recommend_managers');
             }
         }
     }
 
-    public function add_recommended() {
-
+    public function recommend_users() {
         $lid = $this->admin_model->getID();
 
         foreach ($lid as $id) {
@@ -179,47 +167,48 @@ class admin extends CI_Controller {
         }
 
         $data['users'] = $this->admin_model->getUsers($last_id);
-
+        $data['pmanager'] = $this->admin_model->getPM();
+        
         $this->load->view('admin/projects/rec-employee', $data);
 
         if ($_POST) {
             $users = $this->input->post('recommended');
-            foreach ($users as $user):
+            foreach ($users as $user){
                 $data = array(
                     'projectID' => $last_id,
                     'userID' => $user
                 );
                 $id = $this->admin_model->insertRecEmp($data);
-            endforeach;
+            }
 
             $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
             redirect('admin/add_project');
         }
+    }
+    
+        public function recommend_managers() {
+        $lid = $this->admin_model->getID();
 
-//                redirect('admin/add_project');
-//
-//        if ($this->form_validation->run() === FALSE) {
-//            //$this->load->view('admin/projects/rec-employee');
-//        } else {
-//            $users = $this->input->post('recommended');
-//            print_r($users);
-//            
-//            
-//
-//            foreach ($users as $user):
-//                $data = array(
-//                    'projectID' => $last_id,
-//                    'userID' => $user
-//                );
-//
-//                $id = $this->admin_model->insertRecEmp($data);
-//            endforeach;    
-//            
-//            if ($id) {
-//                $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
-//                redirect('admin/add_project');
-//            }
-//        }
+        foreach ($lid as $id) {
+            $last_id = $id['projectID'];
+        }
+        
+        $data['pmanager'] = $this->admin_model->getPM();
+        
+        $this->load->view('admin/projects/rec-projectmanager', $data);
+
+        if ($_POST) {
+            $users = $this->input->post('recommended');
+            foreach ($users as $user){
+                $data = array(
+                    'projectID' => $last_id,
+                    'userID' => $user
+                );
+                $id = $this->admin_model->insertRecEmp($data);
+            }
+
+            redirect('admin/recommend_users');
+        }
     }
 
     public function view_projects() {

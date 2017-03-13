@@ -150,22 +150,11 @@
                             echo form_dropdown('location', $location, 'United Arab Emirates', 'class = "form-control"');
                             ?>
                         </div>
-
-                        <div class="form-group col-lg-12">
-                            <label>Upload Profile Picture</label>
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <span class="btn btn-default btn-file">
-                                        Browse… <input type="file" name="userfile" id="imgInp">
-                                    </span>
-                                </span>
-                                <input type="text" class="form-control" readonly>
-                            </div>
-                        </div>
+                        <input type="hidden" name="userfile" id="imgInp">
 
                     </div>
                     <div class="panel-footer">
-                        <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn', 'name' =>'submit')); ?>
+                        <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn', 'name' => 'submit')); ?>
                         <?php echo form_close(); ?>
                     </div>
                 </div>

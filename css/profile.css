@@ -19,7 +19,22 @@
     -webkit-border-radius: 99em;
     -moz-border-radius: 99em;
     border-radius: 99em;
-    border: 5px solid #796399;
+    border: 5px solid #eee;
+}
+
+.Available {
+    background: rgba(46, 204, 113,1.0);
+    border: 5px solid #2ecc71;
+}
+
+.Unavailable {
+    background: rgba(231, 76, 60,1.0);
+    border: 5px solid #e74c3c;
+}
+
+.Busy{    
+    border: 5px solid #f39c12;
+    background: rgba(243, 156, 18,1.0);
 }
 
 .profile{
@@ -124,19 +139,18 @@ button.view:hover{
     color: #fff;
 }
 
-button.join{
+.join{
     display: inline-block;
-    background-image: linear-gradient(to left,#3f1d69 0%,#0d074d 100%);
-    background-color: #1f1545;
+    background: #aaa;
     color: #fff;
     font-size: 10pt;
     padding: 5px 12px;
-    margin: 5px 0px ;
+    margin: 10px 0px ;
     border: none;
 }
 
-button.join:hover{
-    background-image: linear-gradient(to left,#7b1f7f 0%,#3b1363 100%);
+.join:hover{
+    background: #7D1380;
     color: #fff;
 }
 

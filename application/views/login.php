@@ -66,14 +66,11 @@
                     <label><input type="checkbox"> Remember me</label>
                 </div>
                 <div class="forget-password">
-                    <a href="#"> Forget Password?</a>
+                    <a href="#"> Forgot Password?</a>
                 </div>
                 <div class="form-group">
                     <input type="submit" id="submit" name="submit" class="btn btn-lg btn-block" value="Sign in">
                 </div>
-                <div style="text-align: center;">
-                    <a href="<?php echo site_url('controller/admin_login'); ?>"><small>Switch to Admin</small></a>
-                </div> 
                 <?php echo form_close(); ?>
             </div>
         </div>

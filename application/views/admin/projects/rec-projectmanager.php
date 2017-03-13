@@ -19,14 +19,14 @@
             <div id="row-table" class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Recommend an Employee
+                        Recommend a Project Manager
                     </div>
-                    <form action="recommend_users" method="post">
+                    <form action="recommend_managers" method="post">
                         <div class="panel-body">
                             <div class="form-group col-lg-12">
-                                <label>Recommended Employees:</label>
+                                <label>Recommended Project Manager:</label>
                                 <br />
-                                <?php foreach ($users as $user) { ?>
+                                <?php foreach ($pmanager as $user) { ?>
                                     <div class="recommended">
                                         <div class="crop">
                                             <img src="<?php echo base_url(); ?>images/profilepics/<?php echo $user->picture ?>">
@@ -34,20 +34,20 @@
                                         <label class="user">
                                             <a href="<?php echo base_url() . 'employee/view_users/' . $user->username; ?>"><?php echo $user->username; ?></a><div class="availability <?php echo $user->availability; ?>"></div></label>
                                         <span class="user"><?php echo $user->fname . ' ' . $user->lname; ?></span>
-                                        <span class="user"><?php echo $user->designation; ?></span>
+                                        <span class="user"><?php echo $user->role; ?></span>
                                     </div>
                                 <?php } ?>
                                 <br/>
-                                <span style="font-size: 9pt;">Search and select for employee username as recommended above.</span>
+                                <span style="font-size: 9pt;">Search and select for project manager username as recommended above.</span>
                                 <select name="recommended[]" class="chosen-select" multiple title='Select Skills' multiple style="width: 100%;">
-                                    <?php for ($i = 0; $i < count($users); $i++) { ?>
-                                        <option value="<?php echo $users[$i]->userID ?>"><?php echo $users[$i]->username ?></option>
+                                    <?php for ($i = 0; $i < count($pmanager); $i++) { ?>
+                                        <option value="<?php echo $pmanager[$i]->userID ?>"><?php echo $pmanager[$i]->username ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Submit', 'class' => 'btn')); ?>
+                            <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Next', 'class' => 'btn')); ?>
                         </div>
                     </form>
 
@@ -78,6 +78,7 @@
         '.chosen-select': {},
         '.chosen-select-deselect': {allow_single_deselect: true},
         '.chosen-select-no-single': {disable_search_threshold: 10},
+        '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
         '.chosen-select-width': {width: "95%"}
     }
     for (var selector in config) {

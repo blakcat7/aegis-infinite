@@ -113,7 +113,7 @@
                             <div class="profile-header-container">                                   
                                 <div class="profile-pic">
                                     <?php foreach ($pics as $pic) { ?>
-                                        <img src="<?php echo base_url() . 'images/profilepics/' . $pic->picture ?>" class="crop">
+                                        <img src="<?php echo base_url() . 'images/profilepics/' . $pic->picture ?>" class="crop <?php echo $availability; ?>">
                                     <?php } ?>
                                 </div>
                             </div> 

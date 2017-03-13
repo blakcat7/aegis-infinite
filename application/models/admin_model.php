@@ -134,6 +134,46 @@ class admin_model extends CI_Model {
         $query_result = $query->result();
         return $query_result;
     }
+    
+    public function get_alert($id)
+    {
+    	$this->db->select('*');
+    	$this->db->from('request_temp r');
+    	$this->db->join('projects p', 'p.projectID = r.projectID');
+    	$this->db->where('r.userID',$id);
+    	$query = $this->db->get();
+    	$result = array();
+    	if ($query->num_rows() > 0) {
+    		foreach ($query->result() as $row) {
+    			$result[] = $row;
+    		}
+    		return $result;
+    	}
+    	return $result;
+    }
+    
+    public function get_requests(){
+    	$this->db->select('*');
+    	$this->db->from('request_temp r');
+    	$this->db->join('projects p', 'p.projectID = r.projectID');
+    	$query = $this->db->get();
+    	
+    	$result = array();
+    	if ($query->num_rows() > 0) {
+    		foreach ($query->result() as $row) {
+    			$result[] = $row;
+    		}
+    		return $result;
+    	}
+    	return $result;
+    }
+    
+    public function delete($id, $pid)
+    {
+    	$this->db->where('userID', $id);
+    	$this->db->where('projectID', $pid);
+    	$this->db->delete('request_temp');
+    }
 
 }
 

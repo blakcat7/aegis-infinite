@@ -126,6 +126,8 @@ class admin extends CI_Controller {
         if ($query) {
             $data['skills'] = $query;
         }
+        
+        $data['notif'] = $this->admin_model->get_requests();
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/projects/add-projects', $data);

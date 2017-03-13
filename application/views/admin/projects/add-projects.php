@@ -15,7 +15,12 @@
             <?php $this->load->view('admin/assets/menu_p'); ?>
             <hr>                    
             <?php echo $this->session->flashdata('msg'); ?>
-
+                    	<?php foreach ($notif as $notifs) {?>
+                        <li><a href="#"><span class="label label-warning"><?php echo $notifs->datetime?></span><?php echo $notifs->title;?></a></li>
+                        <a href = "<?php echo base_url('employee/insert_row/' .$notifs->projectID . '/' . $notifs->userID); ?>">Accept</a>
+                         <?php } ?>
+                        <li class="divider"></li>
+                        <li><a href="#" class="text-center">View All</a></li>
             <div id="row-table" class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">

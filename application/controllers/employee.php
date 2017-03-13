@@ -37,12 +37,15 @@ class employee extends CI_Controller {
         $password = $this->input->post('password');
         $admin = 'admin';
         $employee = 'employee';
+        $manager = 'project manager';
 
         if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $employee)) {
             redirect('employee/profile');
         } else if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $admin)) {
             redirect('admin/add_project');
-        } else {
+        } else if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $manager)) {
+            redirect('employee/profile');
+        }else {
             $this->login(true);
         }
     }
@@ -63,35 +66,39 @@ class employee extends CI_Controller {
      */
 
     function profile() {
-        $data['userID'] = $this->session->userdata('userID');
-        $username = $this->session->userdata('username');
-        $data['username'] = $username;
-        $data['email'] = $this->session->userdata('email');
-        $data['fname'] = $this->session->userdata('fname');
-        $data['lname'] = $this->session->userdata('lname');
-        $data['role'] = $this->session->userdata('role');
-        $data['sector'] = $this->session->userdata('sector');
-        $data['location'] = $this->session->userdata('location');
-        $data['skillName'] = $this->session->userdata('skillName');
-        $data['percentage'] = $this->session->userdata('percentage');
-        $data['designation'] = $this->session->userdata('designation');
-        $data['plocation'] = $this->session->userdata('plocation');
-        $data['availability'] = $this->session->userdata('availability');
-
-        $data['results'] = $this->emp_model->view_skills($username);
-
-        $data['proj'] = $this->emp_model->my_project($username);
-
-        $data['pics'] = $this->emp_model->get_image($username);
-
-        $this->load->view('profile', $data);
+    	$id = $this->session->userdata('userID');
+    	$data['userID'] = $id;
+    	$username = $this->session->userdata('username');
+    	$data['username'] = $username;
+    	$data['email'] = $this->session->userdata('email');
+    	$data['fname'] = $this->session->userdata('fname');
+    	$data['lname'] = $this->session->userdata('lname');
+    	$data['role'] = $this->session->userdata('role');
+    	$data['sector'] = $this->session->userdata('sector');
+    	$data['location'] = $this->session->userdata('location');
+    	$data['skillName'] = $this->session->userdata('skillName');
+    	$data['percentage'] = $this->session->userdata('percentage');
+    	$data['designation'] = $this->session->userdata('designation');
+    	$data['plocation'] = $this->session->userdata('plocation');
+    	$data['availability'] = $this->session->userdata('availability');
+    
+    	$data['results'] = $this->emp_model->view_skills($username);
+    
+    	$data['proj'] = $this->emp_model->my_project($username);
+    
+    	$data['pics'] = $this->emp_model->get_image($username);
+    
+    	$data['notif'] = $this->admin_model->get_alert($id);
+    
+    	$this->load->view('profile', $data);
     }
-
     /*
      * PROJECT
      */
 
     function projects() {
+    	$id = $this->session->userdata('userID');
+    	$data['userID'] = $id;
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -105,12 +112,14 @@ class employee extends CI_Controller {
         $data['availability'] = $this->session->userdata('availability');
         $data['pSkills'] = $this->emp_model->view_projskills($username);
 
-
+        $data['notif'] = $this->admin_model->get_alert($id);
         $data['pics'] = $this->emp_model->get_image($username);
         $this->load->view('projects', $data);
     }
 
     function my_projects() {
+    	$id = $this->session->userdata('userID');
+    	$data['userID'] = $id;
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -127,8 +136,7 @@ class employee extends CI_Controller {
         $data['project'] = $this->emp_model->all_project($username);
         $data['skills'] = $this->emp_model->project_skills();
 
-
-
+        $data['notif'] = $this->admin_model->get_alert($id);
         $data['pics'] = $this->emp_model->get_image($username);
         $this->load->view('my_projects', $data);
     }
@@ -195,5 +203,28 @@ class employee extends CI_Controller {
         $data['results'] = $this->mymodel->search($keyword);
         $this->load->view('result_view', $data);
     }
+    
+    public function request(){
+    	$data = array(
+    			'projectID' => $this->uri->segment(3),
+    			'userID' => $this->uri->segment(4)
+    	);
+    	$this->admin_model->insert('request_temp', $data);
+    	redirect('employee/my_projects');
+    }
+    
+    function insert_row() {
+    	$p = $this->uri->segment(3);
+    	$u = $this->uri->segment(4);
+    	$data = array(
+    			'projectID'=> $p,
+    			'userID' => $u
+    	);
+    	 
+    	$this->admin_model->insert('projects_users', $data);
+    	$this->admin_model->delete($u, $p);
+    	redirect('employee/profile');
+    }
+    
 
 }

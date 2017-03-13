@@ -48,10 +48,10 @@
                             class="glyphicon glyphicon-globe"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><span class="label label-warning">4:00 AM</span>Favourites Snippet</a></li>
-                        <li><a href="#"><span class="label label-warning">4:30 AM</span>Email marketing</a></li>
-                        <li><a href="#"><span class="label label-warning">5:00 AM</span>Subscriber focused email
-                                design</a></li>
+                    	<?php foreach ($notif as $notifs) {?>
+                        <li><a href="#"><span class="label label-warning"><?php echo $notifs->datetime?></span><?php echo $notifs->title;?></a></li>
+                        <a href = "<?php echo base_url('employee/insert_row/' .$notifs->projectID . '/' . $notifs->userID); ?>">Accept</a>
+                         <?php } ?>
                         <li class="divider"></li>
                         <li><a href="#" class="text-center">View All</a></li>
                     </ul>

@@ -217,6 +217,12 @@ class emp_model extends CI_Model {
 
         return $result;
     }
+    
+    public function insert_temp($data) {
+    	$projectID =  $this->uri->segment(3);
+    	$userID =  $this->uri->segment(4);
+    	$this->db->insert('request_temp', $data);
+    }
 
 }
 

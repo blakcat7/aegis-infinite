@@ -16,8 +16,7 @@
 
         <!-- Custom CSS -->
         <link href="<?php echo base_url(); ?>css/navbar.css" rel="stylesheet">
-        <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">            
-        <link href="<?php echo base_url(); ?>css/chosen.css" rel="stylesheet">   
+        <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">        
         <link href="<?php echo base_url(); ?>css/profile.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/footer.css" rel="stylesheet">      
     </head>
@@ -37,7 +36,7 @@
                         <h5><i class="fa fa-cogs fa-fw"></i> Settings</h5>   
                         <hr>
                         <li class="active"><a href="#"><i class="fa fa-user fa-fw"></i>Basic Info</a ></li>
-                        <li><a href="#"><i class="fa fa-fire fa-fw"></i>Skills</a ></li>  
+                        <li><a href="<?php echo base_url('employee/edit_skills/'. $userID); ?>"><i class="fa fa-fire fa-fw"></i>Skills</a ></li>  
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
                         <li><hr></li>
                     </ul>
@@ -106,7 +105,7 @@
                                                 <option value="United States">United States</option>
                                             </select>
                                         </div>
-                                         <div class="form-group col-md-12">                                    
+                                        <div class="form-group col-md-12">                                    
                                             <label>Availability:</label>                                                  
                                             <select name='availability' class='form-control' style='width: 100%;'>   
                                                 <option selected value="<?php echo $blog->availability ?>"><label><?php echo $blog->availability ?></label></option>                                                                  
@@ -149,56 +148,5 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="<?php echo base_url(); ?>js/chosen.jquery.min.js"></script>
-        <script type="text/javascript">
-            var config = {
-                '.chosen-select': {},
-                '.chosen-select-deselect': {allow_single_deselect: true},
-                '.chosen-select-no-single': {disable_search_threshold: 10},
-                '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
-                '.chosen-select-width': {width: "95%"}
-            }
-            for (var selector in config) {
-                $(selector).chosen(config[selector]);
-            }
-        </script>
-        <script>
-            $(document).ready(function () {
-                $(document).on('change', '.btn-file :file', function () {
-                    var input = $(this),
-                            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-                    input.trigger('fileselect', [label]);
-                });
-
-                $('.btn-file :file').on('fileselect', function (event, label) {
-
-                    var input = $(this).parents('.input-group').find(':text'),
-                            log = label;
-
-                    if (input.length) {
-                        input.val(log);
-                    } else {
-                        if (log)
-                            alert(log);
-                    }
-
-                });
-                function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            $('#img-upload').attr('src', e.target.result);
-                        }
-
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
-
-                $("#imgInp").change(function () {
-                    readURL(this);
-                });
-            });
-        </script>
     </body>
 </html>

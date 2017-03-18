@@ -165,7 +165,7 @@ class emp_model extends CI_Model {
     public function update_image($data) {
         //$file = $this->input->post('userfile'); 
         $id = $this->input->post('txt_hidden');
-        $this->db->set('picture', $data);        
+        $this->db->set('picture', $data);
         $this->db->where('userID', $id);
         $this->db->update('users');
     }
@@ -201,7 +201,43 @@ class emp_model extends CI_Model {
             $this->session->set_userdata('location', $location);
             $this->session->set_userdata('plocation', $plocation);
             $this->session->set_userdata('availability', $availability);
-            
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function add_skills() {
+        $skill = $this->input->post('skill');
+        $percent = $this->input->post('percentage');
+        $id = $this->input->post('txt_hidden');
+
+        $field = array(
+            'userID' => $id,
+            'skillsID' => $skill,
+            'percentage' => $percent
+        );
+
+        $this->db->where('userID', $id);
+        $this->db->insert('users_skills', $field);
+    }
+
+    public function update_skills($skill) {
+        $percent = $this->input->post('percentage');
+        $id = $this->input->post('txt_hidden');
+
+        $field = array(
+            'userID' => $id,
+            'skillsID' => $skill,
+            'percentage' => $percent
+        );
+
+        $this->db->where('userID', $id);
+        $this->db->where('skillsID', $skill);
+        $this->db->update('users_skills', $field);
+
+        if ($this->db->affected_rows() > 0) {
             return true;
         } else {
             return false;
@@ -217,11 +253,11 @@ class emp_model extends CI_Model {
 
         return $result;
     }
-    
+
     public function insert_temp($data) {
-    	$projectID =  $this->uri->segment(3);
-    	$userID =  $this->uri->segment(4);
-    	$this->db->insert('request_temp', $data);
+        $projectID = $this->uri->segment(3);
+        $userID = $this->uri->segment(4);
+        $this->db->insert('request_temp', $data);
     }
 
 }

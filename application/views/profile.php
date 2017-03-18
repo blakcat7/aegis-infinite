@@ -49,7 +49,7 @@
                         <li><a href="<?php echo base_url(); ?>employee/projects"><i class="fa fa-folder-open fa-fw"></i>Projects</a ></li>  
                         <li><a href="#"><i class="fa fa-calendar fa-fw"></i>Attendance</a></li>
                         <li><hr></li>
-                        <li><a href="<?php echo base_url('employee/settings/'. $userID); ?>"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
+                        <li><a href="<?php echo base_url('employee/edit_info/'. $userID); ?>"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
                         <li><hr></li>
                     </ul>
                 </div>

@@ -45,7 +45,7 @@ class employee extends CI_Controller {
             redirect('admin/add_project');
         } else if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $manager)) {
             redirect('employee/profile');
-        }else {
+        } else {
             $this->login(true);
         }
     }
@@ -66,39 +66,40 @@ class employee extends CI_Controller {
      */
 
     function profile() {
-    	$id = $this->session->userdata('userID');
-    	$data['userID'] = $id;
-    	$username = $this->session->userdata('username');
-    	$data['username'] = $username;
-    	$data['email'] = $this->session->userdata('email');
-    	$data['fname'] = $this->session->userdata('fname');
-    	$data['lname'] = $this->session->userdata('lname');
-    	$data['role'] = $this->session->userdata('role');
-    	$data['sector'] = $this->session->userdata('sector');
-    	$data['location'] = $this->session->userdata('location');
-    	$data['skillName'] = $this->session->userdata('skillName');
-    	$data['percentage'] = $this->session->userdata('percentage');
-    	$data['designation'] = $this->session->userdata('designation');
-    	$data['plocation'] = $this->session->userdata('plocation');
-    	$data['availability'] = $this->session->userdata('availability');
-    
-    	$data['results'] = $this->emp_model->view_skills($username);
-    
-    	$data['proj'] = $this->emp_model->my_project($username);
-    
-    	$data['pics'] = $this->emp_model->get_image($username);
-    
-    	$data['notif'] = $this->admin_model->get_alert($id);
-    
-    	$this->load->view('profile', $data);
+        $id = $this->session->userdata('userID');
+        $data['userID'] = $id;
+        $username = $this->session->userdata('username');
+        $data['username'] = $username;
+        $data['email'] = $this->session->userdata('email');
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $data['role'] = $this->session->userdata('role');
+        $data['sector'] = $this->session->userdata('sector');
+        $data['location'] = $this->session->userdata('location');
+        $data['skillName'] = $this->session->userdata('skillName');
+        $data['percentage'] = $this->session->userdata('percentage');
+        $data['designation'] = $this->session->userdata('designation');
+        $data['plocation'] = $this->session->userdata('plocation');
+        $data['availability'] = $this->session->userdata('availability');
+
+        $data['results'] = $this->emp_model->view_skills($username);
+
+        $data['proj'] = $this->emp_model->my_project($username);
+
+        $data['pics'] = $this->emp_model->get_image($username);
+
+        $data['notif'] = $this->admin_model->get_alert($id);
+
+        $this->load->view('profile', $data);
     }
+
     /*
      * PROJECT
      */
 
     function projects() {
-    	$id = $this->session->userdata('userID');
-    	$data['userID'] = $id;
+        $id = $this->session->userdata('userID');
+        $data['userID'] = $id;
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -118,8 +119,8 @@ class employee extends CI_Controller {
     }
 
     function my_projects() {
-    	$id = $this->session->userdata('userID');
-    	$data['userID'] = $id;
+        $id = $this->session->userdata('userID');
+        $data['userID'] = $id;
         $username = $this->session->userdata('username');
         $data['username'] = $username;
         $data['email'] = $this->session->userdata('email');
@@ -150,32 +151,59 @@ class employee extends CI_Controller {
      * CALENDAR
      */
 
-    function settings() {
+    function edit_info() {
+        $id = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
-        $id = $this->session->userdata('username');
+        $data['userID'] = $id;
         $data['blog'] = $this->emp_model->get_id('username', 'users', $id);
-        $this->load->view('settings', $data);
+        $this->load->view('edit-info', $data);
+    }
+
+    function edit_skills() {
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $id = $this->session->userdata('userID');
+        $username = $this->session->userdata('username');
+
+        $config['base_url'] = base_url() . 'employee/edit_skills';
+        $data['skills'] = $this->admin_model->getSkills();
+        $data['get_skills'] = $this->admin_model->get_user_skills($id);
+        $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
+        $this->load->view('edit-skills', $data);
+    }
+
+    function insert_skills() {
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $id = $this->session->userdata('userID');
+        $username = $this->session->userdata('username');
+
+        $data['skills'] = $this->admin_model->getSkills();
+        $data['get_skills'] = $this->admin_model->get_user_skills($id);
+        $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
+        $this->load->view('add-skills', $data);
     }
 
     public function update() {
         $this->emp_model->update();
-        /*
-          $config = array();
-          $config['upload_path'] = "./images/profilepics/";
-          $config['allowed_types'] = "jpg|jpeg|png||gif";
-          $config['max_size'] = '1024';
 
-          $this->load->library('upload', $config);
+        $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Skills has been updated</div>');
+        redirect('employee/edit_info');
+    }
 
-          $this->upload->do_upload();
-          $data = array('upload_data' => $this->upload->data());
-          $this->image_resize($data['upload_data']['full_path'], $data['upload_data']['file_name']);
-          $data1 = array('picture' => $data['upload_data']['file_name']);
-          $this->emp_model->update_image($data1);
-         */
-        $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Basic Info has been updated</div>');
-        redirect('employee/settings');
+    public function update_skills($id) {
+        $this->emp_model->update_skills($id);
+
+        $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Skills has been updated</div>');
+        redirect('employee/edit_skills');
+    }
+
+    public function add_skills() {
+        $this->emp_model->add_skills();
+
+        $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Skills has been updated</div>');
+        redirect('employee/insert_skills');
     }
 
     function image_resize($path, $file) {
@@ -203,28 +231,32 @@ class employee extends CI_Controller {
         $data['results'] = $this->mymodel->search($keyword);
         $this->load->view('result_view', $data);
     }
-    
-    public function request(){
-    	$data = array(
-    			'projectID' => $this->uri->segment(3),
-    			'userID' => $this->uri->segment(4)
-    	);
-    	$this->admin_model->insert('request_temp', $data);
-    	redirect('employee/my_projects');
+
+    public function request() {
+        $data = array(
+            'projectID' => $this->uri->segment(3),
+            'userID' => $this->uri->segment(4)
+        );
+        $this->admin_model->insert('request_temp', $data);
+        redirect('employee/my_projects');
     }
-    
+
     function insert_row() {
-    	$p = $this->uri->segment(3);
-    	$u = $this->uri->segment(4);
-    	$data = array(
-    			'projectID'=> $p,
-    			'userID' => $u
-    	);
-    	 
-    	$this->admin_model->insert('projects_users', $data);
-    	$this->admin_model->delete($u, $p);
-    	redirect('employee/profile');
+        $p = $this->uri->segment(3);
+        $u = $this->uri->segment(4);
+        $data = array(
+            'projectID' => $p,
+            'userID' => $u
+        );
+
+        $this->admin_model->insert('projects_users', $data);
+        $this->admin_model->delete($u, $p);
+        redirect('employee/profile');
     }
     
+    function delete_skills($id) {
+        $this->admin_model->delete_row('skillsID', 'skills', $id);
+        redirect('admin/view_employees');
+    }
 
 }

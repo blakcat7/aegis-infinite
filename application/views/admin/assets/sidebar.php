@@ -3,6 +3,7 @@
         <h5><i class="fa fa-home fa-fw"></i> Management</h5>   
         <hr>
         <li><a href="#"><span class="glyphicon glyphicon-dashboard fa-fw"></span>Dashboard</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-bell fa-fw"></span>Notifications</a></li>
         <li><a href="<?php echo site_url('admin/add_employee'); ?>"><i class="fa fa-users fa-fw"></i>Employees</a></li>
         <li><a href="<?php echo site_url('admin/add_project') ?>"><i class="fa fa-folder-open fa-fw"></i>Projects</a></li>
         <h5><i class="fa fa-calendar fa-fw"></i> Calendar</h5>   

@@ -27,7 +27,7 @@ class admin extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/employees/add-employees');
-        } else {            
+        } else {
             $data = array(
                 'location' => $this->input->post('location'),
                 'fname' => $this->input->post('fname'),
@@ -84,9 +84,8 @@ class admin extends CI_Controller {
         $this->load->view('admin/employees/view-employees', $data);
     }
 
-    function delete_row($username) {
-        $this->db->where('username', $username);
-        $this->db->delete('users');
+    function delete_row($id) {
+        $this->admin_model->delete_row('username', 'users', $id);
         redirect('admin/view_employees');
     }
 
@@ -109,7 +108,7 @@ class admin extends CI_Controller {
      */
 
     public function add_project() {
-        
+
         $username = $this->session->userdata('username');
         $data['username'] = $username;
 
@@ -126,8 +125,6 @@ class admin extends CI_Controller {
         if ($query) {
             $data['skills'] = $query;
         }
-        
-        $data['notif'] = $this->admin_model->get_requests();
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/projects/add-projects', $data);
@@ -147,7 +144,7 @@ class admin extends CI_Controller {
 
                 $skills = $this->input->post('skill');
 
-                foreach ($skills as $skill){
+                foreach ($skills as $skill) {
                     $data2 = array(
                         'projectID' => $id,
                         'skillsID' => $skill
@@ -170,12 +167,12 @@ class admin extends CI_Controller {
 
         $data['users'] = $this->admin_model->getUsers($last_id);
         $data['pmanager'] = $this->admin_model->getPM();
-        
+
         $this->load->view('admin/projects/rec-employee', $data);
 
         if ($_POST) {
             $users = $this->input->post('recommended');
-            foreach ($users as $user){
+            foreach ($users as $user) {
                 $data = array(
                     'projectID' => $last_id,
                     'userID' => $user
@@ -187,21 +184,21 @@ class admin extends CI_Controller {
             redirect('admin/add_project');
         }
     }
-    
-        public function recommend_managers() {
+
+    public function recommend_managers() {
         $lid = $this->admin_model->getID();
 
         foreach ($lid as $id) {
             $last_id = $id['projectID'];
         }
-        
+
         $data['pmanager'] = $this->admin_model->getPM();
-        
+
         $this->load->view('admin/projects/rec-projectmanager', $data);
 
         if ($_POST) {
             $users = $this->input->post('recommended');
-            foreach ($users as $user){
+            foreach ($users as $user) {
                 $data = array(
                     'projectID' => $last_id,
                     'userID' => $user
@@ -242,6 +239,12 @@ class admin extends CI_Controller {
 
 // View data according to array.
         $this->load->view('admin/projects/view-projects', $data);
+    }
+
+    function notifications() {
+        $data = array();
+        $data['notif'] = $this->admin_model->get_requests();
+        $this->load->view('admin/assets/notifications', $data);
     }
 
 }

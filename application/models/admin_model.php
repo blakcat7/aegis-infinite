@@ -36,12 +36,6 @@ class admin_model extends CI_Model {
         return $sql->row_array();
     }
 
-    public function showSkills() {
-        $this->db->select('skillName');
-        $this->db->from('skills');
-        $this->db->get()->result_array();
-    }
-
     public function record_count() {
         return $this->db->count_all('users');
     }
@@ -134,45 +128,66 @@ class admin_model extends CI_Model {
         $query_result = $query->result();
         return $query_result;
     }
-    
-    public function get_alert($id)
-    {
-    	$this->db->select('*');
-    	$this->db->from('request_temp r');
-    	$this->db->join('projects p', 'p.projectID = r.projectID');
-    	$this->db->where('r.userID',$id);
-    	$query = $this->db->get();
-    	$result = array();
-    	if ($query->num_rows() > 0) {
-    		foreach ($query->result() as $row) {
-    			$result[] = $row;
-    		}
-    		return $result;
-    	}
-    	return $result;
+
+    public function get_alert($id) {
+        $this->db->select('*');
+        $this->db->from('request_temp r');
+        $this->db->join('projects p', 'p.projectID = r.projectID');
+        $this->db->where('r.userID', $id);
+        $query = $this->db->get();
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return $result;
     }
-    
-    public function get_requests(){
-    	$this->db->select('*');
-    	$this->db->from('request_temp r');
-    	$this->db->join('projects p', 'p.projectID = r.projectID');
-    	$query = $this->db->get();
-    	
-    	$result = array();
-    	if ($query->num_rows() > 0) {
-    		foreach ($query->result() as $row) {
-    			$result[] = $row;
-    		}
-    		return $result;
-    	}
-    	return $result;
+
+    public function get_requests() {
+        $this->db->select('*');
+        $this->db->from('request_temp r');
+        $this->db->join('projects p', 'p.projectID = r.projectID');
+        $query = $this->db->get();
+
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return $result;
     }
-    
-    public function delete($id, $pid)
-    {
-    	$this->db->where('userID', $id);
-    	$this->db->where('projectID', $pid);
-    	$this->db->delete('request_temp');
+
+    public function delete($id, $pid) {
+        $this->db->where('userID', $id);
+        $this->db->where('projectID', $pid);
+        $this->db->delete('request_temp');
+    }
+
+    public function get_user_skills($id) {
+        $this->db->select('*');
+        $this->db->from('skills s');
+        $this->db->join('users_skills us', 'us.skillsID = s.skillsID');
+        $this->db->join('users u', 'u.userID = us.userID');
+        $this->db->where('u.userID', $id);
+        $query = $this->db->get();
+
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return $result;
+    }
+
+    function delete_row($field, $table, $username) {
+        $this->db->where($field, $username);
+        $this->db->delete($table);
     }
 
 }

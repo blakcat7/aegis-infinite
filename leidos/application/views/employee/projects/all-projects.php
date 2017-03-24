@@ -1,8 +1,8 @@
-<?php $this->load->view('manager/assets/header'); ?>
-<?php $this->load->view('manager/assets/navbar'); ?>
+<?php $this->load->view('employee/assets/header'); ?>
+<?php $this->load->view('employee/assets/navbar'); ?>
 <div class="profile container">
     <div class="row">
-        <?php $this->load->view('manager/assets/sidebar'); ?>
+        <?php $this->load->view('employee/assets/sidebar.php'); ?>
         <div class="profile-content col-md-9">
             <div class="col-md-12">
                 <div class="panel panel-default"> 
@@ -11,18 +11,19 @@
                     </div>
                     <div class="panel-body">          
                         <ul class="nav nav-pills"> 
-                            <li role="presentation"><a href="<?php echo base_url(); ?>manager/all_projects">All Projects</a></li> 
-                            <li role="presentation" class="active"><a href="<?php echo base_url(); ?>manager/my_projects">My Projects</a></li>
+                            <li role="presentation" class="active"><a href="<?php echo base_url(); ?>employee/all_projects">All Projects</a></li> 
+                            <li role="presentation"><a href="<?php echo base_url(); ?>employee/my_projects">My Projects</a></li>
                         </ul>
                         <ol class="breadcrumb" style="margin-top: 10px;">
-                            <li><a href="<?php echo base_url(); ?>employee/projects">Projects</a></li>
-                            <li class="active">My Projects</li>
-                        </ol> 
-                        <?php foreach ($results as $data) { ?>
+                            <li><a href="<?php echo base_url(); ?>employee/all_projects">Projects</a></li>
+                            <li class="active">All Projects</li>
+                        </ol>
+                        <?php foreach ($projects as $data) { ?>
                             <hr>
                             <div class ="proj">                                        
                                 <h4 style="font-weight: 700;"><?php echo $data['projectType']; ?></h4>
-                                <h4 style="font-weight: 700;"><?php echo $data['title']; ?>
+                                <h4 style="font-weight: 700;">
+                                    <?php echo $data['title']; ?>
                                     <label class='location'><span class="glyphicon glyphicon-map-marker"></span><?php echo $data['projLocation']; ?></label>
                                 </h4>
                                 <label class="date">                                        
@@ -36,14 +37,15 @@
                                 <hr>
                                 <label>About the project : </label>
                                 <p class="desc"><?php echo $data['description']; ?> </p>
-                                <hr>
-                                <a href="<?php echo base_url() . 'manager/edit_projects/' . $data['projectID']; ?>" class="join clicked"><span class="glyphicon glyphicon-eye-open" style="margin-left: 0px;"></span>View </a>
+                                <hr>                                        
+                                <a href="" class="join clicked"><span class="glyphicon glyphicon-heart" style="margin-left: 0px;"></span>Interested </a>
+                                <a href="<?php echo base_url() . 'employee/view_projects/' . $data['projectID']; ?>" class="join clicked"><span class="glyphicon glyphicon-eye-open" style="margin-left: 0px;"></span>View </a>
                             </div>
                         <?php } ?>
-                    </div>
+                    </div>  
                 </div>
             </div>
         </div>
     </div>
 </div>
-<?php $this->load->view('manager/assets/footer.php'); ?>
+<?php $this->load->view('employee/assets/footer'); ?>

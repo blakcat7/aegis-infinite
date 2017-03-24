@@ -2,114 +2,65 @@
 <?php $this->load->view('manager/assets/navbar'); ?>
 <div class="profile container">
     <div class="row">
-        <?php $this->load->view('manager/assets/sidebar'); ?>
+        <?php $this->load->view('manager/assets/settings'); ?>
         <div class="profile-content col-md-9">
-            <!-- Skills -->
             <div class="col-md-12">
-
-                <div class="panel panel-default"> 
-                    <div class="panel-heading">       
-
-                        <?php foreach ($viewProjects as $view) { ?>
-                            <h3 class="panel-title" style="font-weight: 700;"><?php echo $view['title']; ?></h3>
-                        <?php } ?>
-                    </div>
-                    <div class="panel-body">      
-                        <?php foreach ($viewProjects as $view) { ?>
-                            <div class="form-group col-md-12"> 
-                                <label>Title:</label>
-                                <div type="text" value="" name="title" class="form-div">
-                                    <?php echo $view['title']; ?>
-                                </div>
-                            </div>                             
-                            <div class="form-group col-md-12">                                        
-                                <label>Description:</label>   
-                                <div name="description" class="form-div"><?php echo $view['description']; ?></div>                                     
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Project Location:</label>
-                                <div type="text" value="" name="projLocation" class="form-div">
-                                    <?php echo $view['projLocation']; ?>
-                                </div>
-                            </div>                             
-                            <div class="form-group col-md-6">
-                                <label>Project Type:</label>                                            
-                                <div type="text" value="" name="projLocation" class="form-div">
-                                    <?php echo $view['projectType']; ?>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Start Date:</label>
-                                <?php
-                                $sDate = $view['startDate'];
-                                $startDate = date("F j, Y", strtotime($sDate));
-                                ?>
-                                <div type="date" name="startDate" value="" class="form-div">
-                                    <?php echo $sDate; ?>
-                                </div>
-                                <label class="date pull-right"><?php echo $startDate; ?></label>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>End Date:</label>
-                                <?php
-                                $eDate = $view['endDate'];
-                                $endDate = date("F j, Y", strtotime($eDate));
-                                ?> 
-                                <div name="endDate" type="date" value="" class="form-div">
-                                    <?php echo $eDate; ?>
-                                </div>
-                                <label class="date pull-right"><?php echo $endDate; ?></label>
-                            </div>
+                <div id="row-table" class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-pencil"></i>Basic Info</h3>
+                        </div>
+                        <div class="panel-body">
                             <div class="form-group col-md-12">
-                                <label>Budget: (USD)</label>                                        
-                                <div type="number" value="" name="budget" class="form-div">  
-                                    <?php echo $view['budget']; ?>
-                                </div>
+                                <a href="<?php echo site_url('manager/insert_skills'); ?>" role="button" class="btn btn-add-e">Add Skills
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </a>
+
+                                <a href="<?php echo site_url('manager/edit_skills'); ?>" role="button" class="btn btn-add-e">Update Skills
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <hr>
+                                <?php echo $this->session->flashdata('msg'); ?>
                             </div>
-                        <?php } ?>           
-
-                        <div class="form-group col-md-12">
-                            <label>Skills Required:</label>
-                            <?php foreach ($viewSkills as $view): ?>
-                                <div type="number" value="" name="budget" class="form-div">  
-                                    <?php echo $view['skillName']; ?>
+                            <form action="<?php echo base_url('manager/add_skills'); ?>" method="post" class="form-horizontal">
+                                <input type="hidden" name="txt_hidden" value="<?php echo $blog->userID; ?>">
+                                <div class="form-group col-md-10">                                    
+                                    <label>Skills</label>
+                                    <select name="skill" class="form-control" style="width: 100%;">
+                                        <?php for ($i = 0; $i < count($skills); $i++) { ?>
+                                            <option value="<?php echo $skills[$i]->skillsID ?>"><?php echo $skills[$i]->skillName ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
-                                <br>
-                            <?php endforeach; ?>
+                                <div class="form-group col-md-2">                                    
+                                    <label>Percentage</label>
+                                    <select name='percentage' class='form-control'>   
+                                        <option value="100">100%</option>
+                                        <option value="90">90%</option>
+                                        <option value="80">80%</option>
+                                        <option value="70">70%</option>
+                                        <option value="60">60%</option>
+                                        <option value="50">50%</option>
+                                    </select>
+                                </div>                                                  
+                                <div class="form-group col-md-10">
+                                    <input type="submit" name="btnUpdate" class="join" value="Add">
+                                </div>
+                                <?php foreach ($get_skills as $skill) { ?>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-div" name="skills" value="<?php echo $skill->skillName ?>"><br/>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="text"  class="form-div" value="<?php echo $skill->percentage ?>">
+                                    </div>
+                                <?php } ?>
+                            </form>
                         </div>
-
-                        <div class="form-group col-md-12">                                    
-                            <label>Project Manager:</label><br>
-                            <?php foreach ($viewManager as $view): ?>
-                                <div class="team" style="padding: 15px;">
-                                    <label class="user">
-                                        <a href="<?php echo base_url() . 'employee/view_users/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
-                                    </label>
-                                    <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
-                                    <span class="user"><?php echo $view['designation']; ?></span>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="form-group col-md-12"> 
-                            <label>Team Members:</label> <br>                                   
-                            <?php foreach ($viewEmployees as $view): ?>                                       
-                                <div class="team" style="padding: 15px;">
-                                    <label class="user">
-                                        <a href="<?php echo base_url() . 'employee/view_users/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
-                                    </label>
-                                    <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
-                                    <span class="user"><?php echo $view['designation']; ?></span>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>   
-                    </div>  
+                    </div>
                 </div>
-            </div><!--/.col-md-6 -->
+            </div>
         </div>
     </div>
 </div>
-<!-- END OF CONTENT -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php
+$this->load->view('manager/assets/footer.php'); ?>

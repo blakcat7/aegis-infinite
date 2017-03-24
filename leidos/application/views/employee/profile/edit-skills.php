@@ -1,8 +1,8 @@
-<?php $this->load->view('manager/assets/header'); ?>
-<?php $this->load->view('manager/assets/navbar'); ?>
+<?php $this->load->view('employee/assets/header'); ?>
+<?php $this->load->view('employee/assets/navbar'); ?>
 <div class="profile container">
     <div class="row">
-        <?php $this->load->view('manager/assets/settings'); ?>
+        <?php $this->load->view('employee/assets/settings'); ?>
         <div class="profile-content col-md-9">
             <div class="col-md-12">
                 <div id="row-table" class="row">
@@ -12,11 +12,11 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-group col-md-12">
-                                <a href="<?php echo site_url('manager/insert_skills'); ?>" role="button" class="btn btn-add-e">Add Skills
+                                <a href="<?php echo site_url('employee/insert_skills'); ?>" role="button" class="btn btn-add-e">Add Skills
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>
 
-                                <a href="<?php echo site_url('manager/edit_skills'); ?>" role="button" class="btn btn-add-e">Update Skills
+                                <a href="<?php echo site_url('employee/edit_skills'); ?>" role="button" class="btn btn-add-e">Update Skills
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </a>
                                 <hr>
@@ -24,7 +24,7 @@
                             </div>
                             <input type="hidden" name="txt_hidden" value="<?php echo $blog->userID; ?>">
                             <?php foreach ($get_skills as $skill) { ?>    
-                                <form action="<?php echo base_url('manager/update_skills'); ?>" method="post" class="form-horizontal">                                                                              
+                                <form action="<?php echo base_url('employee/update_skills'); ?>" method="post" class="form-horizontal">                                                                              
                                     <input type="hidden" class="form-control" name="userID" value="<?php echo $skill->userID ?>"><br/>
                                     <input type="hidden" class="form-control" name="skillsID" value="<?php echo $skill->skillsID ?>"><br/>
                                     <div class="form-group col-xs-8">
@@ -51,7 +51,7 @@
                                     </div>
                                 </form>
                                 <div class="form-group col-xs-1">                                            
-                                    <a href="<?php echo base_url('manager/delete_skills/' . $skill->skillsID); ?>" class="btn btn-add-d">
+                                    <a href="<?php echo base_url('employee/delete_skills/' . $skill->skillsID); ?>" class="btn btn-add-d">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </div>
@@ -63,4 +63,4 @@
         </div>
     </div>
 </div>
-<?php $this->load->view('manager/assets/footer'); ?>
+<?php $this->load->view('employee/assets/footer'); ?>

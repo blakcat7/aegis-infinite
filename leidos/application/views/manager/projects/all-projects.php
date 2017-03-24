@@ -18,7 +18,6 @@
                             <li><a href="<?php echo base_url(); ?>manager/all_rojects">Projects</a></li>
                             <li class="active">All Projects</li>
                         </ol>
-
                         <?php foreach ($projects as $data) { ?>
                             <hr>
                             <div class ="proj">                                        
@@ -49,6 +48,4 @@
         </div>
     </div>
 </div>
-<!-- END OF CONTENT -->
-<?php
-$this->load->view('manager/assets/footer.php');
+<?php $this->load->view('manager/assets/footer.php');

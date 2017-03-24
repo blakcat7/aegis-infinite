@@ -22,6 +22,39 @@ a:focus, a:hover {
     color: #333;
 }
 
+.panel-yellow{
+    background: rgba(243, 156, 18, 0.25);
+    border: 1px solid rgba(243, 156, 18,1.0);
+    color: #333;
+    text-align: left;
+}
+
+.panel-yellow:hover{
+    background: rgba(243, 156, 18, 0.5);
+}
+
+.panel-green{
+    background: rgba(46, 204, 113,0.25);
+    border: 1px solid rgba(46, 204, 113,1.0);
+    color: #333;
+    text-align: left;
+}
+
+.panel-green:hover{
+    background: rgba(46, 204, 113,0.5);
+}
+
+.panel-red{
+    background: rgba(192, 57, 43,0.25);
+    border: 1px solid rgba(192, 57, 43,1.0);
+    color: #333;
+    text-align: left;
+}
+
+.panel-red:hover{
+    background: rgba(192, 57, 43,0.5);
+}
+
 .nav-pills .glyphicon{
     margin-right: 0px;
     margin-left: 0px;
@@ -45,6 +78,13 @@ a:focus, a:hover {
     border-radius: 0px;
 }
 
+.btn-add-r{
+    background-color: #2980b9;
+    color: #FFF;
+    border-radius: 0px;
+    margin-bottom: 0px;
+}
+
 .btn.btn-add-d{
     background-color: #e74c3c;
     color: #FFF;
@@ -55,9 +95,13 @@ a:focus, a:hover {
     margin-right: 0px;
 }
 
-.content .panel{
+.panel{
     border-radius: 0px;
     margin: 15px;
+}
+
+.panel-heading {
+    border-radius: 0px;
 }
 
 .content #success-btn{
@@ -228,6 +272,11 @@ a:focus, a:hover {
     color: #444;
 }
 
+.btn-default {
+    background: #f1f1f1;
+}
+
+
 .team {
     text-align: center;
     display: inline-block;
@@ -236,4 +285,20 @@ a:focus, a:hover {
     padding: 5px;
     margin: 5px 5px 5px 0;
     overflow: hidden;
+}
+
+#team-project {
+    display: none;
+}
+
+@media all and (max-width: 480px) {
+    .extra, .team-project{
+        display: none;
+    }
+    #team-project {
+        display: block;
+    }
+    .chosen-select {
+        width: 100;
+    }
 }

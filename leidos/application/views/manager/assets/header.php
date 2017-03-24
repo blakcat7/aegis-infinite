@@ -19,5 +19,6 @@
         <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/profile.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/chosen.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>css/table.css" rel="stylesheet">
     </head>
     <body>

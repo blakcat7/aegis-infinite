@@ -11,15 +11,22 @@ class admin extends CI_Controller {
         $this->load->library('pagination');
     }
 
+    function index() {
+        $this->dashboard();
+    }
+
     /*
      *  EMPLOYEE
      */
 
     public function add_employee() {
-        $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[12]|is_unique[users.username]');
+
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $this->form_validation->set_rules('username', 'Username', 'required|min_length[2]|max_length[12]|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'Password', 'required|matches[passconf]');
         $this->form_validation->set_rules('passconf', 'Repeat Password', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('fname', 'First Name', 'required');
         $this->form_validation->set_rules('lname', 'Last Name', 'required');
 
@@ -33,12 +40,14 @@ class admin extends CI_Controller {
                 'fname' => $this->input->post('fname'),
                 'lname' => $this->input->post('lname'),
                 'role' => $this->input->post('role'),
-                'email' => $this->input->post('email'),
+                'email' => $this->input->post('email') . '@leidos.com',
                 'username' => $this->input->post('username'),
                 'password' => $this->input->post('password'),
                 'sector' => $this->input->post('sector'),
                 'designation' => $this->input->post('designation'),
-                'picture' => 'default.jpg'
+                'picture' => 'default.jpg',
+                'category' => $this->input->post('category'),
+                'availability' => 'Available',
             );
             if ($this->admin_model->insert('users', $data)) {
                 $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Employee has been added.</div>');
@@ -49,38 +58,31 @@ class admin extends CI_Controller {
     }
 
     public function view_employees() {
-        $this->page();
-    }
 
-    function page() {
-        $config = array();
-        $config['base_url'] = base_url() . 'admin/page';
-        $total_row = $this->admin_model->record_count();
-        $config['total_rows'] = $total_row;
-        $config['per_page'] = 8;
-        $config['uri_segment'] = 3;
-        /* $config['use_page_numbers'] = TRUE; */
-        $config['num_links'] = $total_row;
-        $config['cur_tag_open'] = '&nbsp;<a class="current">';
-        $config['cur_tag_close'] = '</a>';
-        $config['next_link'] = '<span aria-hidden="true">&raquo;</span>';
-        $config['prev_link'] = '<span aria-hidden="true">&laquo;</span>';
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $id = $this->uri->segment(3);
+        $available = $this->admin_model->dashboard_employees_sort('Available');
+        $unavailable = $this->admin_model->dashboard_employees_sort('Unavailable');
+        $busy = $this->admin_model->dashboard_employees_sort('Busy');
 
-        $this->pagination->initialize($config);
-
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-
-        $data['results'] = $this->admin_model->fetch_users($config['per_page'], $page);
-        $str_links = $this->pagination->create_links();
-        $data['links'] = explode('&nbsp;', $str_links);
-
-// View data according to array.
-        $this->load->view('admin/employees/view-employees', $data);
+        if ($id == '') {
+            $data['results'] = $this->admin_model->fetch_users();
+            $this->load->view('admin/employees/view-employees', $data);
+        } else if ($id == 'Available' && $id != 'Unavailable' && $id != 'Busy') {
+            $data['results'] = $available;
+            $this->load->view('admin/employees/view-employees', $data);
+        } else if ($id == 'Unavailable' && $id != 'Available' && $id != 'Busy') {
+            $data1['results'] = $unavailable;
+            $this->load->view('admin/employees/view-employees', $data1);
+        } else if ($id == 'Busy' && $id != 'Available' && $id != 'Unavailable') {
+            $data2['results'] = $busy;
+            $this->load->view('admin/employees/view-employees', $data2);
+        }
     }
 
     public function delete() {
-        $data['results'] = $this->model->show_users();
+        $data['results'] = $this->model->fetch_users();
         $this->load->view('admin/employees/view-employees', $data);
     }
 
@@ -114,6 +116,8 @@ class admin extends CI_Controller {
 
     public function add_project() {
 
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
         $username = $this->session->userdata('username');
         $data['username'] = $username;
 
@@ -125,7 +129,7 @@ class admin extends CI_Controller {
 
 
         $data = array();
-        $query = $this->admin_model->getSkills();
+        $query = $this->admin_model->fetch_skills();
 
         if ($query) {
             $data['skills'] = $query;
@@ -164,13 +168,16 @@ class admin extends CI_Controller {
     }
 
     public function recommend_users() {
-        $lid = $this->admin_model->getID();
+
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $lid = $this->admin_model->get_latest_id();
 
         foreach ($lid as $id) {
             $last_id = $id['projectID'];
         }
 
-        $data['users'] = $this->admin_model->getUsers($last_id);
+        $data['users'] = $this->admin_model->fetch_recommended_user($last_id);
 
         $this->load->view('admin/projects/rec-employee', $data);
 
@@ -185,19 +192,22 @@ class admin extends CI_Controller {
             }
 
             $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! New Project has been added.</div>');
-            $this->admin_model->delete_row('userID', 'request_temp', 0);
+            $this->admin_model->delete_row('userID', 'request_temp', 'NULL');
             redirect('admin/add_project');
         }
     }
 
     public function recommend_managers() {
-        $lid = $this->admin_model->getID();
+
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $lid = $this->admin_model->get_latest_id();
 
         foreach ($lid as $id) {
             $last_id = $id['projectID'];
         }
 
-        $data['pmanager'] = $this->admin_model->getPM();
+        $data['pmanager'] = $this->admin_model->fetch_manager();
 
         $this->load->view('admin/projects/rec-projectmanager', $data);
 
@@ -210,53 +220,41 @@ class admin extends CI_Controller {
                 );
                 $id = $this->admin_model->insert('request_temp', $data);
             }
-            $this->admin_model->delete_row('userID', 'request_temp', 0);
+            $this->admin_model->delete_row('userID', 'request_temp', 'NULL');
             redirect('admin/recommend_users');
         }
     }
 
-    public function add_managers() {
+    public function add_member() {
+        $pid = $this->input->post('txt_hidden');
         $users = $this->input->post('recommended');
-        
         foreach ($users as $user) {
             $data = array(
-                'projectID' => $this->input->post('txt_hidden'),
+                'projectID' => $pid,
                 'userID' => $user
             );
-            $id = $this->admin_model->insert('request_temp', $data);
+            $this->admin_model->insert('request_temp', $data);
         }
-        redirect('admin/view_projects');
+        redirect('admin/edit_project/' . $pid);
     }
 
     public function view_projects() {
-        $this->ppage();
-    }
 
-    function ppage() {
-        $config = array();
-        $config['base_url'] = base_url() . 'admin/ppage';
-        $total_row = $this->admin_model->count_project();
-        $config['total_rows'] = $total_row;
-        $config['per_page'] = 10;
-        $config['uri_segment'] = 3;
-        /* $config['use_page_numbers'] = TRUE; */
-        $config['num_links'] = $total_row;
-        $config['cur_tag_open'] = '&nbsp;<a class="current">';
-        $config['cur_tag_close'] = '</a>';
-        $config['next_link'] = '<span aria-hidden="true">&raquo;</span>';
-        $config['prev_link'] = '<span aria-hidden="true">&laquo;</span>';
-
-        $this->pagination->initialize($config);
-
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-
-        $data['results'] = $this->admin_model->fetch_projects($config['per_page'], $page);
-        $str_links = $this->pagination->create_links();
-        $data['links'] = explode('&nbsp;', $str_links);
-
-// View data according to array.
-        $this->load->view('admin/projects/view-projects', $data);
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $id = $this->uri->segment(3);
+        $ongoing = $this->admin_model->dashboard_projects_sort('Ongoing');
+        $completed = $this->admin_model->dashboard_projects_sort('Completed');
+        if ($id == '') {
+            $data['results'] = $this->admin_model->fetch_projects();
+            $this->load->view('admin/projects/view-projects', $data);
+        } else if ($id = 'Ongoing' && $id != 'Completed') {
+            $data['postie'] = $ongoing;
+            $this->load->view('admin/assets/dashboard-projects', $data);
+        } else if ($id = 'Completed' && $id != 'Ongoing') {
+            $data1['postie'] = $completed;
+            $this->load->view('admin/assets/dashboard-projects', $data1);
+        }
     }
 
     function notifications() {
@@ -266,6 +264,9 @@ class admin extends CI_Controller {
     }
 
     function view_profile() {
+
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
         $id = $this->uri->segment(3);
         $data['viewUsers'] = $this->emp_model->view_users($id);
         $data['viewSkills'] = $this->emp_model->view_skills($id);
@@ -275,48 +276,116 @@ class admin extends CI_Controller {
     }
 
     public function update() {
+        $pid = $this->input->post('username');
         $this->emp_model->update();
         $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Basic info has been updated</div>');
-        redirect('admin/view_employees');
+        redirect('admin/view_profile/' . $pid);
     }
 
     function edit_project() {
         $id = $this->uri->segment(3);
         $user = $this->input->post('user');
-        
-        $data['pmanager'] = $this->admin_model->get_manager($user);
+        $category = 'Developer' || 'Designer' || 'Quality' || 'Sales' || 'Marketing';
+
+        $data['pmanager'] = $this->admin_model->fetch_manager($user);
+        $data['employee'] = $this->admin_model->fetch_employee();
         $data['viewProjects'] = $this->emp_model->view_projects($id);
         $data['viewSkills'] = $this->emp_model->project_skills($id);
-        $data['viewManager'] = $this->emp_model->view_staffs($id, 'Project Manager');
-        $data['viewEmployees'] = $this->emp_model->view_staffs($id, 'Employee');
-        $data['skills'] = $this->admin_model->getSkills();
-
+        $data['viewManager'] = $this->emp_model->view_manager($id, 'Project Manager');
+        $data['developer'] = $this->emp_model->view_staffs($id, 'Employee', 'Developer');
+        $data['designer'] = $this->emp_model->view_staffs($id, 'Employee', 'Designer');
+        $data['quality'] = $this->emp_model->view_staffs($id, 'Employee', 'Quality');
+        $data['sales'] = $this->emp_model->view_staffs($id, 'Employee', 'Sales');
+        $data['skills'] = $this->admin_model->fetch_skills();
         $this->load->view('admin/projects/edit-projects', $data);
     }
 
     function update_project() {
+
+        $pid = $this->input->post('txt_hidden');
         $this->emp_model->update_project();
         $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Basic info has been updated</div>');
-        redirect('admin/view_projects');
+        redirect('admin/edit_project/' . $pid);
     }
 
     function update_skills() {
+        $pid = $this->input->post('txt_hidden');
         $this->admin_model->update_skills();
-        redirect('admin/view_projects');
+        redirect('admin/edit_project/' . $pid);
     }
 
     public function add_skills() {
+        $pid = $this->input->post('txt_hidden');
         $this->admin_model->add_skills();
 
         $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Skills has been added</div>');
-        redirect('admin/view_projects');
+        redirect('admin/edit_project/' . $pid);
     }
 
     function delete_skills($id) {
+        $pid = $this->uri->segment(4);
         $this->admin_model->delete_row('skillsID', 'projects_skills', $id);
 
         $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Skills has been deleted</div>');
-        redirect('admin/view_projects');
+        redirect('admin/edit_project/' . $pid);
+    }
+
+    function dashboard() {
+
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $ongoing = 'Ongoing';
+        $completed = 'Completed';
+
+        $available = 'Available';
+        $unavailable = 'Unavailable';
+
+
+        $data['ongoing'] = $this->admin_model->sort_projects($ongoing);
+        $data['completed'] = $this->admin_model->sort_projects($completed);
+
+        $data['available'] = $this->admin_model->sort_employee($available);
+        $data['unavailable'] = $this->admin_model->sort_employee($unavailable);
+
+        $data['count1'] = $this->admin_model->sort_project($ongoing);
+        $data['count2'] = $this->admin_model->sort_project($completed);
+
+        $data['count3'] = $this->admin_model->sort_employees($available);
+        $data['count4'] = $this->admin_model->sort_employees($unavailable);
+        $data['count5'] = $this->admin_model->sort_employees('Busy');
+
+        $this->load->view('admin/assets/dashboard', $data);
+    }
+
+    function settings() {
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+
+        $data['skills'] = $this->admin_model->fetch_skills();
+        $this->load->view('admin/assets/settings', $data);
+    }
+
+    function add_skill() {
+        $data = array(
+            'skillName' => $this->input->post('skill')
+        );
+        $this->admin_model->insert('skills', $data);
+        $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Skills has been added</div>');
+        redirect('admin/settings');
+    }
+
+    public function update_skill() {
+        $this->admin_model->update_skill();
+        $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Skills has been updated</div>');
+        redirect('admin/settings');
+    }
+
+    function delete_staff() {
+        $pid = $this->uri->segment(3);
+        $id = $this->uri->segment(4);
+        $this->admin_model->delete($id, $pid, 'projects_users');
+
+        redirect('admin/edit_project/' . $pid);
     }
 
 }

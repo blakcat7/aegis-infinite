@@ -117,61 +117,101 @@
                         Recommended Employees
                     </div>    
                     <div class="panel-body">    
-                            <label>Project Managers:</label>
                         <form action="<?php echo base_url('manager/add_managers/' . $view['projectID']); ?>" method="post" class="form-horizontal">  
-                            <div class="form-group col-md-11">
+                            <div class="form-group col-xs-8 col-md-5">
                                 <input type="hidden" name="txt_hidden" value="<?php echo $view['projectID']; ?>">
                                 <select name="recommended[]" class="chosen-select" multiple title='Select Skills' multiple style="width: 100%;">
-                                    <?php for ($i = 0; $i < count($pmanager); $i++) { ?>
-                                        <option value="<?php echo $pmanager[$i]->userID ?>"><?php echo $pmanager[$i]->username ?></option>
+                                    <?php foreach ($pmanager as $data) { ?>
+                                        <option value="<?php echo $data->userID ?>">
+                                            <?php echo $data->category ?> |
+                                            <?php echo $data->fname . ' ' . $data->lname; ?>
+                                        </option>
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group col-md-1"> 
+                            <div class="form-group col-xs-4 col-md-1"> 
                                 <button type="submit" class="btn btn-add-e"><i class="fa fa-plus"></i></button>
                             </div>
                         </form>
-                        <div class="form-group col-md-12">
-                            <?php foreach ($viewManager as $view): ?>
-                                <input type="hidden" name="user" value="<?php $view['userID'] ?>">
-                                <div class="team" style="padding: 15px;">
-                                    <label class="user">
-                                        <a href="<?php echo base_url() . 'admin/view_profile/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
-                                    </label>
-                                    <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
-                                    <span class="user"><?php echo $view['designation']; ?></span>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <label>Team Members:</label><br>
                         <form action="<?php echo base_url('manager/add_employee/' . $view['projectID']); ?>" method="post" class="form-horizontal">  
-                            <div class="form-group col-md-11">
+                            <div class="form-group col-xs-8 col-md-5">
                                 <input type="hidden" name="txt_hidden" value="<?php echo $view['projectID']; ?>">
                                 <select name="recommended_e[]" class="chosen-select" multiple title='Select Skills' multiple style="width: 100%;">
-                                    <?php for ($i = 0; $i < count($employee); $i++) { ?>
-                                        <option value="<?php echo $employee[$i]->userID ?>"><?php echo $employee[$i]->username ?></option>
+                                    <?php foreach ($employee as $view) { ?>
+                                        <option value="<?php echo $view->userID ?>">
+                                            <?php echo $view->category ?> |
+                                            <?php echo $view->fname . ' ' . $view->lname; ?>
+                                        </option>
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group col-md-1"> 
+                            <div class="form-group col-xs-4 col-md-1"> 
                                 <button type="submit" class="btn btn-add-e"><i class="fa fa-plus"></i></button>
                             </div>
                         </form>
-                        <div class="form-group col-md-12">
-                            <?php foreach ($viewEmployees as $view): ?>                                       
-                                <div class="team" style="padding: 15px;">
-                                    <label class="user">
-                                        <a href="<?php echo base_url() . 'employee/view_profile/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
-                                    </label>
-                                    <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
-                                    <span class="user"><?php echo $view['designation']; ?></span>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>   
+                        <div id="team-project">
+                            <div class="form-group col-md-12">
+                                <?php foreach ($viewManager as $view): ?>
+                                    <input type="hidden" name="user" value="<?php $view['userID'] ?>">
+                                    <div class="team" style="padding: 15px;">
+                                        <label class="user">
+                                            <a href="<?php echo base_url() . 'admin/view_profile/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                        </label>
+                                        <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                        <span class="user"><?php echo $view['designation']; ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <?php foreach ($developer as $view): ?>                                       
+                                    <div class="team" style="padding: 15px;">
+                                        <label class="user">
+                                            <a href="<?php echo base_url() . 'employee/view_profile/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                        </label>
+                                        <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                        <span class="user"><?php echo $view['designation']; ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>                        
+                            <div class="form-group col-md-12">
+                                <?php foreach ($designer as $view): ?>                                       
+                                    <div class="team" style="padding: 15px;">
+                                        <label class="user">
+                                            <a href="<?php echo base_url() . 'employee/view_profile/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                        </label>
+                                        <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                        <span class="user"><?php echo $view['designation']; ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>                        
+                            <div class="form-group col-md-12">
+                                <?php foreach ($quality as $view): ?>                                       
+                                    <div class="team" style="padding: 15px;">
+                                        <label class="user">
+                                            <a href="<?php echo base_url() . 'employee/view_profile/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                        </label>
+                                        <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                        <span class="user"><?php echo $view['designation']; ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>                        
+                            <div class="form-group col-md-12">
+                                <?php foreach ($sales as $view): ?>                                       
+                                    <div class="team" style="padding: 15px;">
+                                        <label class="user">
+                                            <a href="<?php echo base_url() . 'employee/view_profile/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                        </label>
+                                        <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                        <span class="user"><?php echo $view['designation']; ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>   
+                    </div>
                 </div>
             </div>
         </div>
+        <?php $this->load->view('manager/projects/project-tree'); ?>
     </div>
 </div>
 <?php $this->load->view('manager/assets/footer'); ?>

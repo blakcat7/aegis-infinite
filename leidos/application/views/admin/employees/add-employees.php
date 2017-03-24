@@ -1,7 +1,5 @@
 <?php $this->load->view('admin/assets/header'); ?>
 <?php $this->load->view('admin/assets/navbar'); ?>
-
-<!-- CONTENT -->
 <div class="container">
     <div class="row">
         <?php $this->load->view('admin/assets/sidebar'); ?>
@@ -15,7 +13,6 @@
             <?php $this->load->view('admin/assets/menu_e'); ?>
             <hr>
             <?php echo $this->session->flashdata('msg'); ?>
-
             <div id="row-table" class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -30,10 +27,8 @@
                                 'name' => 'fname',
                                 'class' => 'form-control'
                             );
-
                             echo form_input($fname);
                             ?><?php echo form_error('fname'); ?>
-
                         </div>
                         <div class="form-group col-lg-6">                                    
                             <label>Last Name</label>
@@ -42,23 +37,24 @@
                                 'name' => 'lname',
                                 'class' => 'form-control'
                             );
-
                             echo form_input($lname);
                             ?>
                             <?php echo form_error('lname'); ?>
                         </div>
-
-                        <div class="form-group col-lg-12">
+                        <div class="form-group col-lg-8">
                             <label>Email</label>
                             <?php
                             $email = array('id' => 'email',
                                 'name' => 'email',
                                 'class' => 'form-control'
                             );
-
                             echo form_input($email);
                             ?>
                             <?php echo form_error('email'); ?>
+                        </div>                        
+                        <div class="form-group col-lg-4">
+                            <label> @ Leidos</label>
+                            <div class="form-div form-control">@leidos.com</div>
                         </div>
 
                         <div class="form-group col-lg-12">
@@ -68,7 +64,6 @@
                                 'name' => 'username',
                                 'class' => 'form-control'
                             );
-
                             echo form_input($uname);
                             ?>
                             <?php echo form_error('username'); ?>
@@ -81,10 +76,8 @@
                                 'name' => 'password',
                                 'class' => 'form-control'
                             );
-
                             echo form_password($pass);
                             ?>
-
                         </div>
                         <div class="form-group col-md-6" style="margin-bottom: 0px;">
                             <label>Repeat Password</label>
@@ -102,12 +95,11 @@
                                 'Project Manager' => 'Project Manager',
                                 'Admin' => 'Admin',
                             );
-
                             echo form_dropdown('role', $role, 'employee', 'class = "form-control"');
                             ?>
                         </div>
 
-                        <div class="form-group col-lg-12">
+                        <div class="form-group col-lg-6">
                             <label>Designation</label>
                             <?php
                             $designation = array('id' => 'designation',
@@ -117,6 +109,20 @@
 
                             echo form_input($designation);
                             ?>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>Category</label>
+                            <?php
+                            $category = array(
+                                'Developer' => 'Developer',
+                                'Designer' => 'Designer',
+                                'Quality' => 'Quality Assurance',
+                                'Sales' => 'Sales and Marketing',
+                                'Management' => 'Management'
+                            );
+                            echo form_dropdown('category', $category, 'developer', 'class = "form-control"');
+                            ?>
+                            <?php echo form_error('role'); ?>
                         </div>
 
                         <div class="form-group col-lg-12">
@@ -146,12 +152,10 @@
                                 'Canada' => 'Canada',
                                 'United States' => 'United States',
                             );
-
                             echo form_dropdown('location', $location, 'United Arab Emirates', 'class = "form-control"');
                             ?>
                         </div>
                         <input type="hidden" name="userfile" id="imgInp">
-
                     </div>
                     <div class="panel-footer">
                         <?php echo form_submit(array('id' => 'success-btn', 'value' => 'Register', 'class' => 'btn', 'name' => 'submit')); ?>
@@ -162,47 +166,5 @@
         </div>
     </div>
 </div>
-<!-- END OF CONTENT -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(document).on('change', '.btn-file :file', function () {
-            var input = $(this),
-                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            input.trigger('fileselect', [label]);
-        });
-
-        $('.btn-file :file').on('fileselect', function (event, label) {
-
-            var input = $(this).parents('.input-group').find(':text'),
-                    log = label;
-
-            if (input.length) {
-                input.val(log);
-            } else {
-                if (log)
-                    alert(log);
-            }
-
-        });
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#img-upload').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#imgInp").change(function () {
-            readURL(this);
-        });
-    });
-</script>
-</body>
-</html>
+<?php
+$this->load->view('admin/assets/footer');

@@ -13,6 +13,5 @@
         $(selector).chosen(config[selector]);
     }
 </script>
-
 </body>
 </html>

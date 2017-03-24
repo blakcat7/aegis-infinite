@@ -1,7 +1,5 @@
 <?php $this->load->view('admin/assets/header'); ?>
 <?php $this->load->view('admin/assets/navbar'); ?>
-
-<!-- CONTENT -->
 <div class="container">
     <div class="row">
         <?php $this->load->view('admin/assets/sidebar'); ?>
@@ -13,11 +11,8 @@
                 <li class="active">Employees List</li>
             </ol>                      
             <?php $this->load->view('admin/assets/menu_e'); ?>
-            <hr>
-            
+            <hr>            
             <?php echo $this->session->flashdata('msg'); ?>
-
-            <!-- Table -->
             <div id="row-table" class="row">
                 <div class="panel panel-default panel-table">
                     <div class="panel-heading">
@@ -31,54 +26,43 @@
                     <div class="panel-body" id="filter">
                         <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter" />
                     </div>
-                    <table class="table table-hover" id="dev-table">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Location</th>
-                                <th>Department</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($results as $data) { ?>  
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-list" id="dev-table">
+                            <thead>
                                 <tr>
-                                    <td><a href="<?php echo base_url() . 'admin/view_profile/' . $data['username']; ?>"><?php echo $data['username']; ?></a></td>
-                                    <td><?php echo $data['fname']; ?> <?php echo $data['lname']; ?></td>
-                                    <td><?php echo $data['email']; ?></td>
-                                    <td><?php echo $data['location']; ?><br/></td>
-                                    <td><?php echo $data['sector']; ?></td>
-                                    <td>
-                                        <a href="<?php echo base_url() . 'admin/view_profile/' . $data['username']; ?>" class = "btn btn-add-e">
-                                            <i class = "fa fa-pencil-square-o"></i>
-                                        </a>
-                                        <a href="<?php echo base_url('admin/delete_row/' . $data['username']); ?>" class="btn btn-add-d">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>   
+                                    <th>Username</th>
+                                    <th class="extra">Name</th>
+                                    <th class="extra">Email</th>
+                                    <th class="extra">Location</th>
+                                    <th class="extra">Department</th>
+                                    <th>Action</th>
                                 </tr>
-
-                            <?php } ?>
-                        </tbody>
-                    </table>
-
-                    <div class="panel-footer">
-                        <ul class="pagination">
-                            <!-- Show pagination links -->
-                            <?php
-                            foreach ($links as $link) {
-                                echo "<li class='pagination'>" . $link . "</li>";
-                            }
-                            ?>
-                        </ul>    
+                            </thead>
+                            <tbody>
+                                <?php foreach ($results as $data) { ?>  
+                                    <tr>
+                                        <td><a href="<?php echo base_url() . 'admin/view_profile/' . $data['username']; ?>"><?php echo $data['username']; ?></a></td>
+                                        <td class="extra"><?php echo $data['fname']; ?> <?php echo $data['lname']; ?></td>
+                                        <td class="extra"><?php echo $data['email']; ?></td>
+                                        <td class="extra"><?php echo $data['location']; ?><br/></td>
+                                        <td class="extra"><?php echo $data['sector']; ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url() . 'admin/view_profile/' . $data['username']; ?>" class = "btn btn-add-e">
+                                                <i class = "fa fa-pencil-square-o"></i>
+                                            </a>
+                                            <a href="<?php echo base_url('admin/delete_row/' . $data['username']); ?>" class="btn btn-add-d">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>   
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>  
 </div>
-
 <?php $this->load->view('admin/assets/footer'); ?>
 

@@ -1,7 +1,7 @@
 <?php
 
 class emp_model extends CI_Model {
-
+    
     var $details;
 
     function validate_user($username, $password, $role) {
@@ -17,16 +17,7 @@ class emp_model extends CI_Model {
             $this->set_session();
             return true;
         }
-
         return false;
-    }
-
-    function get_image($username) {
-        $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('username', $username);
-        $query = $this->db->get()->result();
-        return $query;
     }
 
     function view_skills($username) {
@@ -126,14 +117,31 @@ class emp_model extends CI_Model {
         }
         return $result;
     }
-
-    function view_staffs($id, $role) {
+    
+        function view_manager($id, $role) {
         $this->db->select('*');
         $this->db->from('projects_users ps');
         $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
         $this->db->join('users u', 'u.userID = ps.userID');
         $this->db->where('ps.projectID', $id);
         $this->db->where('u.role', $role);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        if ($query->num_rows() >= 0) {
+            return $result;
+        } else {
+            return $result;
+        }
+    }
+
+    function view_staffs($id, $role, $category) {
+        $this->db->select('*');
+        $this->db->from('projects_users ps');
+        $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
+        $this->db->join('users u', 'u.userID = ps.userID');
+        $this->db->where('ps.projectID', $id);
+        $this->db->where('u.role', $role);
+        $this->db->where('u.category', $category);
         $query = $this->db->get();
         $result = $query->result_array();
         if ($query->num_rows() >= 0) {
@@ -187,11 +195,20 @@ class emp_model extends CI_Model {
             'designation' => $this->details->designation,
             'plocation' => $this->details->plocation,
             'availability' => $this->details->availability,
+            'pics' => $this->details->picture,
             'logged_in' => true
                 )
         );
     }
-
+    
+    function get_image($username) {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('username', $username);
+        $query = $this->db->get()->result();
+        return $query;
+    }
+    
     function show_projects() {
         $this->db->get('projects');
     }
@@ -228,7 +245,9 @@ class emp_model extends CI_Model {
         $location = $this->input->post('location');
         $plocation = $this->input->post('plocation');
         $role = $this->input->post('role');
-        $availability = $this->input->post('availability');
+        $email = $this->input->post('email');
+        $availability = $this->input->post('availability');        
+        $category = $this->input->post('category');
         $id = $this->input->post('txt_hidden');
 
         $field = array(
@@ -237,8 +256,10 @@ class emp_model extends CI_Model {
             'designation' => $designation,
             'sector' => $sector,
             'location' => $location,
+            'email' => $email,
             'plocation' => $plocation,
             'availability' => $availability,
+            'category' => $category,
             'role' => $role
         );
         $this->db->where('userID', $id);
@@ -250,7 +271,8 @@ class emp_model extends CI_Model {
             $this->session->set_userdata('lname', $lname);
             $this->session->set_userdata('designation', $designation);
             $this->session->set_userdata('sector', $sector);
-            $this->session->set_userdata('location', $location);
+            $this->session->set_userdata('location', $location);            
+            $this->session->set_userdata('email', $email);
             $this->session->set_userdata('plocation', $plocation);
             $this->session->set_userdata('availability', $availability);
             $this->session->set_userdata('role', $role);

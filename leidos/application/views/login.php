@@ -37,8 +37,7 @@
                     </div>
                 </div>
 
-                <?php echo form_open('employee/user_login'); ?>  
-
+                <?php echo form_open('controller/user_login'); ?>  
                 <div style="color: #fff; margin:10px;">
                     <?php if (isset($error) && $error): ?>
                         Incorrect Username or Password!

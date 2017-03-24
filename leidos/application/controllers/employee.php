@@ -9,49 +9,8 @@ class employee extends CI_Controller {
         $this->load->database();
         $this->load->model(array('emp_model', 'admin_model'));
     }
+
     
-    function index() {
-        if ($this->session->userdata('logged_in')) {
-            redirect('employee/profile');
-        } else {
-            $this->login(false);
-        }
-    }
-
-    function login($showError = false) {
-        $data['error'] = $showError;
-        $this->load->view('login', $data);
-    }
-
-    function user_login() {
-        $this->form_validation->set_rules('username', 'Username', 'trim|required');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
-
-        $this->form_validation->set_error_delimiters('<div class="container"><p>', '</p></div>');
-
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-        $admin = 'admin';
-        $employee = 'employee';
-        $manager = 'project manager';
-
-        if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $employee)) {
-            redirect('employee/profile');
-        } else if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $admin)) {
-            redirect('admin/add_project');
-        } else if ($username && $password && $employee && $this->emp_model->validate_user($username, $password, $manager)) {
-            redirect('manager/profile');
-        } else {
-            $this->login(true);
-        }
-    }
-
-    function logout() {
-        $sess_array = array('username' => '');
-        $this->session->unset_userdata('logged_in', $sess_array);
-        redirect('');
-    }
-
     function viewSkills() {
         $data['skills'] = $this->emp_model->view_skills();
         $this->load->view('test', $data);
@@ -77,13 +36,10 @@ class employee extends CI_Controller {
         $data['designation'] = $this->session->userdata('designation');
         $data['plocation'] = $this->session->userdata('plocation');
         $data['availability'] = $this->session->userdata('availability');
-
+        $data['pics'] = $this->emp_model->get_image($username);
         $data['results'] = $this->emp_model->view_skills($username);
 
         $data['proj'] = $this->emp_model->my_project($username);
-
-        $data['pics'] = $this->emp_model->get_image($username);
-
         $data['notif'] = $this->admin_model->get_alert($id);
 
         $this->load->view('profile', $data);
@@ -112,7 +68,6 @@ class employee extends CI_Controller {
         $data['projects'] = $this->emp_model->view_project_skills($username);
 
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['pics'] = $this->emp_model->get_image($username);
         $this->load->view('projects', $data);
     }
 
@@ -134,7 +89,6 @@ class employee extends CI_Controller {
         $data['results'] = $this->emp_model->my_project($username);
         $data['project'] = $this->emp_model->all_project($username);
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['pics'] = $this->emp_model->get_image($username);
         $this->load->view('my_projects', $data);
     }
 
@@ -163,7 +117,7 @@ class employee extends CI_Controller {
         $id = $this->session->userdata('userID');
         $username = $this->session->userdata('username');
 
-        $data['skills'] = $this->admin_model->getSkills();
+        $data['skills'] = $this->admin_model->fetch_skills();
         $data['get_skills'] = $this->admin_model->get_user_skills($id);
         $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
         $this->load->view('edit-skills', $data);
@@ -175,7 +129,7 @@ class employee extends CI_Controller {
         $id = $this->session->userdata('userID');
         $username = $this->session->userdata('username');
 
-        $data['skills'] = $this->admin_model->getSkills();
+        $data['skills'] = $this->admin_model->fetch_skills();
         $data['get_skills'] = $this->admin_model->get_user_skills($id);
         $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
         $this->load->view('add-skills', $data);
@@ -219,7 +173,7 @@ class employee extends CI_Controller {
         $data['viewUsers'] = $this->emp_model->view_users($id);
         $data['viewSkills'] = $this->emp_model->view_skills($id);
         $data['viewProjects'] = $this->emp_model->my_project($id);
-        $this->load->view('view', $data);   
+        $this->load->view('view', $data);
     }
 
     function search() {
@@ -266,7 +220,6 @@ class employee extends CI_Controller {
         $data['sector'] = $this->session->userdata('sector');
         $data['location'] = $this->session->userdata('location');
         $data['designation'] = $this->session->userdata('designation');
-        $data['pics'] = $this->emp_model->get_image($username);
         $data['availability'] = $this->session->userdata('availability');
 
         $data['viewProjects'] = $this->emp_model->view_projects($id);

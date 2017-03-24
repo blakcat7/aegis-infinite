@@ -19,20 +19,9 @@
         <link href="<?php echo base_url(); ?>css/table.css" rel="stylesheet">   
         <link href="<?php echo base_url(); ?>css/chosen.css" rel="stylesheet">      
         <link href="<?php echo base_url(); ?>css/profile.css" rel="stylesheet">
-        <link href="<?php echo base_url(); ?>css/select2.css" rel="stylesheet" />
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+        
         <script type="text/javascript" src="<?php echo base_url(); ?>js/filter.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>js/upload.js"></script>
-        <script type="text/javascript" src="<?php echo base_url(); ?>js/select2.full.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('select').select2();
-                $(".js-example-basic-single").select2();
-            });
-        </script>  
         <style>
             .btn-add-e, .btn-add-d { padding: 9.65px 12px;}
         </style>

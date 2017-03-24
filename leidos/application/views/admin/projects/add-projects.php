@@ -1,7 +1,5 @@
 <?php $this->load->view('admin/assets/header'); ?>
 <?php $this->load->view('admin/assets/navbar'); ?>
-
-<!-- CONTENT -->
 <div class="container">
     <div class="row">
         <?php $this->load->view('admin/assets/sidebar'); ?>
@@ -15,7 +13,6 @@
             <?php $this->load->view('admin/assets/menu_p'); ?>
             <hr>                    
             <?php echo $this->session->flashdata('msg'); ?>
-
             <div id="row-table" class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -28,7 +25,6 @@
                                 <input id='title' name='title' class='form-control'>
                                 <?php echo form_error('title'); ?>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label>Description: </label>
                                 <textarea id='description' name='description' rows='5' class='form-control'></textarea>
@@ -42,28 +38,16 @@
                                 </div>
                                 <?php echo form_error('budget'); ?>
                             </div>
-
                             <div class="form-group col-lg-6">                                    
                                 <label>Start Date:</label>
-                                <div class="input-group" id="datetimepicker4">
-                                    <input type='text' name='startDate' data-format='yyyy-MM-dd' class='form-control'>
-                                    <span class="add-on input-group-btn ">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
-                                    </span>
-                                </div>
+                                <input type='date' name='startDate' data-format='yyyy-MM-dd' class='form-control'>
                                 <?php echo form_error('startDate'); ?>
                             </div>
                             <div class="form-group col-lg-6">                                    
                                 <label>End Date:</label>
-                                <div class="input-group" id="datetimepicker3">
-                                    <input type='text' name='endDate' data-format='yyyy-MM-dd' class='form-control'>
-                                    <span class="add-on input-group-btn ">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>   
-                                    </span>
-                                </div>
+                                <input type='date' name='endDate' data-format='yyyy-MM-dd' class='form-control'>
                                 <?php echo form_error('endDate'); ?>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label>Project Type:</label>
                                 <select name='projectType' class='form-control'>
@@ -74,7 +58,6 @@
                                     <option value="Advance Solutions">Advance Solutions</option>
                                 </select>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label>Location</label>
                                 <select name='projLocation' class='form-control'>
@@ -86,8 +69,6 @@
                                     <option value="United States">United States</option>
                                 </select>
                             </div>
-
-
                             <div class="form-group col-lg-12">
                                 <label>Skills Required:</label><br />
                                 <select name="skill[]" class="chosen-select" multiple style="width: 100%;">
@@ -106,34 +87,5 @@
         </div>
     </div>
 </div>
-<!-- END OF CONTENT -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker4').datetimepicker({
-            pickTime: false
-        });
-        $('#datetimepicker3').datetimepicker({
-            pickTime: false
-        });
-    });
-</script>
-<script src="<?php echo base_url(); ?>js/chosen.jquery.min.js"></script>
-<script type="text/javascript">
-    var config = {
-        '.chosen-select': {},
-        '.chosen-select-deselect': {allow_single_deselect: true},
-        '.chosen-select-no-single': {disable_search_threshold: 10},
-        '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
-        '.chosen-select-width': {width: "95%"}
-    }
-    for (var selector in config) {
-        $(selector).chosen(config[selector]);
-    }
-</script>
-</body>
-</html>
+<?php $this->load->view('admin/assets/footer'); ?>

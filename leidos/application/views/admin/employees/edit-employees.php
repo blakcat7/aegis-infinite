@@ -1,7 +1,5 @@
 <?php $this->load->view('admin/assets/header'); ?>
 <?php $this->load->view('admin/assets/navbar'); ?>
-
-<!-- CONTENT -->
 <div class="container">
     <div class="row">
         <?php $this->load->view('admin/assets/sidebar'); ?>
@@ -100,7 +98,19 @@
                                         <option value="Busy">Busy</option>
                                         <option value="Unavailable">Unavailable</option>
                                     </select>
-                                </div> 
+                                </div>                                 
+                                <div class="form-group col-md-6">         
+                                    <label>Category</label>
+                                    <select name='category' class='form-control'>                                                                                                                         
+                                        <option selected value="<?php echo $view['category']; ?>"><?php echo $view['category']; ?></option>
+                                        <option disabled></option>
+                                        <option value="Developer">Developer</option>
+                                        <option value="Designer">Designer</option>
+                                        <option value="Quality">Quality Assurance</option>                                        
+                                        <option value="Sales">Sales and Marketing</option>                                                                             
+                                        <option value="Management">Management</option>
+                                    </select>
+                                </div>
                             <?php endforeach; ?>
                         </div>
                         <div class="panel-footer">
@@ -113,7 +123,7 @@
                         Skills
                     </div>
                     <div class="panel-body">
-                        <?php foreach ($viewSkills as $view_s): ?>
+                        <?php foreach ($viewSkills as $view_s) { ?>
                             <div class="progress">   
                                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $view_s['percentage']; ?>%;">
                                     <span class="sr-only"><?php echo $view_s['percentage']; ?>% Complete</span>
@@ -122,7 +132,7 @@
                                 <span class="progress-completed"><?php echo $view_s['percentage']; ?>%</span>
                             </div>
 
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -176,9 +186,4 @@
             </div>
         </div>
     </div>
-    <!-- END OF CONTENT -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php echo $this->load->view('admin/assets/footer.php'); ?>

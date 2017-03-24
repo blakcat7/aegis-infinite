@@ -83,7 +83,6 @@
                                                     <option value="50">50%</option>
                                                 </select>
                                             </div>
-
                                             <div class="form-group col-xs-1">
                                                 <button type="submit" name="btnUpdate" class="btn btn-add-e">
                                                     <i class = "fa fa-refresh"></i>

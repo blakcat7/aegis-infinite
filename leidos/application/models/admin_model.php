@@ -1,46 +1,88 @@
 <?php
 
 class admin_model extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    function insertUser($data) {
-        return $this->db->insert('users', $data);
-    }
-
-    public function insertProjects($data) {
-        return $this->db->insert('projects', $data);
-    }
-
+    
     public function insert($table, $data) {
         $this->db->insert($table, $data);
         return $this->db->insert_id();
     }
 
-    public function getLatestID() {
-        return $this->db->insert_id();
+    public function add_skills() {
+        $skill = $this->input->post('skills');
+        $id = $this->input->post('txt_hidden');
+
+        foreach ($skill as $skills) {
+            $field = array(
+                'projectID' => $id,
+                'skillsID' => $skills
+            );
+            $this->db->where('projectID', $id);
+            $this->db->insert('projects_skills', $field);
+        }
     }
 
-    public function insertSkills($data) {
-        return $this->db->insert('projects_skills', $data);
+    public function update_skill() {
+        $skill = $this->input->post('skill');
+        $array = array(
+            'skillsID' => $this->input->post('skillsID')
+        );
+
+        $field = array(
+            'skillName' => $skill
+        );
+        $this->db->where($array);
+        $this->db->update('skills', $field);
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function insertRecEmp($data) {
-        $this->db->insert('projects_users', $data);
+    public function update_skills() {
+        $id = $this->input->post('txt_hidden');
+        $field = array(
+            'title' => $this->input->post('title'),
+            'description' => $this->input->post('description'),
+            'projLocation' => $this->input->post('projLocation'),
+            'projectType' => $this->input->post('projectType'),
+            'startDate' => $this->input->post('startDate'),
+            'endDate' => $this->input->post('endDate'),
+            'budget' => $this->input->post('budget')
+        );
+
+        $this->db->where('projectID', $id);
+        $this->db->update('projects', $field);
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function showProjects() {
-        $sql = $this->db->query("SELECT MAX(projectID) as projectID FROM projects");
-        return $sql->row_array();
+    public function delete($id, $pid, $table) {
+        $this->db->where('userID', $id);
+        $this->db->where('projectID', $pid);
+        $this->db->delete($table);
     }
 
-    public function record_count() {
-        return $this->db->count_all('users');
+    function delete_row($field, $table, $username) {
+        $this->db->where($field, $username);
+        $this->db->delete($table);
     }
 
-    public function getSkills() {
+    function delete_skill() {
+        $pid = $this->uri->segment(3);
+        $id = $this->uri->segment(4);
+
+        $this->db->where('projectID', $pid);
+        $this->db->where('skillsID', $id);
+        $this->db->delete('projects_skills');
+    }
+
+    public function fetch_skills() {
         $this->db->select('*');
         $this->db->from('skills');
         $query = $this->db->get();
@@ -53,7 +95,7 @@ class admin_model extends CI_Model {
         return false;
     }
 
-    public function getPM() {
+    public function fetch_manager() {
         $this->db->select('*');
         $this->db->from('users u');
         $this->db->where('u.role', 'Project Manager');
@@ -69,31 +111,11 @@ class admin_model extends CI_Model {
         }
     }
 
-    public function get_manager($id) {
+    public function fetch_employee() {
         $this->db->select('*');
         $this->db->from('users u');
-        $this->db->join('projects_users p', 'u.userID = p.userID');
-        $this->db->where('u.role', 'Project Manager');
-        $this->db->where('u.availability', 'Available');
-        $this->db->where('p.userID !=', $id);
-        $query = $this->db->get();
-
-        $result = array();
-        if ($query->num_rows() >= 0) {
-            foreach ($query->result() as $row) {
-                $result[] = $row;
-            }
-            return $result;
-        }
-    }
-
-    public function get_employee($id) {
-        $this->db->select('*');
-        $this->db->from('users u');
-        $this->db->join('projects_users p', 'u.userID = p.userID');
         $this->db->where('u.role', 'Employee');
         $this->db->where('u.availability', 'Available');
-        $this->db->where('p.userID !=', $id);
         $query = $this->db->get();
 
         $result = array();
@@ -105,7 +127,15 @@ class admin_model extends CI_Model {
         }
     }
 
-    public function getUsers($id) {
+    public function fetch_users() {
+        $query = $this->db->get('users');
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return $query->result_array();
+    }
+
+    public function fetch_recommended_user($id) {
         $this->db->select('*');
         $this->db->from('users_skills e');
         $this->db->join('projects_skills p', 'e.skillsID = p.skillsID');
@@ -116,6 +146,7 @@ class admin_model extends CI_Model {
         $this->db->group_by('e.userID');
         $this->db->order_by('e.percentage', 'desc');
         $query = $this->db->get();
+
         $result = array();
         if ($query->num_rows() >= 0) {
             foreach ($query->result() as $row) {
@@ -126,7 +157,7 @@ class admin_model extends CI_Model {
         return $result;
     }
 
-    public function getID() {
+    public function get_latest_id() {
         $this->db->select_max('projectID');
         $this->db->from('projects');
         $query = $this->db->get();
@@ -135,36 +166,13 @@ class admin_model extends CI_Model {
         return $result;
     }
 
-    public function fetch_users($limit, $start) {
-        $this->db->limit($limit, $start);
-        $query = $this->db->get('users');
-
-
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        }
-        return false;
-    }
-
-    public function count_project() {
-        return $this->db->count_all('projects');
-    }
-
-    public function fetch_projects($limit, $start) {
-        $this->db->limit($limit, $start);
+    public function fetch_projects() {
         $query = $this->db->get('projects');
 
-
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }
         return false;
-    }
-
-    public function show_users() {
-        $query = $this->db->get('users');
-        $query_result = $query->result();
-        return $query_result;
     }
 
     public function get_alert($id) {
@@ -200,12 +208,6 @@ class admin_model extends CI_Model {
         return $result;
     }
 
-    public function delete($id, $pid) {
-        $this->db->where('userID', $id);
-        $this->db->where('projectID', $pid);
-        $this->db->delete('request_temp');
-    }
-
     public function get_user_skills($id) {
         $this->db->select('*');
         $this->db->from('skills s');
@@ -224,56 +226,73 @@ class admin_model extends CI_Model {
         return $result;
     }
 
-    function delete_row($field, $table, $username) {
-        $this->db->where($field, $username);
-        $this->db->delete($table);
-    }
-
-    function delete_skill() {
-        $pid = $this->uri->segment(3);
-        $id = $this->uri->segment(4);
-        
-        $this->db->where('projectID', $pid);
-        $this->db->where('skillsID', $id);
-        $this->db->delete('projects_skills');
-    }
-    
-    public function update_skills() {
-        $id = $this->input->post('txt_hidden');
-        $field = array(
-            'title' => $this->input->post('title'),
-            'description' => $this->input->post('description'),
-            'projLocation' => $this->input->post('projLocation'),
-            'projectType' => $this->input->post('projectType'),
-            'startDate' => $this->input->post('startDate'),
-            'endDate' => $this->input->post('endDate'),
-            'budget' => $this->input->post('budget')
-        );
-
-        $this->db->where('projectID', $id);
-        $this->db->update('projects', $field);
-
-        if ($this->db->affected_rows() > 0) {
-            return true;
-        } else {
-            return false;
+    function sort_projects($completion) {
+        $this->db->select('*');
+        $this->db->from('projects');
+        $this->db->where('completion', $completion);
+        $query = $this->db->get();
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
         }
+        return $result;
     }
 
-    public function add_skills() {
-        $skill = $this->input->post('skills');
-        $id = $this->input->post('txt_hidden');
-
-        foreach ($skill as $skills) {
-            $field = array(
-                'projectID' => $id,
-                'skillsID' => $skills
-            );
-            $this->db->where('projectID', $id);
-            $this->db->insert('projects_skills', $field);
+    function sort_employee($availability) {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('availability', $availability);
+        $this->db->where('role !=', 'Admin');
+        $query = $this->db->get();
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
         }
+        return $result;
     }
 
+    function sort_project($completion) {
+        $this->db->select('*');
+        $this->db->from('projects');
+        $this->db->where('completion', $completion);
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    function sort_employees($availability) {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('availability', $availability);
+        $this->db->where('role !=', 'Admin');
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    function dashboard_projects_sort($completion) {
+        $this->db->select('*');
+        $this->db->from('projects');
+        $this->db->where('completion', $completion);
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
+    function dashboard_employees_sort($availability) {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('availability', $availability);
+        $this->db->where('role !=', 'Admin');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return $query->result_array();
+    }
 }
-
 ?>

@@ -19,11 +19,16 @@
         <link href="<?php echo base_url(); ?>css/admin.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/profile.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>css/footer.css" rel="stylesheet">
+        <style>
+            #view-more{
+                display: none;
+            }
+        </style>
     </head>
     <body>
 
         <!-- NAVBAR -->
-        <?php $this->load->view('navbar-e'); ?>
+        <?php $this->load->view('employee/assets/navbar'); ?>
         <!-- END OF NAVBAR -->
 
         <!-- CONTENT -->
@@ -63,43 +68,46 @@
                             </div>
                             <div class="panel-body">          
                                 <ul class="nav nav-pills"> 
-                                    <li role="presentation"><a href="<?php echo base_url(); ?>employee/projects">All Projects</a></li> 
-                                    <li role="presentation" class="active"><a href="<?php echo base_url(); ?>employee/my_projects">My Projects</a></li>
+                                    <li role="presentation" class="active"><a href="<?php echo base_url(); ?>employee/projects">All Projects</a></li> 
+                                    <li role="presentation"><a href="<?php echo base_url(); ?>employee/my_projects">My Projects</a></li>
                                 </ul>
                                 <ol class="breadcrumb" style="margin-top: 10px;">
                                     <li><a href="<?php echo base_url(); ?>employee/projects">Projects</a></li>
-                                    <li class="active">My Projects</li>
-                                </ol> 
-                                <?php foreach ($results as $data) { ?>
-                                    <hr>
-                                    <div class ="proj">                                        
-                                        <h4 style="font-weight: 700;"><?php echo $data['projectType']; ?></h4>
-                                        <h4 style="font-weight: 700;"><?php echo $data['title']; ?>
-                                            <label class='location'><span class="glyphicon glyphicon-map-marker"></span><?php echo $data['projLocation']; ?></label>
-                                        </h4>
-                                        <label class="date">                                        
-                                            <?php echo date("F j, Y", strtotime($data['startDate'])); ?>
-                                        </label>   
+                                    <li class="active">All Projects</li>
+                                </ol>
 
-                                        <label class="date-title">-</label>
-                                        <label class="date">
-                                            <?php echo date("F j, Y", strtotime($data['endDate'])); ?> 
-                                        </label>
-                                        <hr>
-                                        <label>About the project : </label>
-                                        <p class="desc"><?php echo $data['description']; ?> </p>
-                                        <hr>
-                                        <a href="<?php echo base_url() . 'employee/view_projects/' . $data['projectID']; ?>" class="join clicked"><span class="glyphicon glyphicon-eye-open" style="margin-left: 0px;"></span>View </a>
-                                        
-                                    </div>
+                                <?php foreach ($projects as $data) { ?>
+                                    <hr>
+                                        <div class ="proj">                                        
+                                            <h4 style="font-weight: 700;"><?php echo $data['projectType']; ?></h4>
+                                            <h4 style="font-weight: 700;">
+                                                <?php echo $data['title']; ?>
+                                                <label class='location'><span class="glyphicon glyphicon-map-marker"></span><?php echo $data['projLocation']; ?></label>
+                                            </h4>
+                                            <label class="date">                                        
+                                                <?php echo date("F j, Y", strtotime($data['startDate'])); ?>
+                                            </label>   
+
+                                            <label class="date-title">-</label>
+                                            <label class="date">
+                                                <?php echo date("F j, Y", strtotime($data['endDate'])); ?> 
+                                            </label>
+                                            <hr>
+                                            <label>About the project : </label>
+                                            <p class="desc"><?php echo $data['description']; ?> </p>
+                                            <hr>                                        
+                                            <a href="" class="join clicked"><span class="glyphicon glyphicon-heart" style="margin-left: 0px;"></span>Interested </a>
+                                            <a href="<?php echo base_url() . 'employee/view_projects/' . $data['projectID']; ?>" class="join clicked"><span class="glyphicon glyphicon-eye-open" style="margin-left: 0px;"></span>View </a>
+                                        </div>
                                 <?php } ?>
-                            </div>
-                        </div><!--/.col-md-6 -->
-                    </div>
+                            </div>  
+                        </div>
+                    </div><!--/.col-md-6 -->
                 </div>
             </div>
-            <!-- END OF CONTENT -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        </div>
+        <!-- END OF CONTENT -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>

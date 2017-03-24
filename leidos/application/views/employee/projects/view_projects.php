@@ -28,7 +28,7 @@
     <body>
 
         <!-- NAVBAR -->
-        <?php $this->load->view('navbar-e'); ?>
+        <?php $this->load->view('employee/assets/navbar'); ?>
         <!-- END OF NAVBAR -->
 
         <!-- CONTENT -->

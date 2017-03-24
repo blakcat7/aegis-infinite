@@ -23,7 +23,7 @@
     </head>
     <body>
         <!-- NAVBAR -->
-        <?php $this->load->view('navbar-e'); ?>
+        <?php $this->load->view('employee/assets/navbar'); ?>
         <!-- END OF NAVBAR -->
 
         <!-- CONTENT -->
@@ -48,7 +48,7 @@
                         <div id="row-table" class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-fire"></i>Skills</h3>
+                                    <h3 class="panel-title"><i class="fa fa-pencil"></i>Basic Info</h3>
 
                                 </div>
                                 <div class="panel-body">
@@ -63,39 +63,41 @@
                                         <hr>
                                         <?php echo $this->session->flashdata('msg'); ?>
                                     </div>
-                                    <input type="hidden" name="txt_hidden" value="<?php echo $blog->userID; ?>">
-                                    <?php foreach ($get_skills as $skill) { ?>    
-                                        <form action="<?php echo base_url('employee/update_skills'); ?>" method="post" class="form-horizontal">                                                                              
-                                            <input type="hidden" class="form-control" name="userID" value="<?php echo $skill->userID ?>"><br/>
-                                            <input type="hidden" class="form-control" name="skillsID" value="<?php echo $skill->skillsID ?>"><br/>
-                                            <div class="form-group col-xs-8">
+
+                                    <form action="<?php echo base_url('employee/add_skills'); ?>" method="post" class="form-horizontal">
+                                        <input type="hidden" name="txt_hidden" value="<?php echo $blog->userID; ?>">
+                                        <div class="form-group col-md-10">                                    
+                                            <label>Skills</label>
+                                            <select name="skill" class="form-control" style="width: 100%;">
+                                                <?php for ($i = 0; $i < count($skills); $i++) { ?>
+                                                    <option value="<?php echo $skills[$i]->skillsID ?>"><?php echo $skills[$i]->skillName ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-2">                                    
+                                            <label>Percentage</label>
+                                            <select name='percentage' class='form-control'>   
+                                                <option value="100">100%</option>
+                                                <option value="90">90%</option>
+                                                <option value="80">80%</option>
+                                                <option value="70">70%</option>
+                                                <option value="60">60%</option>
+                                                <option value="50">50%</option>
+                                            </select>
+                                        </div>                                                  
+                                        <div class="form-group col-md-10">
+                                            <input type="submit" name="btnUpdate" class="join" value="Add">
+                                        </div>
+                                        
+                                        <?php foreach ($get_skills as $skill) { ?>
+                                            <div class="form-group col-md-10">
                                                 <input type="text" disabled class="form-control" name="skills" value="<?php echo $skill->skillName ?>"><br/>
                                             </div>
-                                            <div class="form-group col-xs-2">
-                                                <select name='percentage' class='form-control'>
-                                                    <option value="<?php echo $skill->percentage ?>"><?php echo $skill->percentage ?>%</option>
-                                                    <option disabled></option>
-                                                    <option value="100">100%</option>
-                                                    <option value="90">90%</option>
-                                                    <option value="80">80%</option>
-                                                    <option value="70">70%</option>
-                                                    <option value="60">60%</option>
-                                                    <option value="50">50%</option>
-                                                </select>
+                                            <div class="form-group col-md-2">
+                                                <input type="text" disabled  class="form-control" value="<?php echo $skill->percentage ?>">
                                             </div>
-
-                                            <div class="form-group col-xs-1">
-                                                <button type="submit" name="btnUpdate" class="btn btn-add-e">
-                                                    <i class = "fa fa-refresh"></i>
-                                                </button>
-                                            </div>
-                                        </form>
-                                        <div class="form-group col-xs-1">                                            
-                                            <a href="<?php echo base_url('employee/delete_skills/' . $skill->skillsID); ?>" class="btn btn-add-d">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    <?php } ?>  
+                                        <?php } ?>
+                                    </form>
                                 </div>
                             </div>
                         </div><!--/.col-md-6 -->
@@ -104,8 +106,6 @@
                 </div>
             </div>
         </div>
-        <!-- END OF CONTENT -->
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>

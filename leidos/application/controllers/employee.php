@@ -20,7 +20,7 @@ class employee extends CI_Controller {
 
     function login($showError = false) {
         $data['error'] = $showError;
-        $this->load->view('login', $data);
+        $this->load->view('employee/profile/login', $data);
     }
 
     function user_login() {
@@ -86,7 +86,7 @@ class employee extends CI_Controller {
 
         $data['notif'] = $this->admin_model->get_alert($id);
 
-        $this->load->view('profile', $data);
+        $this->load->view('employee/profile/profile', $data);
     }
 
     /*
@@ -113,7 +113,7 @@ class employee extends CI_Controller {
 
         $data['notif'] = $this->admin_model->get_alert($id);
         $data['pics'] = $this->emp_model->get_image($username);
-        $this->load->view('projects', $data);
+        $this->load->view('employee/projects/projects', $data);
     }
 
     function my_projects() {
@@ -135,12 +135,12 @@ class employee extends CI_Controller {
         $data['project'] = $this->emp_model->all_project($username);
         $data['notif'] = $this->admin_model->get_alert($id);
         $data['pics'] = $this->emp_model->get_image($username);
-        $this->load->view('my_projects', $data);
+        $this->load->view('employee/projects/my_projects', $data);
     }
 
     function show_projects() {
         $data['projects'] = $this->emp_model->show_projects();
-        $this->load->view('projects', $data);
+        $this->load->view('employee/projects/projects', $data);
     }
 
     /*
@@ -154,7 +154,7 @@ class employee extends CI_Controller {
         $data['lname'] = $this->session->userdata('lname');
         $data['userID'] = $this->session->userdata('userID');
         $data['blog'] = $this->emp_model->get_id('username', 'users', $id);
-        $this->load->view('edit-info', $data);
+        $this->load->view('employee/profile/edit-info', $data);
     }
 
     function edit_skills() {
@@ -166,7 +166,7 @@ class employee extends CI_Controller {
         $data['skills'] = $this->admin_model->getSkills();
         $data['get_skills'] = $this->admin_model->get_user_skills($id);
         $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
-        $this->load->view('edit-skills', $data);
+        $this->load->view('employee/profile/edit-skills', $data);
     }
 
     function insert_skills() {
@@ -178,7 +178,7 @@ class employee extends CI_Controller {
         $data['skills'] = $this->admin_model->getSkills();
         $data['get_skills'] = $this->admin_model->get_user_skills($id);
         $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
-        $this->load->view('add-skills', $data);
+        $this->load->view('employee/profile/add-skills', $data);
     }
 
     public function update() {
@@ -219,7 +219,7 @@ class employee extends CI_Controller {
         $data['viewUsers'] = $this->emp_model->view_users($id);
         $data['viewSkills'] = $this->emp_model->view_skills($id);
         $data['viewProjects'] = $this->emp_model->my_project($id);
-        $this->load->view('view', $data);   
+        $this->load->view('employee/projects/view', $data);   
     }
 
     function search() {
@@ -234,7 +234,7 @@ class employee extends CI_Controller {
             'userID' => $this->uri->segment(4)
         );
         $this->admin_model->insert('request_temp', $data);
-        redirect('employee/my_projects');
+        redirect('employee/projects/my_projects');
     }
 
     function insert_row() {
@@ -247,7 +247,7 @@ class employee extends CI_Controller {
 
         $this->admin_model->insert('projects_users', $data);
         $this->admin_model->delete($u, $p);
-        redirect('employee/my_projects');
+        redirect('employee/projects/my_projects');
     }
 
     function delete_skills($id) {
@@ -274,7 +274,7 @@ class employee extends CI_Controller {
         $data['viewManager'] = $this->emp_model->view_staffs($id, 'Project Manager');
         $data['viewEmployees'] = $this->emp_model->view_staffs($id, 'Employee');
 
-        $this->load->view('view_projects', $data);
+        $this->load->view('employee/projects/view_projects', $data);
     }
 
 }

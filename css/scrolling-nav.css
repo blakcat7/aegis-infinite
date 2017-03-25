@@ -1,12 +1,8 @@
-/*!
- * Start Bootstrap - Scrolling Nav (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
-
 body {
     width: 100%;
     height: 100%;
+    font-family: 'Source Sans Pro', sans-serif;                  
+    letter-spacing: 1pt;
 }
 
 html {
@@ -26,18 +22,85 @@ html {
     }
 }
 
-/* Demo Sections - You can use these as guides or delete them - the scroller will work with any sort of height, fixed, undefined, or percentage based.
-The padding is very important to make sure the scrollspy picks up the right area when scrolled to. Adjust the margin and padding of sections and children 
-of those sections to manage the look and feel of the site. */
+#welcome{
+    position: absolute;
+    margin-top: 100px;
+    padding: 50px;
+    height: auto;
+    width: 100%;
+    color: #fff;
+    text-align: left;
+}
+
+#welcome-title {
+    font-size: 20pt;
+    font-weight: 600;
+}
+
+#welcome-subtitle {
+    font-weight: 300;
+}
+
+.btn-default {
+    background-color: #fff;
+    border: 1px solid #fff;
+    color: #21262c;
+    margin-top: 20px;
+    padding: 5px 20px;
+    font-size: 9pt;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active {
+    background-color: #fff;
+    color: #21262c;
+    outline: none;
+}
+
+.btn:focus, .btn:hover, .btn:active {
+    outline: none;
+}
+
+.home-section {
+    height: 100%;
+    padding-top: 100px;
+    text-align: center;
+    background-color: #21262c;
+}
 
 .about-section {
+    height: auto;
+    padding-top: 100px;
+    background-color: #fff;
+}
+
+.services-section {
     height: 100%;
     padding-top: 100px;
     text-align: center;
     background: #fff;
+    color: #fff;
 }
 
-.services-section {
+.team-section {
+    height: 100%;
+    padding-top: 100px;
+    text-align: center;
+    background: #fff;
+    color: #fff;
+}
+
+.client-leidos {
+    background: url('../images/leidos-img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 0px;
+    
+}
+
+.client-section {
     height: 100%;
     padding-top: 100px;
     text-align: center;
@@ -49,4 +112,181 @@ of those sections to manage the look and feel of the site. */
     padding-top: 100px;
     text-align: center;
     background: #fff;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.thumbnail {
+    border: 0px solid #fff;
+    background-color: transparent
+}
+
+.services {
+    width: 120px;
+    height: auto;
+}
+
+.title-1 {
+    font-weight: 900;
+}
+
+.subtitle {
+    font-weight: 300;
+}
+
+.content{
+    font-weight: 300;
+    font-size: 18px;
+    padding: 0 20px 20px 20px;
+}
+
+.profile {
+    vertical-align: middle;
+}
+
+span.info{
+    font-weight: 700;
+}
+
+p.info{
+    font-weight: 300;
+    font-size: 8pt;
+}
+
+img.user{
+    border-radius: 100%;
+}
+span .fa {
+    padding: 3px;
+}
+.nav>li a {
+    color: #fff;
+}
+
+.nav>li a:hover, .nav>li a:focus{
+    background-color: transparent;
+}
+
+nav {
+    background: #21262c;
+    padding: 10px;
+}
+
+.nav-justified>li>a {
+    text-align: left;
+}
+
+.navbar-toggle .icon-bar{
+    background-color: #fff;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    border-radius: 0px; 
+}
+
+.btn-blue{
+    background-color: #336699;
+    font-weight: 300;                             
+    color: #fff;
+}
+
+.btn-blue:hover{
+    color: #fff;
+}
+
+img {
+    width: 100%;
+    margin: 15px auto;
+}
+
+section#contact .form-group {
+    margin-bottom: 25px;
+}
+section#contact .form-group input,
+section#contact .form-group textarea {
+    padding: 10px;
+    border-radius: 0px;
+}
+section#contact .form-group input.form-control {
+
+    height: auto;
+}
+section#contact .form-group textarea.form-control {
+    height: 236px;
+}
+section#contact .form-control:focus {
+    box-shadow: none;
+}
+
+.gellary_bg_none img{
+    width: 100%;
+    height: 250px;
+}
+
+section#contact .text-danger {
+    color: #e74c3c;
+}
+
+.about_our_company{
+    text-align: center;
+}
+.about_our_company h1{
+    font-size: 25px;
+}
+
+.logo {
+    width: 25%;
+    height: auto;
+    margin: 0;
+}
+
+.logo-name {
+    width: 150px;
+    height: auto;
+    margin: 0;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3{
+    position: relative;
+    background-attachment: fixed;
+    background-position: center;    
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bgimg-1 {
+    background-image: url("../images/bg_parallax2.jpg");
+    min-height: 100%;
+}
+
+.bgimg-2 {
+    background-image: url("../images/Love-Coding.jpg");
+    min-height: 100%;
+}
+
+
+.bgimg-3 {
+    background-image: url("../images/bg_parallax1.jpg");
+    min-height: 100%;
+}
+
+
+.title{
+    font-weight: 600;
+    font-size: 9pt;
+    margin: 10px;
 }

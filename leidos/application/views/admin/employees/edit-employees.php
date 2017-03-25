@@ -186,4 +186,5 @@
             </div>
         </div>
     </div>
-<?php echo $this->load->view('admin/assets/footer.php'); ?>
+</div>
+<?php $this->load->view('admin/assets/footer.php'); ?>

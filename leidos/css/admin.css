@@ -22,6 +22,11 @@ a:focus, a:hover {
     color: #333;
 }
 
+#quick-start .btn {
+    width: 100%;
+    margin: 5px;
+}
+
 .panel-yellow{
     background: rgba(243, 156, 18, 0.25);
     border: 1px solid rgba(243, 156, 18,1.0);

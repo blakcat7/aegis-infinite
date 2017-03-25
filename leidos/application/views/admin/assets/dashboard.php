@@ -11,7 +11,7 @@
             </ol>   
             <hr>
             <div class="row">            
-                <div style="padding-right: 5px;padding-left: 0px;" class="col-md-6">
+                <div id="quick-start" style="padding-right: 5px;padding-left: 0px;" class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-bookmark"></i> Quick Shortcuts:</h3>

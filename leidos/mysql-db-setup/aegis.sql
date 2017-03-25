@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2017 at 04:36 PM
+-- Generation Time: Mar 25, 2017 at 01:10 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -43,12 +43,11 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`projectID`, `title`, `description`, `startDate`, `endDate`, `projectType`, `projLocation`, `budget`, `completion`) VALUES
-(21, 'Project Testtt', 'yes yes you update the description yes yes yoo', '2017-03-18', '2017-04-18', 'Civil', 'Spain', 25000.00, 'Ongoing'),
+(21, 'This is just a testing project', 'yes yes you update the description yes yes yoo', '2017-03-18', '2017-04-18', 'Civil', 'Spain', 250000.00, 'Ongoing'),
 (27, 'Test Users', 'Testtt', '2017-03-19', '2017-03-19', 'Civil', 'Canada', 145.00, 'Ongoing'),
-(28, 'TEsting again', 'testing again', '2017-03-20', '2017-03-20', 'Civil', 'United Arab Emirates', 1234.00, 'Ongoing'),
 (36, 'Skills Funding Agency Project (SFA)', 'Under this 4-year Solution Development\r\nframework contract with the SFA we provided application design, development\r\nand support services for the Learning Records Service (LRS) application. The\r\nService Layer was developed as a .NET / SQL Server application, to assist the\r\nSFA’s preferred move from the Java / Oracle platform to a .NET / SQL Server\r\ntechnology, web service integration with external stakeholders (including\r\nAwarding Organisations and Ofqual), and usability and user interface\r\nimprovements for Learners and Learning Providers. We also integrated LRS\r\nwith a new data warehouse enabling the SFA to interrogate, analyse and future\r\nmodel the data held within the LRS databases.\r\nSkill-sets utilised over the duration of the project included enterprise architecture\r\nservices, requirements gathering, business analysis, agile development\r\naccompanied by supporting test, documentation, and project management\r\nresources.', '2017-03-22', '2017-04-08', 'Civil', 'United Arab Emirates', 250000.00, 'Ongoing'),
 (40, 'Feel The Wave by Talal Shaikh', 'This project is purely dedicated to Mr. Talal Shaikh.', '2017-03-23', '2017-03-23', 'Advance Solutions', 'Canada', 1234567936.00, 'Ongoing'),
-(41, 'Party''s', 'Yes it''s a party batchhh', '2017-03-14', '2017-05-17', 'Civil', 'United Arab Emirates', 25000.00, 'Completed'),
+(41, 'Party''s', 'Yes it''s a party batchhh - Update', '2017-03-14', '2017-04-27', 'Civil', 'United Arab Emirates', 25000.00, 'Completed'),
 (42, 'Office of Rail Regulation (ORR) Business Intelligence (BI) - Data Warehouse & National Rail Trends Portal', 'We worked to identify areas where\r\nworkflows and/or technical processes can be improved or streamlined to reduce\r\nthe administrative burden and further ORR’s ambitions for business intelligence\r\nbest practice. The approach taken to deliver this Best Practice BI Review\r\nthrough the deployment of an experienced, multi-skilled team, with the\r\nnecessary consultancy knowledge and recent, relevant experience in business\r\nanalytics providing flexibility and assurance to ORR.', '2017-03-24', '2017-03-24', 'Civil', 'United Arab Emirates', 1234567936.00, 'Ongoing');
 
 -- --------------------------------------------------------
@@ -67,18 +66,14 @@ CREATE TABLE `projects_skills` (
 --
 
 INSERT INTO `projects_skills` (`projectID`, `skillsID`) VALUES
-(21, 9),
-(40, 2),
 (41, 3),
 (41, 7),
 (41, 1),
 (36, 7),
-(36, 8),
-(36, 5),
 (36, 4),
-(36, 9),
 (42, 1),
-(42, 2);
+(21, 10),
+(21, 2);
 
 -- --------------------------------------------------------
 
@@ -96,17 +91,19 @@ CREATE TABLE `projects_users` (
 --
 
 INSERT INTO `projects_users` (`projectID`, `userID`) VALUES
-(21, 14),
 (27, 14),
-(28, 14),
 (21, 16),
-(21, 14),
 (27, 14),
 (36, 14),
 (40, 16),
 (41, 16),
 (41, 14),
-(36, 16);
+(36, 16),
+(21, 14),
+(21, 19),
+(21, 21),
+(36, 22),
+(21, 22);
 
 -- --------------------------------------------------------
 
@@ -125,7 +122,9 @@ CREATE TABLE `request_temp` (
 --
 
 INSERT INTO `request_temp` (`projectID`, `userID`, `datetime`) VALUES
-(42, 14, '0000-00-00 00:00:00');
+(42, 14, '0000-00-00 00:00:00'),
+(21, 16, '0000-00-00 00:00:00'),
+(36, 16, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -152,7 +151,8 @@ INSERT INTO `skills` (`skillsID`, `skillName`) VALUES
 (7, 'C++'),
 (8, 'WEB PROGRAMMING'),
 (9, 'SQL'),
-(10, 'PHOTOSHOP');
+(10, 'ADOBE PHOTOSHOP'),
+(11, 'ILLUSTRATOR');
 
 -- --------------------------------------------------------
 
@@ -173,18 +173,22 @@ CREATE TABLE `users` (
   `designation` varchar(50) NOT NULL,
   `plocation` varchar(50) NOT NULL,
   `availability` varchar(50) NOT NULL,
-  `picture` varchar(255) NOT NULL
+  `picture` varchar(255) NOT NULL,
+  `category` enum('Developer','Sales','Designer','Quality','Management') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `username`, `role`, `fname`, `lname`, `password`, `sector`, `location`, `email`, `designation`, `plocation`, `availability`, `picture`) VALUES
-(7, 'admin', 'Admin', 'Admin', 'Admin', '123', 'Civil', 'United Arab Emirates', 'admin@leidos.com', 'Admin', 'United Arab Emirates', 'Unavailable', 'default.jpg'),
-(14, 'syed123', 'Employee', 'Syed ', 'Waqas', '123', 'Defense', 'United Kingdom', 'syed@leidos.com', 'Programmer', 'United Kingdom', 'Busy', 'default.jpg'),
-(16, 'manager', 'Project Manager', 'Anthea', 'Marie', '123', 'Security', 'Canada', 'pm@leidos.com', 'Project Manager', 'Canada', 'Available', 'default.jpg'),
-(18, 'aliyu', 'Employee', 'Aliyu', 'Makarfi', '123', 'Civil', 'United States', 'aliyu@leidos.com', 'Creative Content Creator', '', '', 'default.jpg');
+INSERT INTO `users` (`userID`, `username`, `role`, `fname`, `lname`, `password`, `sector`, `location`, `email`, `designation`, `plocation`, `availability`, `picture`, `category`) VALUES
+(7, 'admin', 'Admin', 'Admin', 'Admin', '123', 'Civil', 'United Arab Emirates', 'admin@leidos.com', 'Admin', 'United Arab Emirates', 'Unavailable', 'default.jpg', 'Management'),
+(14, 'syed123', 'Employee', 'Syed ', 'Waqas', '123', 'Defense', 'United Kingdom', 'sw1@leidos.com', 'Programmer', 'United Kingdom', 'Available', 'default.jpg', 'Developer'),
+(16, 'manager', 'Project Manager', 'Anthea', 'Marie', '123', 'Security', 'Canada', 'pm@leidos.com', 'Project Manager', 'Canada', 'Available', 'default.jpg', 'Management'),
+(19, 'boss', 'Project Manager', 'Jun Ji', 'Hyun', '123', 'Security', 'Canada', 'boss@leidos.com', 'Creative Content Creator', 'Spain', 'Available', 'default.jpg', 'Management'),
+(20, 'kh1', 'Employee', 'Kurt', 'Harem', '123', 'Civil', 'United Arab Emirates', 'kh1@leidos.com', 'Web Developer', '', 'Available', 'default.jpg', 'Developer'),
+(21, 'ac1', '', 'Aston', 'Martin', '123', 'Civil', 'Canada', '', 'Graphic Designer', 'Spain', 'Available', 'default.jpg', NULL),
+(22, 'sm1', 'Employee', 'Super', 'Man', '123', 'Civil', 'United Arab Emirates', 'sm1@leidos.com', 'Game Programmer', '', 'Available', 'default.jpg', 'Developer');
 
 -- --------------------------------------------------------
 
@@ -206,7 +210,15 @@ INSERT INTO `users_skills` (`userID`, `skillsID`, `percentage`) VALUES
 (7, 8, 100),
 (16, 1, 100),
 (14, 1, 100),
-(16, 6, 100);
+(16, 6, 100),
+(20, 6, 100),
+(20, 8, 100),
+(20, 10, 100),
+(21, 11, 80),
+(21, 10, 100),
+(19, 1, 100),
+(19, 4, 100),
+(19, 11, 100);
 
 --
 -- Indexes for dumped tables
@@ -269,15 +281,15 @@ ALTER TABLE `users_skills`
 ALTER TABLE `projects`
   MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
---
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- Constraints for dumped tables
 --

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2017 at 01:10 AM
+-- Generation Time: Mar 27, 2017 at 02:58 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -83,27 +83,13 @@ INSERT INTO `projects_skills` (`projectID`, `skillsID`) VALUES
 
 CREATE TABLE `projects_users` (
   `projectID` int(11) DEFAULT NULL,
-  `userID` int(11) DEFAULT NULL
+  `userID` int(11) DEFAULT NULL,
+  `pmID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `projects_users`
 --
-
-INSERT INTO `projects_users` (`projectID`, `userID`) VALUES
-(27, 14),
-(21, 16),
-(27, 14),
-(36, 14),
-(40, 16),
-(41, 16),
-(41, 14),
-(36, 16),
-(21, 14),
-(21, 19),
-(21, 21),
-(36, 22),
-(21, 22);
 
 -- --------------------------------------------------------
 
@@ -114,17 +100,21 @@ INSERT INTO `projects_users` (`projectID`, `userID`) VALUES
 CREATE TABLE `request_temp` (
   `projectID` int(5) NOT NULL,
   `userID` int(5) DEFAULT NULL,
-  `datetime` datetime NOT NULL
+  `pmID` int(11) NOT NULL,
+  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `request_temp`
+-- Table structure for table `request_temp`
 --
 
-INSERT INTO `request_temp` (`projectID`, `userID`, `datetime`) VALUES
-(42, 14, '0000-00-00 00:00:00'),
-(21, 16, '0000-00-00 00:00:00'),
-(36, 16, '0000-00-00 00:00:00');
+CREATE TABLE `interested_temp` (
+  `projectID` int(5) NOT NULL,
+  `userID` int(5) DEFAULT NULL,
+  `pmID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -185,9 +175,9 @@ INSERT INTO `users` (`userID`, `username`, `role`, `fname`, `lname`, `password`,
 (7, 'admin', 'Admin', 'Admin', 'Admin', '123', 'Civil', 'United Arab Emirates', 'admin@leidos.com', 'Admin', 'United Arab Emirates', 'Unavailable', 'default.jpg', 'Management'),
 (14, 'syed123', 'Employee', 'Syed ', 'Waqas', '123', 'Defense', 'United Kingdom', 'sw1@leidos.com', 'Programmer', 'United Kingdom', 'Available', 'default.jpg', 'Developer'),
 (16, 'manager', 'Project Manager', 'Anthea', 'Marie', '123', 'Security', 'Canada', 'pm@leidos.com', 'Project Manager', 'Canada', 'Available', 'default.jpg', 'Management'),
-(19, 'boss', 'Project Manager', 'Jun Ji', 'Hyun', '123', 'Security', 'Canada', 'boss@leidos.com', 'Creative Content Creator', 'Spain', 'Available', 'default.jpg', 'Management'),
+(19, 'boss', 'Employee', 'Jun Ji', 'Hoon', '123', 'Civil', 'Canada', 'boss1@leidos.com', 'Creative Content Creator', 'Spain', 'Busy', 'default.jpg', 'Management'),
 (20, 'kh1', 'Employee', 'Kurt', 'Harem', '123', 'Civil', 'United Arab Emirates', 'kh1@leidos.com', 'Web Developer', '', 'Available', 'default.jpg', 'Developer'),
-(21, 'ac1', '', 'Aston', 'Martin', '123', 'Civil', 'Canada', '', 'Graphic Designer', 'Spain', 'Available', 'default.jpg', NULL),
+(21, 'ac1', 'Employee', 'Aston', 'Martin', '123', 'Civil', 'Canada', 'ac1@leidos.com', 'Content Creator', 'Spain', 'Available', 'default.jpg', 'Quality'),
 (22, 'sm1', 'Employee', 'Super', 'Man', '123', 'Civil', 'United Arab Emirates', 'sm1@leidos.com', 'Game Programmer', '', 'Available', 'default.jpg', 'Developer');
 
 -- --------------------------------------------------------
@@ -243,14 +233,14 @@ ALTER TABLE `projects_skills`
 --
 ALTER TABLE `projects_users`
   ADD KEY `projectID` (`projectID`),
-  ADD KEY `userID` (`userID`);
+  ADD KEY `userID` (`userID`),
+  ADD KEY `pmID` (`pmID`);
 
 --
 -- Indexes for table `request_temp`
 --
 ALTER TABLE `request_temp`
-  ADD KEY `projectID` (`projectID`),
-  ADD KEY `userID` (`userID`);
+  ADD KEY `projectID` (`projectID`);
 
 --
 -- Indexes for table `skills`
@@ -271,6 +261,14 @@ ALTER TABLE `users_skills`
   ADD KEY `userID` (`userID`),
   ADD KEY `skillsID` (`skillsID`);
 
+
+--
+-- Indexes for table `interested_temp`
+--
+ALTER TABLE `interested_temp`
+  ADD KEY `projectID` (`projectID`);
+
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -279,7 +277,7 @@ ALTER TABLE `users_skills`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `skills`
 --
@@ -306,13 +304,20 @@ ALTER TABLE `projects_skills`
 --
 ALTER TABLE `projects_users`
   ADD CONSTRAINT `projects_users_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `projects_users_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `projects_users_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `project_users_ibfk_3` FOREIGN KEY (`pmID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `request_temp`
 --
 ALTER TABLE `request_temp`
   ADD CONSTRAINT `request_temp_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `interested_temp`
+--
+ALTER TABLE `interested_temp`
+  ADD CONSTRAINT `interested_temp_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users_skills`

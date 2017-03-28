@@ -179,3 +179,39 @@ button:focus{
     font-size: 8pt;
     margin: 2px;
 }
+
+.searchable-container{
+    text-align: center;
+}
+.searchable-container label.btn-default.active{
+    background-color: #eee;
+    color:#333;
+    outline: none;
+}
+.searchable-container label.btn-default{
+    width: 100%;    
+    margin:5px; 
+    border-radius: 4px;
+}
+.searchable-container label.btn-default:active, label.btn-default:focus{
+    outline: none;
+}
+
+.searchable-container .bizmoduleselect{
+    width: 100%;
+}
+
+
+.searchable-container .items{
+    padding-left: 0px;
+}
+
+.searchable-container label .bizcontent{
+    width:100%;
+}
+.searchable-container .btn span.glyphicon{
+    opacity: 0;
+}
+.searchable-container .btn.active span.glyphicon {
+    opacity: 1;
+}

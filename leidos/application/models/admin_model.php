@@ -1,7 +1,7 @@
 <?php
 
 class admin_model extends CI_Model {
-    
+
     public function insert($table, $data) {
         $this->db->insert($table, $data);
         return $this->db->insert_id();
@@ -98,10 +98,14 @@ class admin_model extends CI_Model {
     public function fetch_manager() {
         $this->db->select('*');
         $this->db->from('users u');
+        $this->db->join('projects_users ps', 'u.userID = ps.userID');
+        $this->db->join('users_skills e', 'e.userID = u.userID');
+        $this->db->join('projects_skills p', 'e.skillsID = p.skillsID');
+        $this->db->join('skills s', 's.skillsID = e.skillsID');
         $this->db->where('u.role', 'Project Manager');
         $this->db->where('u.availability', 'Available');
+        $this->db->order_by('count(p.projectID)', 'desc');
         $query = $this->db->get();
-
         $result = array();
         if ($query->num_rows() >= 0) {
             foreach ($query->result() as $row) {
@@ -136,14 +140,15 @@ class admin_model extends CI_Model {
     }
 
     public function fetch_recommended_user($id) {
-        $this->db->select('*');
+        $this->db->select('u.*, s.*');
         $this->db->from('users_skills e');
         $this->db->join('projects_skills p', 'e.skillsID = p.skillsID');
         $this->db->join('users u', 'u.userID = e.userID');
         $this->db->join('skills s', 's.skillsID = e.skillsID');
+        $this->db->join('request_temp r', 'r.pmID != u.userID');
         $this->db->where('p.projectID', $id);
         $this->db->where('u.availability !=', 'Unavailable');
-        $this->db->group_by('e.userID');
+        $this->db->group_by('u.userID');
         $this->db->order_by('e.percentage', 'desc');
         $query = $this->db->get();
 
@@ -179,8 +184,8 @@ class admin_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('request_temp r');
         $this->db->join('projects p', 'p.projectID = r.projectID');
-        $this->db->group_by('p.projectID');
         $this->db->where('r.userID', $id);
+        $this->db->limit(5);
         $query = $this->db->get();
         $result = array();
         if ($query->num_rows() > 0) {
@@ -278,8 +283,12 @@ class admin_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('projects');
         $this->db->where('completion', $completion);
-        $query = $this->db->get()->result();
-        return $query;
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
     }
 
     function dashboard_employees_sort($availability) {
@@ -294,5 +303,36 @@ class admin_model extends CI_Model {
         }
         return $query->result_array();
     }
+
+    function get_pm_id($pid) {
+        $this->db->select('*');
+        $this->db->from('request_temp');
+        $this->db->where('projectID', $pid);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    function view_notifications($id, $table, $user) {
+        $this->db->select('*');
+        $this->db->from($table . ' r');
+        $this->db->join('projects p', 'p.projectID = r.projectID');        
+        $this->db->join('users u', 'u.userID = r.userID');
+        $this->db->where('r.' . $user, $id);
+        $query = $this->db->get();
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return $result;
+    }
+
 }
+
 ?>

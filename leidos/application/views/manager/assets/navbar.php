@@ -31,33 +31,60 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-globe"></span>
-                        <?php echo $count;?>
+                        <span class="glyphicon glyphicon-inbox"></span>
+                        <?php echo $count_request; ?>
                     </a>
                     <ul class="dropdown-menu">
-                        <?php foreach ($notif as $notifs) { ?>
-                            <li><a href="#"><span class="label label-warning"><?php echo $notifs->datetime ?></span><?php echo $notifs->title; ?></a>
+                        <?php foreach ($request as $notifs) { ?>      
+                            <h5>Project Join Requests</h5>
+                            <li>
+                                <a href="<?php echo base_url(); ?>manager/view_profile/<?php echo $notifs->username; ?>" class="no-block">
+                                    <span class="label label-primary"><?php echo $notifs->datetime ?></span>
+                                    <?php echo $notifs->fname . $notifs->lname; ?></a> requested to join
+                                <a href="<?php echo base_url(); ?>manager/edit_projects/<?php echo $notifs->projectID; ?>" class="no-block"><span class="label label-warning"></span><?php echo $notifs->title; ?></a>
                             </li>
                             <div class="pull-right">
-                                <span class="label label-success"><a href = "<?php echo base_url('manager/insert_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Accept</a></span>                                
-                                <span class="label label-danger"><a href = "<?php echo base_url('manager/delete_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Decline</a></span>
+                                <span class="label btn-add-e"><a href = "<?php echo base_url(); ?>manager/accept_request/<?php echo $notifs->projectID . '/' . $notifs->userID ?>">Accept</a></span>                                
+                                <span class="label btn-add-r"><a href = "<?php echo base_url('manager/delete_request/' . $notifs->projectID . '/' . $notifs->userID); ?>">Decline</a></span>
                             </div>
                             <div class="divider"></div>
                         <?php } ?>
+                        <li><a href="<?php echo base_url(); ?>manager/view_notifications" class="text-center" style="display: block;">View All</a></li>
+                    </ul>
                 </li>
-                <li><a href="#" class="text-center">View All</a></li>
-            </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                        class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>manager/profile"><span class="glyphicon glyphicon-user"></span><?php echo $fname . ' ' . $lname; ?></a></li>
-                    <li class="divider"></li>
-                    <li><a href="<?php echo base_url(); ?>manager/edit_info"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
-                    <li class="divider"></li>
-                    <li><a href="<?php echo base_url(); ?>controller/logout"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
-                </ul>
-            </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-globe"></span>
+                        <?php echo $count_notif; ?>
+                    </a>                    
+                    <ul class="dropdown-menu">                        
+                        <h5>Project Join Requests</h5>
+                        <?php foreach ($notif as $notifs) { ?>
+                            <li>                               
+                                <span class="label label-primary"><?php echo $notifs->datetime ?></span>
+                                You are invited to join                 
+                                <a href="<?php echo base_url(); ?>manager/view_projects/<?php echo $notifs->projectID; ?>" class="no-block">
+                                    <span class="label label-warning"></span><?php echo $notifs->title; ?>
+                                </a>
+                            </li>
+                            <div class="pull-right">
+                                <span class="label btn-add-e"><a href = "<?php echo base_url(); ?>manager/insert_row/<?php echo $notifs->projectID . '/' . $notifs->pmID ?>">Accept</a></span>                                
+                                <span class="label btn-add-d"><a href = "<?php echo base_url('manager/delete_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Decline</a></span>
+                            </div>
+                            <div class="divider"></div>
+                        <?php } ?>
+                        <li><a href="<?php echo base_url(); ?>manager/view_notifications" class="text-center" style="display: block;">View All</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+                    <ul class="account dropdown-menu">
+                        <li><a href="<?php echo base_url(); ?>manager/profile"><span class="glyphicon glyphicon-user"></span><?php echo $fname . ' ' . $lname; ?></a></li>
+                        <li class="divider"></li>
+                        <li><a href="<?php echo base_url(); ?>manager/edit_info"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="<?php echo base_url(); ?>controller/logout"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

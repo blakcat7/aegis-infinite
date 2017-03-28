@@ -20,7 +20,7 @@ class admin extends CI_Controller {
      */
 
     public function add_employee() {
-
+        $data['username'] = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[2]|max_length[12]|is_unique[users.username]');
@@ -33,7 +33,7 @@ class admin extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('admin/employees/add-employees');
+            $this->load->view('admin/employees/add-employees',$data);
         } else {
             $data = array(
                 'location' => $this->input->post('location'),
@@ -58,9 +58,9 @@ class admin extends CI_Controller {
     }
 
     public function view_employees() {
-
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
+        $data['username'] = $this->session->userdata('username');
         $id = $this->uri->segment(3);
         $available = $this->admin_model->dashboard_employees_sort('Available');
         $unavailable = $this->admin_model->dashboard_employees_sort('Unavailable');
@@ -73,11 +73,11 @@ class admin extends CI_Controller {
             $data['results'] = $available;
             $this->load->view('admin/employees/view-employees', $data);
         } else if ($id == 'Unavailable' && $id != 'Available' && $id != 'Busy') {
-            $data1['results'] = $unavailable;
-            $this->load->view('admin/employees/view-employees', $data1);
+            $data['results'] = $unavailable;
+            $this->load->view('admin/employees/view-employees', $data);
         } else if ($id == 'Busy' && $id != 'Available' && $id != 'Unavailable') {
-            $data2['results'] = $busy;
-            $this->load->view('admin/employees/view-employees', $data2);
+            $data['results'] = $busy;
+            $this->load->view('admin/employees/view-employees', $data);
         }
     }
 
@@ -115,7 +115,6 @@ class admin extends CI_Controller {
      */
 
     public function add_project() {
-
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $username = $this->session->userdata('username');
@@ -128,7 +127,7 @@ class admin extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
 
 
-        $data = array();
+        //$data1 = array();
         $query = $this->admin_model->fetch_skills();
 
         if ($query) {
@@ -139,7 +138,7 @@ class admin extends CI_Controller {
             $this->load->view('admin/projects/add-projects', $data);
         } else {
             if ($_POST) {
-                $data1 = array(
+                $data = array(
                     'title' => $this->input->post('title'),
                     'endDate' => $this->input->post('endDate'),
                     'startDate' => $this->input->post('startDate'),
@@ -149,17 +148,17 @@ class admin extends CI_Controller {
                     'budget' => $this->input->post('budget'),
                 );
 
-                $id = $this->admin_model->insert('projects', $data1);
+                $id = $this->admin_model->insert('projects', $data);
 
                 $skills = $this->input->post('skill');
 
                 foreach ($skills as $skill) {
-                    $data2 = array(
+                    $data = array(
                         'projectID' => $id,
                         'skillsID' => $skill
                     );
 
-                    $this->admin_model->insert('projects_skills', $data2);
+                    $this->admin_model->insert('projects_skills', $data);
                 }
 
                 redirect('admin/recommend_managers');
@@ -168,13 +167,19 @@ class admin extends CI_Controller {
     }
 
     public function recommend_users() {
-
+        $data['username'] = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $lid = $this->admin_model->get_latest_id();
 
         foreach ($lid as $id) {
             $last_id = $id['projectID'];
+        }
+
+        $pid = $this->admin_model->get_pm_id($last_id);
+
+        foreach ($pid as $id) {
+            $pm_id = $id['pmID'];
         }
 
         $data['users'] = $this->admin_model->fetch_recommended_user($last_id);
@@ -186,7 +191,8 @@ class admin extends CI_Controller {
             foreach ($users as $user) {
                 $data = array(
                     'projectID' => $last_id,
-                    'userID' => $user
+                    'userID' => $user,
+                    'pmID' => $pm_id
                 );
                 $id = $this->admin_model->insert('request_temp', $data);
             }
@@ -198,7 +204,7 @@ class admin extends CI_Controller {
     }
 
     public function recommend_managers() {
-
+        $data['username'] = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $lid = $this->admin_model->get_latest_id();
@@ -216,11 +222,11 @@ class admin extends CI_Controller {
             foreach ($users as $user) {
                 $data = array(
                     'projectID' => $last_id,
-                    'userID' => $user
+                    'userID' => $user,
+                    'pmID' => $user
                 );
                 $id = $this->admin_model->insert('request_temp', $data);
             }
-            $this->admin_model->delete_row('userID', 'request_temp', 'NULL');
             redirect('admin/recommend_users');
         }
     }
@@ -231,7 +237,8 @@ class admin extends CI_Controller {
         foreach ($users as $user) {
             $data = array(
                 'projectID' => $pid,
-                'userID' => $user
+                'userID' => $user,
+                'pmID' => $user
             );
             $this->admin_model->insert('request_temp', $data);
         }
@@ -239,21 +246,22 @@ class admin extends CI_Controller {
     }
 
     public function view_projects() {
-
+        $data['username'] = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $id = $this->uri->segment(3);
         $ongoing = $this->admin_model->dashboard_projects_sort('Ongoing');
         $completed = $this->admin_model->dashboard_projects_sort('Completed');
+
         if ($id == '') {
             $data['results'] = $this->admin_model->fetch_projects();
             $this->load->view('admin/projects/view-projects', $data);
         } else if ($id = 'Ongoing' && $id != 'Completed') {
-            $data['postie'] = $ongoing;
-            $this->load->view('admin/assets/dashboard-projects', $data);
+            $data['results'] = $ongoing;
+            $this->load->view('admin/projects/view-projects', $data);
         } else if ($id = 'Completed' && $id != 'Ongoing') {
-            $data1['postie'] = $completed;
-            $this->load->view('admin/assets/dashboard-projects', $data1);
+            $data['results'] = $completed;
+            $this->load->view('admin/projects/view-projects', $data);
         }
     }
 
@@ -264,7 +272,7 @@ class admin extends CI_Controller {
     }
 
     function view_profile() {
-
+        $data['username'] = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $id = $this->uri->segment(3);
@@ -283,9 +291,11 @@ class admin extends CI_Controller {
     }
 
     function edit_project() {
+        $data['username'] = $this->session->userdata('username');
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
         $id = $this->uri->segment(3);
         $user = $this->input->post('user');
-        $category = 'Developer' || 'Designer' || 'Quality' || 'Sales' || 'Marketing';
 
         $data['pmanager'] = $this->admin_model->fetch_manager($user);
         $data['employee'] = $this->admin_model->fetch_employee();
@@ -301,7 +311,6 @@ class admin extends CI_Controller {
     }
 
     function update_project() {
-
         $pid = $this->input->post('txt_hidden');
         $this->emp_model->update_project();
         $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Success! Basic info has been updated</div>');
@@ -331,7 +340,7 @@ class admin extends CI_Controller {
     }
 
     function dashboard() {
-
+        $data['username'] = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $ongoing = 'Ongoing';
@@ -358,6 +367,7 @@ class admin extends CI_Controller {
     }
 
     function settings() {
+        $data['username'] = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
 

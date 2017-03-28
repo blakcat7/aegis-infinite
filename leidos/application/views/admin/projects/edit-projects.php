@@ -177,9 +177,6 @@
                             </div>  
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <input type="submit" name="btnUpdate" class="btn" value="Update" id="success-btn">
-                    </div>
                 </div>
             </div>
         </div>

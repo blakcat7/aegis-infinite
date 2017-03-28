@@ -36,7 +36,7 @@
                         <div class="panel-body"> 
                             <div class="row">
                                 <div class="col-xs-6 col-md-6">
-                                    <a href="<?php echo base_url() . 'admin/dashboard_projects/Ongoing' ?>" class="btn panel-yellow btn-lg text-right" role="button">                                   
+                                    <a href="<?php echo base_url() . 'admin/view_projects/Ongoing' ?>" class="btn panel-yellow btn-lg text-right" role="button">                                   
                                         <h3 style="margin-top:0px;" class="text-left">
                                             <span class="text-right"><?php echo $count1 ?></span>
                                         </h3>
@@ -47,7 +47,7 @@
                                     </a>
                                 </div>
                                 <div class="col-xs-6 col-md-6">
-                                    <a href="<?php echo base_url() . 'admin/dashboard_projects/Completed' ?>" class="btn panel-green btn-lg text-right" role="button">                                   
+                                    <a href="<?php echo base_url() . 'admin/view_projects/Completed' ?>" class="btn panel-green btn-lg text-right" role="button">                                   
                                         <h3 style="margin-top:0px;" class="text-left">
                                             <span class="text-right"><?php echo $count2 ?></span>
                                         </h3>

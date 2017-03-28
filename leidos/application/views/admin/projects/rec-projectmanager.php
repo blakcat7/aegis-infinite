@@ -22,27 +22,34 @@
                     <form action="recommend_managers" method="post">
                         <div class="panel-body">
                             <div class="form-group col-lg-12">
-                                <label>Recommended Project Manager:</label>
+                                <label>Recommended Project Managers:</label>                                
+                                <input type="search" class="form-control" id="search" placeholder="Search for Project Manager">
                                 <br />
-                                <?php foreach ($pmanager as $user) { ?>
-                                    <div class="recommended">
-                                        <div class="crop">
-                                            <img src="<?php echo base_url(); ?>images/profilepics/<?php echo $user->picture ?>">
+                                <div class="searchable-container">
+                                    <?php foreach ($pmanager as $user) { ?>
+                                        <div class="items col-xs-6 col-sm-3 col-md-2">
+                                            <div data-toggle="buttons" class="btn-group bizmoduleselect">
+                                                <label class="btn btn-default">
+                                                    <div class="bizcontent">
+                                                        <input type="checkbox" name="recommended[]" value="<?php echo $user->userID ?>">
+                                                        <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
+                                                        <div class="recommended">
+                                                            <div class="crop img-responsive <?php echo $user->availability ?>">
+                                                                <img src="<?php echo base_url(); ?>images/profilepics/<?php echo $user->picture ?>">
+                                                            </div>
+                                                        </div>
+                                                        <label class="user">
+                                                            <a href="<?php echo base_url() . 'admin/view_profile/' . $user->username; ?>"><?php echo $user->username; ?></a>
+                                                        </label>
+                                                        <span class="user"><?php echo $user->fname . ' ' . $user->lname; ?></span>
+                                                        <span class="user"><?php echo $user->role; ?></span>
+                                                        <span class="user"><?php echo $user->location; ?></span>
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <label class="user">
-                                            <a href="<?php echo base_url() . 'employee/view_users/' . $user->username; ?>"><?php echo $user->username; ?></a><div class="availability <?php echo $user->availability; ?>"></div></label>
-                                        <span class="user"><?php echo $user->fname . ' ' . $user->lname; ?></span>
-                                        <span class="user"><?php echo $user->role; ?></span>
-                                    </div>
-                                <?php } ?>
-                                <br/>
-                                <span style="font-size: 9pt;">Search and select for project manager username as recommended above.</span>
-                                <select name="recommended[]" class="chosen-select" multiple title='Select Skills' multiple style="width: 100%;">
-                                    <option selected value="NULL">No Project Managers Selected</option>
-                                    <?php for ($i = 0; $i < count($pmanager); $i++) { ?>
-                                        <option value="<?php echo $pmanager[$i]->userID ?>"><?php echo $pmanager[$i]->username ?></option>
                                     <?php } ?>
-                                </select>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-footer">

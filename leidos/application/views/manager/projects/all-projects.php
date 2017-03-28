@@ -37,8 +37,8 @@
                                 <hr>
                                 <label>About the project : </label>
                                 <p class="desc"><?php echo $data['description']; ?> </p>
-                                <hr>                                        
-                                <a href="" class="join clicked"><span class="glyphicon glyphicon-heart" style="margin-left: 0px;"></span>Interested </a>
+                                <hr>     
+                                <a href="<?php echo base_url(); ?>employee/interested/<?php echo $data['projectID'] . '/'. $data['pmID']; ?>" class="join clicked"><span class="glyphicon glyphicon-heart" style="margin-left: 0px;"></span>Interested </a>
                                 <a href="<?php echo base_url() . 'manager/view_projects/' . $data['projectID']; ?>" class="join clicked"><span class="glyphicon glyphicon-eye-open" style="margin-left: 0px;"></span>View </a>
                             </div>
                         <?php } ?>
@@ -48,4 +48,4 @@
         </div>
     </div>
 </div>
-<?php $this->load->view('manager/assets/footer.php');
+<?php $this->load->view('manager/assets/footer.php'); ?>

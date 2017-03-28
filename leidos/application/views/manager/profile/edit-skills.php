@@ -1,3 +1,4 @@
+
 <?php $this->load->view('manager/assets/header'); ?>
 <?php $this->load->view('manager/assets/navbar'); ?>
 <div class="profile container">
@@ -8,7 +9,7 @@
                 <div id="row-table" class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-fire"></i>Skills</h3>
+                            <h3 class="panel-title"><i class="fa fa-fire"></i>Update Skills</h3>
                         </div>
                         <div class="panel-body">
                             <div class="form-group col-md-12">

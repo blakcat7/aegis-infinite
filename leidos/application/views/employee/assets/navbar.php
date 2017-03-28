@@ -32,24 +32,30 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-globe"></span>
-                        <?php echo $count; ?>
+                        <?php echo $count_notif; ?>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu">                        
+                        <h5>Project Invitations</h5>
                         <?php foreach ($notif as $notifs) { ?>
-                            <li><a href="#"><span class="label label-warning"><?php echo $notifs->datetime ?></span><?php echo $notifs->title; ?></a>
+                            <li>
+                                <a href="<?php echo base_url(); ?>employee/view_projects/<?php echo $notifs->projectID; ?>" class="no-block">
+                                    <span class="label label-primary"><?php echo $notifs->datetime ?></span>
+                                    You are invited to join                                 
+                                    <span class="label label-warning"></span><?php echo $notifs->title; ?>
+                                </a>
                             </li>
                             <div class="pull-right">
-                                <span class="label label-success"><a href = "<?php echo base_url('employee/insert_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Accept</a></span>                                
-                                <span class="label label-danger"><a href = "<?php echo base_url('employee/delete_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Decline</a></span>
+                                <span class="label btn-add-e"><a href = "<?php echo base_url(); ?>manager/insert_row/<?php echo $notifs->projectID . '/' . $notifs->pmID ?>">Accept</a></span>                                
+                                <span class="label btn-add-r"><a href = "<?php echo base_url('manager/delete_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Decline</a></span>
                             </div>
                             <div class="divider"></div>
                         <?php } ?>
-                        <li><a href="#" class="text-center">View All</a></li>
+                        <li><a href="<?php echo base_url(); ?>employee/view_notifications" class="text-center" style="display: block;">View All</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
                             class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
+                    <ul class="account dropdown-menu">
                         <li><a href="<?php echo base_url(); ?>employee/profile"><span class="glyphicon glyphicon-user"></span><?php echo $fname . ' ' . $lname; ?></a></li>
                         <li class="divider"></li>
                         <li><a href="<?php echo base_url(); ?>employee/edit_info"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>

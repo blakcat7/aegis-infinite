@@ -35,7 +35,7 @@ class employee extends CI_Controller {
         $data['proj'] = $this->emp_model->my_project($username);
         $data['pics'] = $this->emp_model->get_image($username);
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
 
         $this->load->view('employee/profile/profile', $data);
     }
@@ -50,14 +50,27 @@ class employee extends CI_Controller {
         $data['location'] = $this->session->userdata('location');
         $data['designation'] = $this->session->userdata('designation');
         $data['availability'] = $this->session->userdata('availability');
-
         $data['pSkills'] = $this->emp_model->view_projskills($username);
-        $data['projects'] = $this->emp_model->view_project_skills($username);
+        $data['projects'] = $this->emp_model->view_project_skills($id);
         $data['pics'] = $this->emp_model->get_image($username);
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
-
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
         $this->load->view('employee/projects/all-projects', $data);
+    }
+
+    function interested() {
+        $p = $this->uri->segment(3);
+        $u = $this->session->userdata('userID');
+        $m = $this->uri->segment(4);
+
+        $data = array(
+            'projectID' => $p,
+            'userID' => $u,
+            'pmID' => $m
+        );
+
+        $this->admin_model->insert('interested_temp', $data);
+        redirect('employee/all_projects');
     }
 
     function my_projects() {
@@ -75,7 +88,7 @@ class employee extends CI_Controller {
         $data['project'] = $this->emp_model->all_project($username);
         $data['pics'] = $this->emp_model->get_image($username);
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
 
         $this->load->view('employee/projects/my-projects', $data);
     }
@@ -102,10 +115,10 @@ class employee extends CI_Controller {
 
         $data['results'] = $this->emp_model->my_project($username);
         $data['project'] = $this->emp_model->all_project($username);
-        $data['notif'] = $this->admin_model->get_alert($username);
         $data['pics'] = $this->emp_model->get_image($username);
-        $data['count'] = $this->emp_model->count_notif($id);
         $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
+        $data['notif'] = $this->admin_model->get_alert($id);
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
 
         $this->load->view('employee/profile/edit-info', $data);
     }
@@ -118,15 +131,12 @@ class employee extends CI_Controller {
         $data['lname'] = $this->session->userdata('lname');
         $data['results'] = $this->emp_model->my_project($username);
         $data['project'] = $this->emp_model->all_project($username);
-        $data['notif'] = $this->admin_model->get_alert($id);
         $data['pics'] = $this->emp_model->get_image($username);
-        $data['count'] = $this->emp_model->count_notif($id);
-
         $data['skills'] = $this->admin_model->fetch_skills();
         $data['get_skills'] = $this->admin_model->get_user_skills($id);
         $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
 
         $this->load->view('employee/profile/edit-skills', $data);
     }
@@ -141,14 +151,12 @@ class employee extends CI_Controller {
         $data['results'] = $this->emp_model->my_project($username);
         $data['project'] = $this->emp_model->all_project($username);
         $data['pics'] = $this->emp_model->get_image($username);
-        $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
 
         $data['skills'] = $this->admin_model->fetch_skills();
         $data['get_skills'] = $this->admin_model->get_user_skills($id);
         $data['blog'] = $this->emp_model->get_id('username', 'users', $username);
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
         $this->load->view('employee/profile/add-skills', $data);
     }
 
@@ -178,7 +186,7 @@ class employee extends CI_Controller {
         $data['viewSkills'] = $this->emp_model->view_skills($id);
         $data['viewProjects'] = $this->emp_model->my_project($id);
         $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
         $this->load->view('view', $data);
     }
 
@@ -193,14 +201,17 @@ class employee extends CI_Controller {
 
     function insert_row() {
         $p = $this->uri->segment(3);
-        $u = $this->uri->segment(4);
+        $u = $this->session->userdata('userID');
+        $m = $this->uri->segment(4);
+
         $data = array(
             'projectID' => $p,
-            'userID' => $u
+            'userID' => $u,
+            'pmID' => $m
         );
 
         $this->admin_model->insert('projects_users', $data);
-        $this->admin_model->delete($u, $p, 'projects_users');
+        $this->admin_model->delete($u, $p, 'request_temp');
         redirect('employee/my_projects');
     }
 
@@ -232,8 +243,8 @@ class employee extends CI_Controller {
         $data['viewEmployees'] = $this->emp_model->view_staffs($id, 'Employee', 'Developer');
         $data['pmanager'] = $this->admin_model->fetch_manager($user);
         $data['employee'] = $this->admin_model->fetch_employee($user);
-        $data['notif'] = $this->admin_model->get_alert($id);
-        $data['count'] = $this->emp_model->count_notif($id);
+        $data['notif'] = $this->admin_model->get_alert($userID);
+        $data['count_notif'] = $this->emp_model->count_notif($userID, 'request_temp', 'userID');
         $data['pics'] = $this->emp_model->get_image($username);
 
 
@@ -261,7 +272,7 @@ class employee extends CI_Controller {
         $data['availability'] = $this->session->userdata('availability');
 
         $data['notif'] = $this->admin_model->get_alert($userID);
-        $data['count'] = $this->emp_model->count_notif($userID);
+        $data['count_notif'] = $this->emp_model->count_notif($userID, 'request_temp', 'userID');
         $data['viewProjects'] = $this->emp_model->view_projects($id);
         $data['viewSkills'] = $this->emp_model->project_skills($id);
         $data['viewManager'] = $this->emp_model->view_manager($id, 'Project Manager');
@@ -341,6 +352,23 @@ class employee extends CI_Controller {
         $this->admin_model->delete($id, $pid, 'projects_users');
 
         redirect('employee/edit_projects/' . $pid);
+    }
+    
+        function view_notifications() {
+        $id = $this->session->userdata('userID');
+        $username = $this->session->userdata('username');
+        $data['fname'] = $this->session->userdata('fname');
+        $data['lname'] = $this->session->userdata('lname');
+        $data['location'] = $this->session->userdata('location');
+        $data['designation'] = $this->session->userdata('designation');
+        $data['availability'] = $this->session->userdata('availability');
+        $data['pics'] = $this->emp_model->get_image($username);
+        $data['userID'] = $id;
+        $data['notif'] = $this->admin_model->get_alert($id);
+        $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');        
+        $data['view_notif'] = $this->admin_model->view_notifications($id, 'request_temp', 'userID');
+        
+        $this->load->view('employee/assets/notifications', $data);
     }
 
 }

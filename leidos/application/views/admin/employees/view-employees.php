@@ -13,7 +13,7 @@
             <?php $this->load->view('admin/assets/menu_e'); ?>
             <hr>            
             <?php echo $this->session->flashdata('msg'); ?>
-            <div id="row-table" class="row">
+            <div id="row-table" class="row">                     
                 <div class="panel panel-default panel-table">
                     <div class="panel-heading">
                         <i class="fa fa-users"></i>Employees Database

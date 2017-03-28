@@ -21,27 +21,41 @@
                     <form action="recommend_users" method="post">
                         <div class="panel-body">
                             <div class="form-group col-lg-12">
-                                <label>Recommended Employees:</label>
+                                <label>Recommended Employees:</label>                                   
+                                <input type="checkbox" class="hidden" checked name="recommended[]" autocomplete="off" value="NULL">
+                                <input type="search" class="form-control" id="search" placeholder="Search for Employee">
                                 <br />
-                                <?php foreach ($users as $user) { ?>
-                                    <div class="recommended">
-                                        <div class="crop">
-                                            <img src="<?php echo base_url(); ?>images/profilepics/<?php echo $user->picture ?>">
+                                <div class="searchable-container">
+                                    <?php foreach ($users as $user) { ?>
+                                        <div class="items col-xs-6 col-sm-3 col-md-3">
+                                            <div data-toggle="buttons" class="btn-group bizmoduleselect">
+                                                <label class="btn btn-default">
+                                                    <div class="bizcontent">
+                                                        <input type="checkbox" name="recommended[]" autocomplete="off" value="<?php echo $user->userID ?>">
+                                                        <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
+                                                        <div class="recommended">
+                                                            <div class="crop img-responsive <?php echo $user->availability ?>">
+                                                                <img src="<?php echo base_url(); ?>images/profilepics/<?php echo $user->picture ?>">
+                                                            </div>
+                                                        </div>
+                                                        <label class="user">
+                                                            <a href="<?php echo base_url() . 'employee/view_users/' . $user->username; ?>"><?php echo $user->username; ?></a>
+                                                        </label>
+                                                        <span class="user"><?php echo $user->fname . ' ' . $user->lname; ?></span>
+                                                        <span class="user"><?php echo $user->role; ?></span>
+                                                        <hr class="style">                                                        
+                                                        <span style="font-size: 8pt; font-weight: 700; color: #2980b9">Work Location</span>
+                                                        <span class="user"><?php echo $user->location; ?></span>
+                                                        <span style="font-size: 8pt; font-weight: 700; color: #e74c3c">Preferred Location</span>
+                                                        <span class="user"><?php echo $user->plocation; ?></span>
+                                                        <span style="font-size: 8pt; font-weight: 700; color: #e74c3c">Skills</span>
+                                                        <span class="user"><?php echo $user->skillName; ?></span>
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <label class="user">
-                                            <a href="<?php echo base_url() . 'employee/view_users/' . $user->username; ?>"><?php echo $user->username; ?></a><div class="availability <?php echo $user->availability; ?>"></div></label>
-                                        <span class="user"><?php echo $user->fname . ' ' . $user->lname; ?></span>
-                                        <span class="user"><?php echo $user->designation; ?></span>
-                                    </div>
-                                <?php } ?>
-                                <br/>
-                                <span style="font-size: 9pt;">Search and select for employee username as recommended above.</span>
-                                <select name="recommended[]" class="chosen-select" multiple title='Select Skills' multiple style="width: 100%;">
-                                    <option selected value="NULL">No Employee Selected</option>
-                                    <?php for ($i = 0; $i < count($users); $i++) { ?>
-                                        <option value="<?php echo $users[$i]->userID ?>"><?php echo $users[$i]->username ?></option>
                                     <?php } ?>
-                                </select>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-footer">
@@ -53,4 +67,5 @@
         </div>
     </div>
 </div>
-<?php $this->load->view('admin/assets/footer');
+<?php
+$this->load->view('admin/assets/footer');

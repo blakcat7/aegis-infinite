@@ -12,7 +12,7 @@
                 <h2>
                     <?php echo $fname . ' ' . $lname; ?><br>
                     <small><?php echo $designation; ?></small>
-                    <small><?php echo $location; ?> <i class="fa fa-map-marker"></i></small>   
+                    <small><?php echo $location; ?><i class="fa fa-map-marker"></i></small>   
                 </h2>
             </div>
         </div>

@@ -36,7 +36,7 @@
                         <div class="col-sm-7"><?php echo $plocation; ?></div>
                     </div>
                 </div>
-            </div><
+            </div>
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">

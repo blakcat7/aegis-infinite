@@ -1,7 +1,7 @@
 <?php
 
 class emp_model extends CI_Model {
-    
+
     var $details;
 
     function validate_user($username, $password, $role) {
@@ -96,16 +96,18 @@ class emp_model extends CI_Model {
         }
     }
 
-    function view_project_skills($username) {
+    function view_project_skills($id) {
         $this->db->select('*');
         $this->db->from('projects_skills ps');
         $this->db->join('skills s', 's.skillsID = ps.skillsID', 'left');
         $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
         $this->db->join('users_skills e', 'e.skillsID = s.skillsID');
+        $this->db->join('projects_users r', 'r.projectID = p.projectID');
         $this->db->join('users u', 'u.userID = e.userID');
         $this->db->order_by('ps.projectID', 'desc');
         $this->db->group_by('ps.projectID');
-        $this->db->where('u.username !=',$username);
+        $this->db->where('r.userID !=', $id);
+        $this->db->where('');
 
         $query = $this->db->get();
         $result = array();
@@ -117,8 +119,8 @@ class emp_model extends CI_Model {
         }
         return $result;
     }
-    
-        function view_manager($id, $role) {
+
+    function view_manager($id, $role) {
         $this->db->select('*');
         $this->db->from('projects_users ps');
         $this->db->join('projects p', 'p.projectID = ps.projectID', 'left');
@@ -200,7 +202,7 @@ class emp_model extends CI_Model {
                 )
         );
     }
-    
+
     function get_image($username) {
         $this->db->select('*');
         $this->db->from('users');
@@ -208,7 +210,7 @@ class emp_model extends CI_Model {
         $query = $this->db->get()->result();
         return $query;
     }
-    
+
     function show_projects() {
         $this->db->get('projects');
     }
@@ -244,10 +246,7 @@ class emp_model extends CI_Model {
         $sector = $this->input->post('sector');
         $location = $this->input->post('location');
         $plocation = $this->input->post('plocation');
-        $role = $this->input->post('role');
-        $email = $this->input->post('email');
-        $availability = $this->input->post('availability');        
-        $category = $this->input->post('category');
+        $availability = $this->input->post('availability');
         $id = $this->input->post('txt_hidden');
 
         $field = array(
@@ -256,11 +255,8 @@ class emp_model extends CI_Model {
             'designation' => $designation,
             'sector' => $sector,
             'location' => $location,
-            'email' => $email,
             'plocation' => $plocation,
             'availability' => $availability,
-            'category' => $category,
-            'role' => $role
         );
         $this->db->where('userID', $id);
         $this->db->update('users', $field);
@@ -271,11 +267,9 @@ class emp_model extends CI_Model {
             $this->session->set_userdata('lname', $lname);
             $this->session->set_userdata('designation', $designation);
             $this->session->set_userdata('sector', $sector);
-            $this->session->set_userdata('location', $location);            
-            $this->session->set_userdata('email', $email);
+            $this->session->set_userdata('location', $location);
             $this->session->set_userdata('plocation', $plocation);
             $this->session->set_userdata('availability', $availability);
-            $this->session->set_userdata('role', $role);
 
             return true;
         } else {
@@ -357,11 +351,28 @@ class emp_model extends CI_Model {
         $this->db->insert('request_temp', $data);
     }
 
-    function count_notif($user) {
+    function count_notif($id, $table, $user) {
         $this->db->select('*');
-        $this->db->from('request_temp');
-        $this->db->where('userID', $user);
+        $this->db->from($table);
+        $this->db->where($user, $id);
         return $this->db->count_all_results();
+    }
+
+    public function get_request($id) {
+        $this->db->select('*');
+        $this->db->from('interested_temp r');
+        $this->db->join('projects p', 'p.projectID = r.projectID');
+        $this->db->join('users u', 'u.userID = r.userID');
+        $this->db->where('r.pmID', $id);
+        $query = $this->db->get();
+        $result = array();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = $row;
+            }
+            return $result;
+        }
+        return $result;
     }
 }
 

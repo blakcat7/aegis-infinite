@@ -19,7 +19,7 @@ body{
 
 .nav>li>a:focus, 
 .nav>li>a:hover{
-    background-color: rgba(0,0,0,0.10);
+    background-color: rgba(0,0,0,0.1);
 }
 
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover,
@@ -44,18 +44,32 @@ body{
     background-color: #FFF;
 }
 
-.navbar .dropdown-menu{
+.navbar .dropdown-menu{    
+    padding: 5px 10px;
+    min-width: 400px;
     -webkit-box-shadow: 0px 1px 5px rgba(0,0,0,.15);
     box-shadow: 0px 1px 5px rgba(0,0,0,.15);
     border-radius: 0px;
     background-color: #fff;
 }
 
-.navbar .dropdown-menu>li>a{
-    color: #222;
-    padding: 5px 8px;
-    width: auto;
 
+.navbar .dropdown-menu>li>a{
+    padding: 5px 0px;
+    width: auto;
+}
+
+.navbar .dropdown-menu>li>.no-block{
+    display: inline-block;
+
+}
+
+.dropdown-menu.account{
+   min-width: 200px;
+}
+
+.navbar .dropdown-menu>li>a:hover{
+    color: inherit;
 }
 
 .navbar .dropdown-menu .divider{

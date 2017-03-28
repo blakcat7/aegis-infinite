@@ -27,7 +27,6 @@ html {
     margin-top: 100px;
     padding: 50px;
     height: auto;
-    width: 100%;
     color: #fff;
     text-align: left;
 }
@@ -96,7 +95,8 @@ html {
     padding: 20px;
     width: 200px;
     height: 200px;
-    border-radius: 0px;
+    border-radius: 0px;    
+    background: #21262a;
     
 }
 
@@ -111,7 +111,7 @@ html {
     height: 100%;
     padding-top: 100px;
     text-align: center;
-    background: #fff;
+    background: #21262a;
     color: #fff;
 }
 
@@ -266,6 +266,7 @@ section#contact .text-danger {
     background-position: center;    
     background-repeat: no-repeat;
     background-size: cover;
+    height: auto;
 }
 
 .bgimg-1 {

@@ -107,7 +107,6 @@ class emp_model extends CI_Model {
         $this->db->order_by('ps.projectID', 'desc');
         $this->db->group_by('ps.projectID');
         $this->db->where('r.userID !=', $id);
-        $this->db->where('');
 
         $query = $this->db->get();
         $result = array();

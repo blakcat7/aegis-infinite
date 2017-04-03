@@ -87,10 +87,37 @@
                         </div>
                         <div class="form-group col-md-12"> 
                             <label>Team Members:</label> <br>                                   
-                            <?php foreach ($viewEmployees as $view): ?>                                       
+                            <?php foreach ($developer as $view): ?>                                       
                                 <div class="team" style="padding: 15px;">
                                     <label class="user">
-                                        <a href="<?php echo base_url() . 'manager/view_users/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                        <a href="<?php echo base_url() . 'employee/view_users/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                    </label>
+                                    <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                    <span class="user"><?php echo $view['designation']; ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php foreach ($designer as $view): ?>                                       
+                                <div class="team" style="padding: 15px;">
+                                    <label class="user">
+                                        <a href="<?php echo base_url() . 'employee/view_users/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                    </label>
+                                    <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                    <span class="user"><?php echo $view['designation']; ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php foreach ($quality as $view): ?>                                       
+                                <div class="team" style="padding: 15px;">
+                                    <label class="user">
+                                        <a href="<?php echo base_url() . 'employee/view_users/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
+                                    </label>
+                                    <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
+                                    <span class="user"><?php echo $view['designation']; ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php foreach ($sales as $view): ?>                                       
+                                <div class="team" style="padding: 15px;">
+                                    <label class="user">
+                                        <a href="<?php echo base_url() . 'employee/view_users/' . $view['username']; ?>"><?php echo $view['username']; ?></a>
                                     </label>
                                     <span class="user"><?php echo $view['fname'] . ' ' . $view['lname']; ?></span>
                                     <span class="user"><?php echo $view['designation']; ?></span>

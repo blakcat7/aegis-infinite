@@ -8,7 +8,6 @@ class manager extends CI_Controller {
         $this->load->library(array('form_validation', 'session'));
         $this->load->database();
         $this->load->model(array('emp_model', 'admin_model'));
-        $id = "";
     }
 
     function index() {
@@ -177,6 +176,9 @@ class manager extends CI_Controller {
     }
 
     function view_users() {
+        $username = $this->session->userdata('username');
+        $data['availability'] = $this->session->userdata('availability');        
+        $data['pics'] = $this->emp_model->get_image($username);
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
         $id = $this->uri->segment(3);
@@ -231,7 +233,10 @@ class manager extends CI_Controller {
         $data['viewProjects'] = $this->emp_model->view_projects($id);
         $data['viewSkills'] = $this->emp_model->project_skills($id);
         $data['viewManager'] = $this->emp_model->view_staffs($id, 'Project Manager', 'Management');
-        $data['viewEmployees'] = $this->emp_model->view_staffs($id, 'Employee', 'Developer');
+        $data['developer'] = $this->emp_model->view_staffs($id, 'Employee', 'Developer');
+        $data['designer'] = $this->emp_model->view_staffs($id, 'Employee', 'Designer');
+        $data['quality'] = $this->emp_model->view_staffs($id, 'Employee', 'Quality');
+        $data['sales'] = $this->emp_model->view_staffs($id, 'Employee', 'Sales');        
         $data['pmanager'] = $this->admin_model->fetch_manager($user);
         $data['employee'] = $this->admin_model->fetch_employee($user);
         $data['request'] = $this->emp_model->get_request($id);

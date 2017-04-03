@@ -179,15 +179,19 @@ class employee extends CI_Controller {
     }
 
     function view_users() {
+        $username = $this->session->userdata('username');
         $data['fname'] = $this->session->userdata('fname');
         $data['lname'] = $this->session->userdata('lname');
+        
+        $data['availability'] = $this->session->userdata('availability');
         $id = $this->uri->segment(3);
         $data['viewUsers'] = $this->emp_model->view_users($id);
         $data['viewSkills'] = $this->emp_model->view_skills($id);
         $data['viewProjects'] = $this->emp_model->my_project($id);
         $data['notif'] = $this->admin_model->get_alert($id);
+        $data['pics'] = $this->emp_model->get_image($username);
         $data['count_notif'] = $this->emp_model->count_notif($id, 'request_temp', 'userID');
-        $this->load->view('view', $data);
+        $this->load->view('employee/assets/view', $data);
     }
 
     public function request() {
@@ -240,7 +244,10 @@ class employee extends CI_Controller {
         $data['viewProjects'] = $this->emp_model->view_projects($id);
         $data['viewSkills'] = $this->emp_model->project_skills($id);
         $data['viewManager'] = $this->emp_model->view_staffs($id, 'Project Manager', 'Management');
-        $data['viewEmployees'] = $this->emp_model->view_staffs($id, 'Employee', 'Developer');
+        $data['developer'] = $this->emp_model->view_staffs($id, 'Employee', 'Developer');
+        $data['designer'] = $this->emp_model->view_staffs($id, 'Employee', 'Designer');
+        $data['quality'] = $this->emp_model->view_staffs($id, 'Employee', 'Quality');
+        $data['sales'] = $this->emp_model->view_staffs($id, 'Employee', 'Sales');
         $data['pmanager'] = $this->admin_model->fetch_manager($user);
         $data['employee'] = $this->admin_model->fetch_employee($user);
         $data['notif'] = $this->admin_model->get_alert($userID);

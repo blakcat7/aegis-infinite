@@ -98,13 +98,8 @@ class admin_model extends CI_Model {
     public function fetch_manager() {
         $this->db->select('*');
         $this->db->from('users u');
-        $this->db->join('projects_users ps', 'u.userID = ps.userID');
-        $this->db->join('users_skills e', 'e.userID = u.userID');
-        $this->db->join('projects_skills p', 'e.skillsID = p.skillsID');
-        $this->db->join('skills s', 's.skillsID = e.skillsID');
         $this->db->where('u.role', 'Project Manager');
         $this->db->where('u.availability', 'Available');
-        $this->db->order_by('count(p.projectID)', 'desc');
         $query = $this->db->get();
         $result = array();
         if ($query->num_rows() >= 0) {
@@ -146,6 +141,7 @@ class admin_model extends CI_Model {
         $this->db->join('users u', 'u.userID = e.userID');
         $this->db->join('skills s', 's.skillsID = e.skillsID');
         $this->db->join('request_temp r', 'r.pmID != u.userID');
+        $this->db->where('r.userID !=', 'u.userID');
         $this->db->where('p.projectID', $id);
         $this->db->where('u.availability !=', 'Unavailable');
         $this->db->group_by('u.userID');

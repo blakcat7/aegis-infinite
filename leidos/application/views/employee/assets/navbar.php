@@ -45,8 +45,8 @@
                                 </a>
                             </li>
                             <div class="pull-right">
-                                <span class="label btn-add-e"><a href = "<?php echo base_url(); ?>manager/insert_row/<?php echo $notifs->projectID . '/' . $notifs->pmID ?>">Accept</a></span>                                
-                                <span class="label btn-add-r"><a href = "<?php echo base_url('manager/delete_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Decline</a></span>
+                                <span class="label btn-add-e"><a href = "<?php echo base_url(); ?>employee/insert_row/<?php echo $notifs->projectID . '/' . $notifs->pmID ?>">Accept</a></span>                                
+                                <span class="label btn-add-r"><a href = "<?php echo base_url('employee/delete_row/' . $notifs->projectID . '/' . $notifs->userID); ?>">Decline</a></span>
                             </div>
                             <div class="divider"></div>
                         <?php } ?>
